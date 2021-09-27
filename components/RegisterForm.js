@@ -35,9 +35,10 @@ const RegisterForm = () => {
 
       // originally was: await useLogin(inputs);
 
-      const loginServerResponse = await login(JSON.stringify(inputs));
+      // const loginServerResponse = await login(JSON.stringify(inputs));
       // const loginServerResponse = await login(inputs);
 
+      /*
       if (loginServerResponse) {
         Alert.alert(loginServerResponse.message);
         await AsyncStorage.setItem('userToken', loginServerResponse.token);
@@ -47,6 +48,7 @@ const RegisterForm = () => {
       } else {
         Alert.alert('Login failed');
       }
+      */
     } else {
       Alert.alert('register failed');
     }

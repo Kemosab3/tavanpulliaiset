@@ -241,18 +241,51 @@ const useTag = () => {
 const useFavourites = () => {
   const addFavourite = async (fileId, token) => {
     // post /favourites
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({fileId}),
+    };
+    // console.log('optiot', options);
+    try {
+      const tagInfo = await doFetch(baseUrl + 'favourites', options);
+      return tagInfo;
+    } catch (error) {
+      // console.log('addTag error', error);
+      throw new Error(error.message);
+    }
   };
-  const getFavouritesByFileID = async (fileId, token) => {
+  const getFavouritesByFileID = async (fileId) => {
     // get /favourites/file/:id
   };
 
   const deleteFavourite = async (fileId, token) => {
     // delete /favourites/file/:id
+    try {
+      setLoading(true);
+      const options = {
+        method: 'DELETE',
+        headers: {
+          'x-access-token': token,
+        },
+      };
+      const result = await doFetch(baseUrl + '/favourites/file/' + id, options);
+      return result;
+    } catch (e) {
+      console.log('deleteFavourite error', e);
+      throw new Error(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getMyFavourites = async (token) => {
     // get /favourites
   };
+
   return {
     addFavourite,
     deleteFavourite,

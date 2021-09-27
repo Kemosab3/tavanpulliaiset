@@ -325,7 +325,9 @@ const Single = ({route}) => {
             <Button
               title="Like"
               onPress={() => {
-                // use api hooks to DELETE a favourite
+                // use api hooks to POST a favourite
+                console.log('I AM LIKE: ', iAmLikingIt);
+                setIAmLikingIt(false);
               }}
             />
           ) : (
@@ -333,11 +335,14 @@ const Single = ({route}) => {
               title="Unlike"
               onPress={() => {
                 // use api hooks to DELETE a favourite
+                setIAmLikingIt(true);
               }}
             />
           )}
 
-          <Text style={{color: 'green'}}>Total likes: {likes.length}</Text>
+          <Text style={{color: 'green', fontSize: 10}}>
+            Total likes: {likes.length}
+          </Text>
         </ListItem>
       </Card>
     </ScrollView>

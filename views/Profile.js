@@ -42,11 +42,11 @@ const Profile = ({navigation}) => {
         />
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Avatar icon={{name: 'email', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: '17'}}>{user.email}</Text>
+          <Text style={{color: 'green', fontSize: 17}}>{user.email}</Text>
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Avatar icon={{name: 'user', type: 'font-awesome', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: '17'}}>{user.full_name}</Text>
+          <Text style={{color: 'green', fontSize: 17}}>{user.full_name}</Text>
         </ListItem>
         <ListItem
           bottomDivider
@@ -57,7 +57,7 @@ const Profile = ({navigation}) => {
         >
           <Avatar icon={{name: 'logout', color: 'green'}} />
           <ListItem.Content>
-            <ListItem.Title style={{color: 'green', fontSize: '17'}}>
+            <ListItem.Title style={{color: 'green', fontSize: 17}}>
               My Files
             </ListItem.Title>
           </ListItem.Content>
