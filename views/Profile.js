@@ -70,7 +70,7 @@ const Profile = ({navigation}) => {
         >
           <Avatar icon={{name: 'logout', color: 'green'}} />
           <ListItem.Content>
-            <ListItem.Title style={{color: 'green', fontSize: '17'}}>
+            <ListItem.Title style={{color: 'green', fontSize: 17}}>
               Logout
             </ListItem.Title>
           </ListItem.Content>
