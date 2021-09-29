@@ -367,13 +367,14 @@ const Single = ({route}) => {
               onPress={async () => {
                 // use api hooks to Post a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
-                setIAmLikingIt(true);
-                getLikes();
+
                 console.log('FILETSU ID: ', params.file_id);
                 const token = await AsyncStorage.getItem('userToken');
                 console.log('Token? : ', token);
                 const response = await addFavourite(params.file_id, token);
                 console.log('Likeeeeee ', response);
+                setIAmLikingIt(false);
+                getLikes();
                 /*
                 try {
                   console.log('File ID on mitä?', params.file_id);
@@ -395,10 +396,10 @@ const Single = ({route}) => {
               onPress={async () => {
                 // use api hooks to DELETE a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
-                setIAmLikingIt(false);
-                getLikes();
                 const token = await AsyncStorage.getItem('userToken');
                 const response = await deleteFavourite(params.file_id, token);
+                setIAmLikingIt(true);
+                getLikes();
                 console.log('Likeeeeee ', response);
               }}
             />
