@@ -28,7 +28,7 @@ const Single = ({route}) => {
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
-  const [iAmLikingIt, setIAmLikingIt] = useState(false);
+  const [iAmLikingIt, setIAmLikingIt] = useState();
   // const [likes, setLikes] = useState([]);
 
   const [videoRef, setVideoRef] = useState(null);
@@ -113,8 +113,24 @@ const Single = ({route}) => {
     const token = await AsyncStorage.getItem('userToken');
     const liking = await getMyFavourites(token);
     const liking2 = await getFavouritesByFileID(params.file_id);
+    let checker = 0;
+
+    for (let i = 0; i < liking.length; i++) {
+      if (liking[i].file_id === params.file_id) {
+        checker += 1;
+        console.log('liking.file_id: ', liking[i].file_id);
+      }
+    }
+    console.log('CHECKER: ', checker);
+
+    if (checker > 0) {
+      setIAmLikingIt(false);
+    } else {
+      setIAmLikingIt(true);
+    }
     console.log('MY LIKING: ', liking);
     console.log('Picture LIKING: ', liking2);
+    setLikes(liking2.length);
   };
 
   const getAvatar = async () => {
@@ -351,7 +367,8 @@ const Single = ({route}) => {
               onPress={async () => {
                 // use api hooks to Post a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
-                setIAmLikingIt(false);
+                setIAmLikingIt(true);
+                getLikes();
                 console.log('FILETSU ID: ', params.file_id);
                 const token = await AsyncStorage.getItem('userToken');
                 console.log('Token? : ', token);
@@ -378,7 +395,8 @@ const Single = ({route}) => {
               onPress={async () => {
                 // use api hooks to DELETE a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
-                setIAmLikingIt(true);
+                setIAmLikingIt(false);
+                getLikes();
                 const token = await AsyncStorage.getItem('userToken');
                 const response = await deleteFavourite(params.file_id, token);
                 console.log('Likeeeeee ', response);
@@ -386,7 +404,7 @@ const Single = ({route}) => {
             />
           )}
 
-          <Text style={{color: 'green'}}>Total likes: {likes.length}</Text>
+          <Text style={{color: 'green'}}>Likes: {likes}</Text>
         </ListItem>
       </Card>
     </ScrollView>
