@@ -240,7 +240,8 @@ const useTag = () => {
 
 const useFavourites = () => {
   const [loading, setLoading] = useState(false);
-  const addFavourite = async (fileId, token) => {
+
+  const addFavourite = async (file_id, token) => {
     // post /favourites
     const options = {
       method: 'POST',
@@ -248,11 +249,12 @@ const useFavourites = () => {
         'x-access-token': token,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({fileId}),
+      body: JSON.stringify({file_id}),
     };
-    // console.log('optiot', options);
+    console.log('optiot', options);
     try {
       const favouriteInfo = await doFetch(baseUrl + 'favourites', options);
+      console.log('Favoriitti: ', favouriteInfo);
       return favouriteInfo;
     } catch (error) {
       // console.log('addTag error', error);
@@ -287,7 +289,7 @@ const useFavourites = () => {
         },
       };
       const result = await doFetch(
-        baseUrl + '/favourites/file/' + fileId,
+        baseUrl + 'favourites/file/' + fileId,
         options
       );
       return result;

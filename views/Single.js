@@ -36,7 +36,7 @@ const Single = ({route}) => {
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('http://placekitten.com/100');
   const {setIsLoggedIn, user} = useContext(MainContext);
-  const {addFavourite} = useFavourites();
+  const {addFavourite, deleteFavourite} = useFavourites();
 
   useEffect(() => {
     (async () => {
@@ -228,12 +228,13 @@ const Single = ({route}) => {
     ctx.fillRect(0, 0, 100, 100);
   };
 
+  // <WebView source={{uri: 'https://reactnative.dev/'}} />
+
   // What? part 2 ends
 
   return (
     <ScrollView style={{backgroundColor: 'black'}}>
       <Card containerStyle={{backgroundColor: 'black'}}>
-        <WebView source={{uri: 'https://reactnative.dev/'}} />
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           {params.media_type === 'image' && (
             <Icon
@@ -337,6 +338,12 @@ const Single = ({route}) => {
                 // use api hooks to Post a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
                 setIAmLikingIt(false);
+                console.log('FILETSU ID: ', params.file_id);
+                const token = await AsyncStorage.getItem('userToken');
+                console.log('Token? : ', token);
+                const response = await addFavourite(params.file_id, token);
+                console.log('Likeeeeee ', response);
+                /*
                 try {
                   console.log('File ID on mitä?', params.file_id);
                   const token = await AsyncStorage.getItem('userToken');
@@ -348,15 +355,19 @@ const Single = ({route}) => {
                 } catch (e) {
                   console.log('Liking: ', e.message);
                 }
+                */
               }}
             />
           ) : (
             <Button
               title="Unlike"
-              onPress={() => {
+              onPress={async () => {
                 // use api hooks to DELETE a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
                 setIAmLikingIt(true);
+                const token = await AsyncStorage.getItem('userToken');
+                const response = await deleteFavourite(params.file_id, token);
+                console.log('Likeeeeee ', response);
               }}
             />
           )}
