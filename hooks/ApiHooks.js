@@ -241,6 +241,7 @@ const useTag = () => {
 const useFavourites = () => {
   const [loading, setLoading] = useState(false);
 
+  // eslint-disable-next-line camelcase
   const addFavourite = async (file_id, token) => {
     // post /favourites
     const options = {
@@ -259,22 +260,6 @@ const useFavourites = () => {
     } catch (error) {
       // console.log('addTag error', error);
       throw new Error(error.message);
-    }
-  };
-  const getFavouritesByFileID = async (fileId) => {
-    // get /favourites/file/:id
-    const options = {
-      method: 'GET',
-      body: JSON.stringify({fileId}),
-    };
-    try {
-      const userInfo = await doFetch(
-        baseUrl + 'favourites/file/' + fileId,
-        options
-      );
-      return userInfo;
-    } catch (error) {
-      console.log('getFavourites by fileiD error ', error);
     }
   };
 
@@ -301,10 +286,32 @@ const useFavourites = () => {
     }
   };
 
+  const getFavouritesByFileID = async (fileId) => {
+    // get /favourites/file/:id
+    const options = {
+      method: 'GET',
+
+      // body: JSON.stringify({fileId}),
+    };
+    try {
+      const idInfo = await doFetch(
+        baseUrl + 'favourites/file/' + fileId,
+        options
+      );
+      console.log('LIKING ID INFO:', idInfo);
+      return idInfo;
+    } catch (error) {
+      console.log('getFavourites by fileiD error ', error);
+    }
+  };
+
   const getMyFavourites = async (token) => {
     // get /favourites
     const options = {
       method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
     };
     try {
       const favouriteInfo = await doFetch(baseUrl + 'favourites', options);

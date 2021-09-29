@@ -36,7 +36,12 @@ const Single = ({route}) => {
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('http://placekitten.com/100');
   const {setIsLoggedIn, user} = useContext(MainContext);
-  const {addFavourite, deleteFavourite} = useFavourites();
+  const {
+    addFavourite,
+    deleteFavourite,
+    getMyFavourites,
+    getFavouritesByFileID,
+  } = useFavourites();
 
   useEffect(() => {
     (async () => {
@@ -105,7 +110,13 @@ const Single = ({route}) => {
     // TODO: use api hooks to get favourites
     // setLikes()
     // set the value of iAmLikingIt
+    const token = await AsyncStorage.getItem('userToken');
+    const liking = await getMyFavourites(token);
+    const liking2 = await getFavouritesByFileID(params.file_id);
+    console.log('MY LIKING: ', liking);
+    console.log('Picture LIKING: ', liking2);
   };
+
   const getAvatar = async () => {
     try {
       const avatarList = await getFilesByTag('avatar_' + params.user_id);
@@ -308,6 +319,9 @@ const Single = ({route}) => {
             title="Play sound"
             onPress={() => {
               // audioPointer = 0;
+
+              // for testing purposes:
+              getLikes();
 
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
                 console.log('RESULTTTTT:', dataUrl);
