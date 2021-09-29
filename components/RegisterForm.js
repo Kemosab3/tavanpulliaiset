@@ -34,7 +34,7 @@ const RegisterForm = () => {
       Alert.alert(serverResponse.message);
 
       // originally was: await useLogin(inputs);
-
+      /*
       const loginServerResponse = await login(JSON.stringify(inputs));
       // const loginServerResponse = await login(inputs);
 
@@ -47,6 +47,8 @@ const RegisterForm = () => {
       } else {
         Alert.alert('Login failed');
       }
+
+      */
     } else {
       Alert.alert('register failed');
     }

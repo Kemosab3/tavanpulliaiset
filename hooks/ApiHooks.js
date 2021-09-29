@@ -239,21 +239,80 @@ const useTag = () => {
 };
 
 const useFavourites = () => {
+  const [loading, setLoading] = useState(false);
   const addFavourite = async (fileId, token) => {
     // post /favourites
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({fileId}),
+    };
+    // console.log('optiot', options);
+    try {
+      const favouriteInfo = await doFetch(baseUrl + 'favourites', options);
+      return favouriteInfo;
+    } catch (error) {
+      // console.log('addTag error', error);
+      throw new Error(error.message);
+    }
   };
-  const getFavouritesByFileID = async (fileId, token) => {
+  const getFavouritesByFileID = async (fileId) => {
     // get /favourites/file/:id
+    const options = {
+      method: 'GET',
+      body: JSON.stringify({fileId}),
+    };
+    try {
+      const userInfo = await doFetch(
+        baseUrl + 'favourites/file/' + fileId,
+        options
+      );
+      return userInfo;
+    } catch (error) {
+      console.log('getFavourites by fileiD error ', error);
+    }
   };
 
   const deleteFavourite = async (fileId, token) => {
     // delete /favourites/file/:id
+    try {
+      setLoading(true);
+      const options = {
+        method: 'DELETE',
+        headers: {
+          'x-access-token': token,
+        },
+      };
+      const result = await doFetch(
+        baseUrl + '/favourites/file/' + fileId,
+        options
+      );
+      return result;
+    } catch (e) {
+      console.log('deleteFavourite error', e);
+      throw new Error(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getMyFavourites = async (token) => {
     // get /favourites
+    const options = {
+      method: 'GET',
+    };
+    try {
+      const favouriteInfo = await doFetch(baseUrl + 'favourites', options);
+      return favouriteInfo;
+    } catch (error) {
+      console.log('GetMyFavourites by fileiD error ', error);
+    }
   };
   return {
+    loading,
     addFavourite,
     deleteFavourite,
     getFavouritesByFileID,

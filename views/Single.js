@@ -11,13 +11,15 @@ import {
   Avatar,
 } from 'react-native-elements';
 import {Audio, Video} from 'expo-av';
-import {useTag, useUser} from '../hooks/ApiHooks';
+import {useFavourites, useTag, useUser} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {formatDate} from '../utils/dateFunctions';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {ScrollView} from 'react-native-gesture-handler';
-import PixelColor from 'react-native-pixel-color';
+// import PixelColor from 'react-native-pixel-color';
+import {Canvas} from 'react-native-canvas';
 import {MainContext} from '../contexts/MainContext';
+import WebView from 'react-native-webview';
 
 // import * as React from 'react';
 
@@ -26,7 +28,7 @@ const Single = ({route}) => {
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
-  const [iAmLikingIt, setIAmLikingIt] = useState(true);
+  const [iAmLikingIt, setIAmLikingIt] = useState(false);
   // const [likes, setLikes] = useState([]);
 
   const [videoRef, setVideoRef] = useState(null);
@@ -34,6 +36,7 @@ const Single = ({route}) => {
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('http://placekitten.com/100');
   const {setIsLoggedIn, user} = useContext(MainContext);
+  const {addFavourite} = useFavourites();
 
   useEffect(() => {
     (async () => {
@@ -219,12 +222,18 @@ const Single = ({route}) => {
   // What? ends
 
   // What? part 2
+  const handleCanvas = (canvas) => {
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(0, 0, 100, 100);
+  };
 
   // What? part 2 ends
 
   return (
     <ScrollView style={{backgroundColor: 'black'}}>
       <Card containerStyle={{backgroundColor: 'black'}}>
+        <WebView source={{uri: 'https://reactnative.dev/'}} />
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           {params.media_type === 'image' && (
             <Icon
@@ -324,8 +333,21 @@ const Single = ({route}) => {
           {iAmLikingIt ? (
             <Button
               title="Like"
-              onPress={() => {
-                // use api hooks to DELETE a favourite
+              onPress={async () => {
+                // use api hooks to Post a favourite
+                console.log('I AM LIKE: ', iAmLikingIt);
+                setIAmLikingIt(false);
+                try {
+                  console.log('File ID on mitä?', params.file_id);
+                  const token = await AsyncStorage.getItem('userToken');
+                  const response = await addFavourite(params.file_id, token);
+                  console.log('Like ', response);
+                  if (response.message) {
+                    // setUpdate(update + 1);
+                  }
+                } catch (e) {
+                  console.log('Liking: ', e.message);
+                }
               }}
             />
           ) : (
@@ -333,6 +355,8 @@ const Single = ({route}) => {
               title="Unlike"
               onPress={() => {
                 // use api hooks to DELETE a favourite
+                console.log('I AM LIKE: ', iAmLikingIt);
+                setIAmLikingIt(true);
               }}
             />
           )}
