@@ -17,9 +17,10 @@ import {formatDate} from '../utils/dateFunctions';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {ScrollView} from 'react-native-gesture-handler';
 // import PixelColor from 'react-native-pixel-color';
-import {Canvas} from 'react-native-canvas';
+// import {Canvas} from 'react-native-canvas';
 import {MainContext} from '../contexts/MainContext';
-import WebView from 'react-native-webview';
+import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
+// import WebView from 'react-native-webview';
 
 // import * as React from 'react';
 
@@ -152,11 +153,13 @@ const Single = ({route}) => {
 
   // What?
 
+  /*
   let a = 0;
   let b = 0;
   let c = 0;
   let d = 0;
   let e = 0;
+  */
 
   /*
   const one = require('../assets/huokaus.mp3');
@@ -194,7 +197,7 @@ const Single = ({route}) => {
             reader.readAsDataURL(blob);
           })
       );
-
+  /*
   const handlePlaySound = async (note) => {
     Audio.setIsEnabledAsync(true);
 
@@ -227,24 +230,7 @@ const Single = ({route}) => {
       }
     }
   };
-
-  const mostCommonCharActer = (str) => {
-    let charMap = {};
-    let max = 0;
-    let maxChar = '';
-    for (let char of str) {
-      charMap[char] = charMap[char] + 1 || 1;
-    }
-    for (let char in charMap) {
-      // look at each char in charMap
-      if (charMap[char] > max) {
-        // if the value is greater than max
-        max = charMap[char]; // update new max value
-        maxChar = char; // set the max character
-      }
-    }
-    return maxChar;
-  };
+  */
 
   // What? ends
 
@@ -335,11 +321,12 @@ const Single = ({route}) => {
             title="Play sound"
             onPress={() => {
               // audioPointer = 0;
-
               // for testing purposes:
-              getLikes();
+              // getLikes();
 
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
+                const kukkaMaaria = musicArrayMaker(dataUrl, params.media_type);
+                /*
                 console.log('RESULTTTTT:', dataUrl);
                 const tapio = dataUrl.length.toString();
                 const ville = dataUrl.slice([1], [100]);
@@ -356,6 +343,7 @@ const Single = ({route}) => {
                 console.log('TAPIOOOOO:', tapio);
                 console.log('TAPIOOOOOH:', e, d, c, b, a);
                 const kukkaMaaria = [e, d, c, b, a];
+                */
                 handlePlaySound(kukkaMaaria);
               });
             }}
