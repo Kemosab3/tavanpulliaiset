@@ -190,6 +190,24 @@ const useUser = () => {
     }
   };
 
+  const modifyUserInfo = async (data, token) => {
+    try {
+      const options = {
+        method: 'PUT',
+        headers: {
+          'x-access-token': token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      };
+      const result = await doFetch(baseUrl + 'users', options);
+      return result;
+    } catch (e) {
+      console.log('modifyUserInfo error', e);
+      throw new Error(e.message);
+    }
+  };
+
   const checkUsernameAvailable = async (username) => {
     try {
       const userNameInfo = await doFetch(
@@ -201,7 +219,7 @@ const useUser = () => {
     }
   };
 
-  return {checkToken, checkUsernameAvailable, getUserInfo};
+  return {checkToken, checkUsernameAvailable, getUserInfo, modifyUserInfo};
 };
 
 const useTag = () => {

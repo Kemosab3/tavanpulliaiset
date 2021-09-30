@@ -5,6 +5,7 @@ import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, ListItem} from 'react-native-elements';
 import {useTag} from '../hooks/ApiHooks';
+import useUserInfo from '../hooks/ProfileHooks';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -12,13 +13,16 @@ import {ScrollView} from 'react-native-gesture-handler';
 const Profile = ({navigation}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
   const [avatar, setAvatar] = useState('https://placekitten.com/400/400');
+  const {userInfo, setUserInfo} = useUserInfo(user);
+
+  console.log('Profile ', user);
 
   const {getFilesByTag} = useTag();
 
   useEffect(() => {
     (async () => {
       const file = await getFilesByTag('avatar_' + user.user_id);
-      console.log('file', file);
+      // console.log('file', file);
       setAvatar(uploadsUrl + file.pop().filename);
     })();
   }, [user]);
@@ -32,7 +36,7 @@ const Profile = ({navigation}) => {
       <Card containerStyle={{backgroundColor: 'black'}}>
         <Card.Title>
           <Text style={{color: 'green', fontSize: 39}} h3>
-            {user.username}
+            {userInfo.username}
           </Text>
         </Card.Title>
         <Card.Image
@@ -42,11 +46,13 @@ const Profile = ({navigation}) => {
         />
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Avatar icon={{name: 'email', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: 17}}>{user.email}</Text>
+          <Text style={{color: 'green', fontSize: 17}}>{userInfo.email}</Text>
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Avatar icon={{name: 'user', type: 'font-awesome', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: 17}}>{user.full_name}</Text>
+          <Text style={{color: 'green', fontSize: 17}}>
+            {userInfo.full_name}
+          </Text>
         </ListItem>
         <ListItem
           bottomDivider
@@ -59,6 +65,21 @@ const Profile = ({navigation}) => {
           <ListItem.Content>
             <ListItem.Title style={{color: 'green', fontSize: 17}}>
               My Files
+            </ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+        <ListItem
+          bottomDivider
+          containerStyle={{backgroundColor: 'black'}}
+          onPress={() => {
+            navigation.navigate('Edit Profile');
+          }}
+        >
+          <Avatar icon={{name: 'logout', color: 'green'}} />
+          <ListItem.Content>
+            <ListItem.Title style={{color: 'green', fontSize: 17}}>
+              Edit Profile
             </ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />

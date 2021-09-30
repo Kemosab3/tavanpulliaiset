@@ -13,6 +13,7 @@ import {Icon} from 'react-native-elements';
 import Upload from '../views/Upload';
 import MyFiles from '../views/MyFiles';
 import Modify from '../views/Modify';
+import EditProfile from '../views/EditProfile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -61,6 +62,7 @@ const StackScreen = () => {
           <Stack.Screen name="Single" component={Single} />
           <Stack.Screen name="My Files" component={MyFiles} />
           <Stack.Screen name="Modify" component={Modify} />
+          <Stack.Screen name="Edit Profile" component={EditProfile} />
         </>
       ) : (
         <Stack.Screen name="Login" component={Login} />
