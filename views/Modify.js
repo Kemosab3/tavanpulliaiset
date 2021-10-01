@@ -1,7 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {View, ActivityIndicator, Alert} from 'react-native';
-import UploadForm from '../components/UploadForm';
 import {Button, Input} from 'react-native-elements';
 import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
