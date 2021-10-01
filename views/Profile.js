@@ -13,7 +13,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 const Profile = ({navigation}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
   const [avatar, setAvatar] = useState('https://placekitten.com/400/400');
-  const {userInfo, setUserInfo} = useUserInfo(user);
+  const {userInfo} = useUserInfo(user);
 
   console.log('Profile ', user);
 

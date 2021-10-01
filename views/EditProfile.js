@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {View, ActivityIndicator, Alert} from 'react-native';
+import {View, Alert} from 'react-native';
 import {Button, Input} from 'react-native-elements';
 import useUploadForm from '../hooks/UploadHooks';
 import {useUser} from '../hooks/ApiHooks';
@@ -70,6 +70,11 @@ const EditProfile = ({navigation}) => {
         placeholder="email"
         onChangeText={(txt) => handleInputChange('email', txt)}
         value={inputs.email}
+      />
+      <Input
+        autoCapitalize="none"
+        placeholder="full_name"
+        onChangeText={(txt) => handleInputChange('full_name', txt)}
       />
       <Input
         autoCapitalize="none"
