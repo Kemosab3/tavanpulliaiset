@@ -11,13 +11,16 @@ import {
   Avatar,
 } from 'react-native-elements';
 import {Audio, Video} from 'expo-av';
-import {useTag, useUser} from '../hooks/ApiHooks';
+import {useFavourites, useTag, useUser} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {formatDate} from '../utils/dateFunctions';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {ScrollView} from 'react-native-gesture-handler';
-import PixelColor from 'react-native-pixel-color';
+// import PixelColor from 'react-native-pixel-color';
+// import {Canvas} from 'react-native-canvas';
 import {MainContext} from '../contexts/MainContext';
+import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
+// import WebView from 'react-native-webview';
 
 // import * as React from 'react';
 
@@ -26,7 +29,7 @@ const Single = ({route}) => {
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
-  const [iAmLikingIt, setIAmLikingIt] = useState(true);
+  const [iAmLikingIt, setIAmLikingIt] = useState();
   // const [likes, setLikes] = useState([]);
 
   const [videoRef, setVideoRef] = useState(null);
@@ -34,6 +37,12 @@ const Single = ({route}) => {
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('http://placekitten.com/100');
   const {setIsLoggedIn, user} = useContext(MainContext);
+  const {
+    addFavourite,
+    deleteFavourite,
+    getMyFavourites,
+    getFavouritesByFileID,
+  } = useFavourites();
 
   useEffect(() => {
     (async () => {
@@ -102,7 +111,29 @@ const Single = ({route}) => {
     // TODO: use api hooks to get favourites
     // setLikes()
     // set the value of iAmLikingIt
+    const token = await AsyncStorage.getItem('userToken');
+    const liking = await getMyFavourites(token);
+    const liking2 = await getFavouritesByFileID(params.file_id);
+    let checker = 0;
+
+    for (let i = 0; i < liking.length; i++) {
+      if (liking[i].file_id === params.file_id) {
+        checker += 1;
+        console.log('liking.file_id: ', liking[i].file_id);
+      }
+    }
+    console.log('CHECKER: ', checker);
+
+    if (checker > 0) {
+      setIAmLikingIt(false);
+    } else {
+      setIAmLikingIt(true);
+    }
+    console.log('MY LIKING: ', liking);
+    console.log('Picture LIKING: ', liking2);
+    setLikes(liking2.length);
   };
+
   const getAvatar = async () => {
     try {
       const avatarList = await getFilesByTag('avatar_' + params.user_id);
@@ -122,11 +153,13 @@ const Single = ({route}) => {
 
   // What?
 
+  /*
   let a = 0;
   let b = 0;
   let c = 0;
   let d = 0;
   let e = 0;
+  */
 
   /*
   const one = require('../assets/huokaus.mp3');
@@ -164,7 +197,7 @@ const Single = ({route}) => {
             reader.readAsDataURL(blob);
           })
       );
-
+  /*
   const handlePlaySound = async (note) => {
     Audio.setIsEnabledAsync(true);
 
@@ -197,28 +230,18 @@ const Single = ({route}) => {
       }
     }
   };
-
-  const mostCommonCharActer = (str) => {
-    let charMap = {};
-    let max = 0;
-    let maxChar = '';
-    for (let char of str) {
-      charMap[char] = charMap[char] + 1 || 1;
-    }
-    for (let char in charMap) {
-      // look at each char in charMap
-      if (charMap[char] > max) {
-        // if the value is greater than max
-        max = charMap[char]; // update new max value
-        maxChar = char; // set the max character
-      }
-    }
-    return maxChar;
-  };
+  */
 
   // What? ends
 
   // What? part 2
+  const handleCanvas = (canvas) => {
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(0, 0, 100, 100);
+  };
+
+  // <WebView source={{uri: 'https://reactnative.dev/'}} />
 
   // What? part 2 ends
 
@@ -298,8 +321,12 @@ const Single = ({route}) => {
             title="Play sound"
             onPress={() => {
               // audioPointer = 0;
+              // for testing purposes:
+              // getLikes();
 
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
+                const kukkaMaaria = musicArrayMaker(dataUrl, params.media_type);
+                /*
                 console.log('RESULTTTTT:', dataUrl);
                 const tapio = dataUrl.length.toString();
                 const ville = dataUrl.slice([1], [100]);
@@ -316,6 +343,7 @@ const Single = ({route}) => {
                 console.log('TAPIOOOOO:', tapio);
                 console.log('TAPIOOOOOH:', e, d, c, b, a);
                 const kukkaMaaria = [e, d, c, b, a];
+                */
                 handlePlaySound(kukkaMaaria);
               });
             }}
@@ -324,25 +352,48 @@ const Single = ({route}) => {
           {iAmLikingIt ? (
             <Button
               title="Like"
-              onPress={() => {
-                // use api hooks to POST a favourite
+              onPress={async () => {
+                // use api hooks to Post a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
+
+                console.log('FILETSU ID: ', params.file_id);
+                const token = await AsyncStorage.getItem('userToken');
+                console.log('Token? : ', token);
+                const response = await addFavourite(params.file_id, token);
+                console.log('Likeeeeee ', response);
                 setIAmLikingIt(false);
+                getLikes();
+                /*
+                try {
+                  console.log('File ID on mitä?', params.file_id);
+                  const token = await AsyncStorage.getItem('userToken');
+                  const response = await addFavourite(params.file_id, token);
+                  console.log('Like ', response);
+                  if (response.message) {
+                    // setUpdate(update + 1);
+                  }
+                } catch (e) {
+                  console.log('Liking: ', e.message);
+                }
+                */
               }}
             />
           ) : (
             <Button
               title="Unlike"
-              onPress={() => {
+              onPress={async () => {
                 // use api hooks to DELETE a favourite
+                console.log('I AM LIKE: ', iAmLikingIt);
+                const token = await AsyncStorage.getItem('userToken');
+                const response = await deleteFavourite(params.file_id, token);
                 setIAmLikingIt(true);
+                getLikes();
+                console.log('Likeeeeee ', response);
               }}
             />
           )}
 
-          <Text style={{color: 'green', fontSize: 10}}>
-            Total likes: {likes.length}
-          </Text>
+          <Text style={{color: 'green'}}>Likes: {likes}</Text>
         </ListItem>
       </Card>
     </ScrollView>
