@@ -25,7 +25,7 @@ const Home = ({navigation}) => {
   // const pictureUser = getUserInfo(params.user_id, token);
   // const {userInfo} = useUser(mediaArray.user_id);
   // console.log('MyFiles: mediaArray', mediaArray[1].thumbnails.w320);
-  console.log('WHO the fuck', userInfo);
+  console.log('WHO', userInfo);
 
   return (
     <SafeAreaView style={styles.droidSafeArea}>
@@ -63,13 +63,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingTop: 30,
     color: 'orange',
-    // paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   image: {
     justifyContent: 'center',
     height: 150,
-    // height: undefined,
-    // aspectRatio: 3,
     borderRadius: 25,
   },
 });
