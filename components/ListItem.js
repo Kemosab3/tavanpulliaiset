@@ -1,17 +1,40 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar, Button, ListItem as RNEListItem} from 'react-native-elements';
-import {useMedia} from '../hooks/ApiHooks';
+import {useMedia, useTag, useUser} from '../hooks/ApiHooks';
 import {StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {formatDate, timeSince} from '../utils/dateFunctions';
+import {addOrientationChangeListener} from 'expo-screen-orientation';
 
 const ListItem = ({singleMedia, navigation, showButtons}) => {
   // console.log('singleMedia', singleMedia);
   const {update, setUpdate} = useContext(MainContext);
+  const {checkToken} = useUser();
   const {deleteMedia} = useMedia();
+  const {getFilesByTag, addTag, deleteTag} = useTag();
+
+  const getToken = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    // console.log('logIn asyncstorage token:', userToken);
+    if (userToken) {
+      try {
+        const userInfo = await checkToken(userToken);
+        if (userInfo.user_id) {
+          // Something something
+        }
+      } catch (e) {
+        console.log('getToken', e.message);
+      }
+    }
+    return userToken;
+  };
+
+  useEffect(() => {
+    getToken();
+  }, []);
 
   return (
     <RNEListItem
@@ -66,6 +89,54 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
                 }
               }}
             ></Button>
+            <Button
+              title={'Set as avatar'}
+              onPress={() => {
+                // get existing avatar tag
+                // and delete it
+                // add avatar tag to current file
+
+                const gettoToken = async () => {
+                  const userToken = await AsyncStorage.getItem('userToken');
+                  console.log('logIn asyncstorage tokeeeeen:', userToken);
+                  if (userToken) {
+                    try {
+                      const userInfo = await checkToken(userToken);
+                      if (userInfo.user_id) {
+                        // Something something
+                        console.log('UserInfoooo: ', userInfo);
+
+                        const tagS = await getFilesByTag(
+                          'avatar_' + userInfo.user_id
+                        );
+                        if (tagS.length > 0) {
+                          console.log('TÄÄK: ', tagS[0].tag_id);
+                          console.log('SinkkuMedia: ', singleMedia.file_id);
+                          // deleteTag(tagS[0].tag_id, userToken);
+
+                          addTag(
+                            singleMedia.file_id,
+                            'avatar_' + userInfo.user_id,
+                            userToken
+                          );
+                        } else {
+                          addTag(
+                            singleMedia.file_id,
+                            'avatar_' + userInfo.user_id,
+                            userToken
+                          );
+                        }
+                      }
+                    } catch (e) {
+                      console.log('getToken', e.message);
+                    }
+                    return userToken;
+                  }
+                };
+
+                gettoToken();
+              }}
+            />
           </>
         )}
       </RNEListItem.Content>
