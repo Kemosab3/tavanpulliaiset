@@ -26,7 +26,6 @@ import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
 
 const Single = ({route}) => {
   const {params} = route;
-
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
@@ -253,13 +252,8 @@ const Single = ({route}) => {
           <Button
             title="Play sound"
             onPress={() => {
-              // audioPointer = 0;
-              // for testing purposes:
-              // getLikes();
-
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
                 const kukkaMaaria = musicArrayMaker(dataUrl, params.media_type);
-
                 handlePlaySound(kukkaMaaria);
               });
             }}
