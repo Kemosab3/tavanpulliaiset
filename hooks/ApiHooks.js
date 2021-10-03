@@ -287,7 +287,10 @@ const useTag = () => {
 };
 
 const useFavourites = () => {
-  const addFavourite = async (fileId, token) => {
+  const [loading, setLoading] = useState(false);
+
+  // eslint-disable-next-line camelcase
+  const addFavourite = async (file_id, token) => {
     // post /favourites
     const options = {
       method: 'POST',
@@ -295,19 +298,17 @@ const useFavourites = () => {
         'x-access-token': token,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({fileId}),
+      body: JSON.stringify({file_id}),
     };
-    // console.log('optiot', options);
+    console.log('optiot', options);
     try {
-      const tagInfo = await doFetch(baseUrl + 'favourites', options);
-      return tagInfo;
+      const favouriteInfo = await doFetch(baseUrl + 'favourites', options);
+      console.log('Favoriitti: ', favouriteInfo);
+      return favouriteInfo;
     } catch (error) {
       // console.log('addTag error', error);
       throw new Error(error.message);
     }
-  };
-  const getFavouritesByFileID = async (fileId) => {
-    // get /favourites/file/:id
   };
 
   const deleteFavourite = async (fileId, token) => {
@@ -320,7 +321,10 @@ const useFavourites = () => {
           'x-access-token': token,
         },
       };
-      const result = await doFetch(baseUrl + '/favourites/file/' + id, options);
+      const result = await doFetch(
+        baseUrl + 'favourites/file/' + fileId,
+        options
+      );
       return result;
     } catch (e) {
       console.log('deleteFavourite error', e);
@@ -330,11 +334,43 @@ const useFavourites = () => {
     }
   };
 
+  const getFavouritesByFileID = async (fileId) => {
+    // get /favourites/file/:id
+    const options = {
+      method: 'GET',
+
+      // body: JSON.stringify({fileId}),
+    };
+    try {
+      const idInfo = await doFetch(
+        baseUrl + 'favourites/file/' + fileId,
+        options
+      );
+      console.log('LIKING ID INFO:', idInfo);
+      return idInfo;
+    } catch (error) {
+      console.log('getFavourites by fileiD error ', error);
+    }
+  };
+
   const getMyFavourites = async (token) => {
     // get /favourites
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      const favouriteInfo = await doFetch(baseUrl + 'favourites', options);
+      return favouriteInfo;
+    } catch (error) {
+      console.log('GetMyFavourites by fileiD error ', error);
+    }
   };
 
   return {
+    loading,
     addFavourite,
     deleteFavourite,
     getFavouritesByFileID,
