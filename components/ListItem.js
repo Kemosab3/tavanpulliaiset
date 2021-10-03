@@ -91,6 +91,7 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
             ></Button>
             <Button
               title={'Set as avatar'}
+              disabled={singleMedia.media_type === 'video'}
               onPress={() => {
                 // get existing avatar tag
                 // and delete it

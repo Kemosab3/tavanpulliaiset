@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -6,40 +6,56 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
-import List from '../components/List';
-import PropTypes from 'prop-types';
-
-import useUserInfo from '../hooks/ProfileHooks';
-import {MainContext} from '../contexts/MainContext';
 import {Image, Text} from 'react-native-elements';
+import {FlatList} from 'react-native';
 import {useMedia} from '../hooks/ApiHooks';
+import ListItem from '../components/ListItem';
+import PropTypes from 'prop-types';
+import {uploadsUrl} from '../utils/variables';
 
 const Home = ({navigation}) => {
-  const {user} = useContext(MainContext);
-  // const [avatar, setAvatar] = useState('https://placekitten.com/400/400');
-  const {userInfo} = useUserInfo(user);
-  // const {mediaArray} = useMedia(true);
-  console.log('UUSER', user);
-  // console.log('MEDIAÖRREI', mediaArray[0].file_id);
+  const {mediaArray} = useMedia(false);
+  console.log('MyFiles: mediaArray', mediaArray);
 
-  // const pictureUser = getUserInfo(params.user_id, token);
-  // const {userInfo} = useUser(mediaArray.user_id);
-  // console.log('MyFiles: mediaArray', mediaArray[1].thumbnails.w320);
-  console.log('WHO', userInfo);
+  const pickOfTheDay = Math.floor(Math.random() * mediaArray.length);
+  console.log('Arvottu numero: ', pickOfTheDay);
+  // console.log('MyFiles: mediaArray', mediaArray[pickOfTheDay]);
+  console.log(
+    'OSOITE: '
+    // uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320
+  );
+
+  const icon =
+    mediaArray.length > 1
+      ? {uri: uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320}
+      : require('../assets/splash.png');
+  console.log('ICOOON: ', icon);
 
   return (
-    <SafeAreaView style={styles.droidSafeArea}>
-      <View style={styles.container}>
-        <Text style={styles.text}>DOG OF THE DAY!!!</Text>
-        <Image
-          style={styles.image}
-          source={{uri: 'https://placekitten.com/400/400'}}
-        ></Image>
-        <List navigation={navigation}></List>
-        <View style={styles.container2}></View>
-        <StatusBar style="auto" />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text style={styles.text}>DOG OF THE DAY!!!</Text>
+      <Image
+        style={styles.image}
+        // source={require('../assets/splash.png')}
+        // source={{uri: 'https://placekitten.com/400/400'}}
+        // source={require('../assets/splash.png')}
+        source={icon}
+      ></Image>
+
+      <FlatList
+        data={mediaArray.reverse()}
+        renderItem={({item}) => (
+          <ListItem
+            singleMedia={item}
+            navigation={navigation}
+            // showButtons={true}
+          />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      <View style={styles.container2}></View>
+      <StatusBar style="auto" />
+    </View>
   );
 };
 

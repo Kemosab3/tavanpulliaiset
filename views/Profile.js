@@ -18,8 +18,8 @@ const Profile = ({navigation}) => {
 
   const {getUserInfo} = useUser();
 
-  console.log('Profile ', user);
-  console.log('userInfo: ', userInfo);
+  // console.log('Profile ', user);
+  // console.log('userInfo: ', userInfo);
 
   const {getFilesByTag} = useTag();
 
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
 
 Profile.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default Profile;
