@@ -16,8 +16,6 @@ const List = ({navigation}) => {
   useEffect(() => {
     setIsFetching(false);
   }, [mediaArray]);
-  // console.log('List: mediaArray', mediaArray);
-  // console.log('List: mediaArray', mediaArray);
 
   return (
     <FlatList

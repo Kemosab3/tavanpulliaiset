@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,20 +6,30 @@ import {
   StatusBar,
   Platform,
   Alert,
+  FlatList,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Input, Button} from 'react-native-elements';
 import {MainContext} from '../contexts/MainContext';
-import List from '../components/List';
 import useUploadForm from '../hooks/UploadHooks';
 import PropTypes from 'prop-types';
+import ListItem from '../components/ListItem';
 import {useMedia} from '../hooks/ApiHooks';
 
 const Search = ({navigation}) => {
   const {handleInputChange, handleOnEndEditing, errors, inputs} =
     useUploadForm();
-  const {searchMedia} = useMedia();
+  const {searchMedia, searchMediaArray} = useMedia();
   const {update, setUpdate} = useContext(MainContext);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const refreshList = () => {
+    setIsFetching(true);
+    setUpdate(update + 1);
+  };
+  useEffect(() => {
+    setIsFetching(false);
+  }, [searchMediaArray]);
 
   const doSearch = async () => {
     console.log('Search dosearch clicked');
@@ -27,6 +37,7 @@ const Search = ({navigation}) => {
     try {
       const userToken = await AsyncStorage.getItem('userToken');
       const result = await searchMedia(inputs, userToken);
+      refreshList();
       if (result.message) {
         Alert.alert(
           'Search',
@@ -65,7 +76,15 @@ const Search = ({navigation}) => {
           ></Input>
           <Button raised title={'Search'} onPress={doSearch} />
         </View>
-        <List navigation={navigation}></List>
+        <FlatList
+          data={searchMediaArray}
+          renderItem={({item}) => (
+            <ListItem singleMedia={item} navigation={navigation} />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          onRefresh={refreshList}
+          refreshing={isFetching}
+        />
         <StatusBar style="auto" />
       </View>
     </SafeAreaView>

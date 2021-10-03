@@ -5,6 +5,7 @@ import {appID, baseUrl} from '../utils/variables';
 
 const useMedia = (ownFiles = false) => {
   const [mediaArray, setMediaArray] = useState([]);
+  const [searchMediaArray, setSearchMediaArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const {update, user} = useContext(MainContext);
 
@@ -52,9 +53,9 @@ const useMedia = (ownFiles = false) => {
         },
         body: JSON.stringify(inputs),
       };
-      console.log('searchMedia', inputs);
       const result = await doFetch(baseUrl + 'media/search', options);
       console.log('ApiHooks searchMedia', result);
+      setSearchMediaArray(result);
       return result;
     } catch (e) {
       console.log('loadSingleMedia', e.message);
@@ -134,6 +135,7 @@ const useMedia = (ownFiles = false) => {
 
   return {
     mediaArray,
+    searchMediaArray,
     loading,
     loadMedia,
     loadSingleMedia,
