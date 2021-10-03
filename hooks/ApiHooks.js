@@ -25,7 +25,6 @@ const useMedia = (ownFiles = false) => {
   const loadMedia = async () => {
     try {
       let mediaIlmanThumbnailia = await useTag().getFilesByTag(appID);
-
       if (ownFiles) {
         mediaIlmanThumbnailia = mediaIlmanThumbnailia.filter((item) => {
           if (item.user_id === user.user_id) {
@@ -53,8 +52,16 @@ const useMedia = (ownFiles = false) => {
         },
         body: JSON.stringify(inputs),
       };
-      const result = await doFetch(baseUrl + 'media/search', options);
+      const compare = await useTag().getFilesByTag(appID);
+      let result = await doFetch(baseUrl + 'media/search', options);
       console.log('ApiHooks searchMedia', result);
+      result = result.filter((item) => {
+        for (let i = 0; i < compare.length; i++) {
+          if (item.file_id === compare[i].file_id) {
+            return item;
+          }
+        }
+      });
       setSearchMediaArray(result);
       return result;
     } catch (e) {
