@@ -14,6 +14,7 @@ import Upload from '../views/Upload';
 import MyFiles from '../views/MyFiles';
 import Modify from '../views/Modify';
 import EditProfile from '../views/EditProfile';
+import Search from '../views/Search';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,9 @@ const TabScreen = () => {
             case 'Home':
               iconName = 'home';
               break;
+            case 'Search':
+              iconName = 'search';
+              break;
             case 'Profile':
               iconName = 'account-box';
               break;
@@ -40,6 +44,7 @@ const TabScreen = () => {
       })}
     >
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Upload" component={Upload} />
     </Tab.Navigator>

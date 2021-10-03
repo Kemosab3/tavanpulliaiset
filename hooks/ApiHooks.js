@@ -42,6 +42,26 @@ const useMedia = (ownFiles = false) => {
     }
   };
 
+  const searchMedia = async (inputs, token) => {
+    try {
+      const options = {
+        method: 'POST',
+        headers: {
+          'x-access-token': token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      };
+      console.log('searchMedia', inputs);
+      const result = await doFetch(baseUrl + 'media/search', options);
+      console.log('ApiHooks searchMedia', result);
+      return result;
+    } catch (e) {
+      console.log('loadSingleMedia', e.message);
+      return {};
+    }
+  };
+
   const loadSingleMedia = async (id) => {
     try {
       const tiedosto = await doFetch(baseUrl + 'media/' + id);
@@ -120,6 +140,7 @@ const useMedia = (ownFiles = false) => {
     uploadMedia,
     deleteMedia,
     modifyMedia,
+    searchMedia,
   };
 };
 
