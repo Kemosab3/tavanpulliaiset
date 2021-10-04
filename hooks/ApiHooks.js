@@ -253,6 +253,8 @@ const useUser = () => {
 };
 
 const useTag = () => {
+  // const [loading, setLoading] = useState(false);
+
   const getFilesByTag = async (tag) => {
     try {
       const tiedosto = await doFetch(baseUrl + 'tags/' + tag);
@@ -283,7 +285,27 @@ const useTag = () => {
     }
   };
 
-  return {getFilesByTag, addTag};
+  const deleteTag = async (fileId, token) => {
+    // delete /favourites/file/:id
+    try {
+      // setLoading(true);
+      const options = {
+        method: 'DELETE',
+        headers: {
+          'x-access-token': token,
+        },
+      };
+      const result = await doFetch(baseUrl + 'tags/' + fileId, options);
+      return result;
+    } catch (e) {
+      console.log('deleteTag error', e);
+      throw new Error(e.message);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+  return {getFilesByTag, addTag, deleteTag};
 };
 
 const useFavourites = () => {

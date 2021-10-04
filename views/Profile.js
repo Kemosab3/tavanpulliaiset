@@ -4,7 +4,7 @@ import {StyleSheet, Text, ActivityIndicator} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, ListItem} from 'react-native-elements';
-import {useTag} from '../hooks/ApiHooks';
+import {useTag, useUser} from '../hooks/ApiHooks';
 import useUserInfo from '../hooks/ProfileHooks';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
@@ -14,8 +14,12 @@ const Profile = ({navigation}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
   const [avatar, setAvatar] = useState('https://placekitten.com/400/400');
   const {userInfo} = useUserInfo(user);
+  const [ownerInfo, setOwnerInfo] = useState({username: ''});
 
-  console.log('Profile ', user);
+  const {getUserInfo} = useUser();
+
+  // console.log('Profile ', user);
+  // console.log('userInfo: ', userInfo);
 
   const {getFilesByTag} = useTag();
 
@@ -27,6 +31,15 @@ const Profile = ({navigation}) => {
     })();
   }, [user]);
 
+  const getOwnerInfo = async () => {
+    const token = await AsyncStorage.getItem('userToken');
+    setOwnerInfo(await getUserInfo(user.user_id, token));
+  };
+
+  useEffect(() => {
+    getOwnerInfo();
+  }, []);
+
   const logout = async () => {
     await AsyncStorage.clear();
     setIsLoggedIn(false);
@@ -36,7 +49,7 @@ const Profile = ({navigation}) => {
       <Card containerStyle={{backgroundColor: 'black'}}>
         <Card.Title>
           <Text style={{color: 'green', fontSize: 39}} h3>
-            {userInfo.username}
+            {ownerInfo.username}
           </Text>
         </Card.Title>
         <Card.Image
@@ -50,9 +63,7 @@ const Profile = ({navigation}) => {
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Avatar icon={{name: 'user', type: 'font-awesome', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: 17}}>
-            {userInfo.full_name}
-          </Text>
+          <Text style={{color: 'green', fontSize: 17}}>{user.full_name}</Text>
         </ListItem>
         <ListItem
           bottomDivider
@@ -107,7 +118,8 @@ const styles = StyleSheet.create({
 });
 
 Profile.propTypes = {
-  navigation: PropTypes.object,
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default Profile;
