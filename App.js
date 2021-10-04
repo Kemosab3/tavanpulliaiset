@@ -3,14 +3,17 @@ import React from 'react';
 import Navigator from './navigators/Navigator';
 import {MainProvider} from './contexts/MainContext';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider as PaperProvider} from 'react-native-paper';
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-      <MainProvider>
-        <Navigator />
-      </MainProvider>
-    </SafeAreaProvider>
+    <PaperProvider>
+      <SafeAreaProvider>
+        <MainProvider>
+          <Navigator />
+        </MainProvider>
+      </SafeAreaProvider>
+    </PaperProvider>
   );
 };
 
