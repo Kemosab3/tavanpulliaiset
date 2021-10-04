@@ -38,16 +38,21 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
 
   return (
     <RNEListItem
-      bottomDivider
-      topDivider
       onPress={() => {
         navigation.navigate('Single', singleMedia);
       }}
       containerStyle={{
         backgroundColor: 'black',
+        borderWidth: 3,
         borderStyle: 'solid',
         borderColor: '#FF6700',
-        marginBottom: 20,
+        marginBottom: 10,
+        marginLeft: 8,
+        marginRight: 8,
+        elevation: 2,
+        shadowColor: '#FF6700',
+        shadowRadius: 8,
+        shadowOpacity: 0.5,
       }}
     >
       <Avatar

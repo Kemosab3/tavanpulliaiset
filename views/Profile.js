@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import PropTypes from 'prop-types';
 import {StyleSheet, Text, ActivityIndicator} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
@@ -45,71 +46,75 @@ const Profile = ({navigation}) => {
     setIsLoggedIn(false);
   };
   return (
-    <ScrollView style={{backgroundColor: 'black'}}>
-      <Card containerStyle={{backgroundColor: 'black'}}>
-        <Card.Title>
-          <Text style={{color: 'green', fontSize: 39}} h3>
-            {ownerInfo.username}
-          </Text>
-        </Card.Title>
-        <Card.Image
-          source={{uri: avatar}}
-          style={styles.image}
-          PlaceholderContent={<ActivityIndicator />}
-        />
-        <ListItem containerStyle={{backgroundColor: 'black'}}>
-          <Avatar icon={{name: 'email', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: 17}}>{userInfo.email}</Text>
-        </ListItem>
-        <ListItem containerStyle={{backgroundColor: 'black'}}>
-          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: 17}}>{user.full_name}</Text>
-        </ListItem>
-        <ListItem
-          bottomDivider
-          containerStyle={{backgroundColor: 'black'}}
-          onPress={() => {
-            navigation.navigate('My Files');
-          }}
-        >
-          <Avatar icon={{name: 'logout', color: 'green'}} />
-          <ListItem.Content>
-            <ListItem.Title style={{color: 'green', fontSize: 17}}>
-              My Files
-            </ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-        <ListItem
-          bottomDivider
-          containerStyle={{backgroundColor: 'black'}}
-          onPress={() => {
-            navigation.navigate('Edit Profile');
-          }}
-        >
-          <Avatar icon={{name: 'logout', color: 'green'}} />
-          <ListItem.Content>
-            <ListItem.Title style={{color: 'green', fontSize: 17}}>
-              Edit Profile
-            </ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-        <ListItem
-          bottomDivider
-          onPress={logout}
-          containerStyle={{backgroundColor: 'black'}}
-        >
-          <Avatar icon={{name: 'logout', color: 'green'}} />
-          <ListItem.Content>
-            <ListItem.Title style={{color: 'green', fontSize: 17}}>
-              Logout
-            </ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-      </Card>
-    </ScrollView>
+    <SafeAreaProvider>
+      <ScrollView style={{backgroundColor: 'black'}}>
+        <Card containerStyle={{backgroundColor: 'black'}}>
+          <Card.Title>
+            <Text style={{color: 'green', fontSize: 39}} h3>
+              {ownerInfo.username}
+            </Text>
+          </Card.Title>
+          <Card.Image
+            source={{uri: avatar}}
+            style={styles.image}
+            PlaceholderContent={<ActivityIndicator />}
+          />
+          <ListItem containerStyle={{backgroundColor: 'black'}}>
+            <Avatar icon={{name: 'email', color: 'green'}} />
+            <Text style={{color: 'green', fontSize: 17}}>{userInfo.email}</Text>
+          </ListItem>
+          <ListItem containerStyle={{backgroundColor: 'black'}}>
+            <Avatar
+              icon={{name: 'user', type: 'font-awesome', color: 'green'}}
+            />
+            <Text style={{color: 'green', fontSize: 17}}>{user.full_name}</Text>
+          </ListItem>
+          <ListItem
+            bottomDivider
+            containerStyle={{backgroundColor: 'black'}}
+            onPress={() => {
+              navigation.navigate('My Files');
+            }}
+          >
+            <Avatar icon={{name: 'logout', color: 'green'}} />
+            <ListItem.Content>
+              <ListItem.Title style={{color: 'green', fontSize: 17}}>
+                My Files
+              </ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+          <ListItem
+            bottomDivider
+            containerStyle={{backgroundColor: 'black'}}
+            onPress={() => {
+              navigation.navigate('Edit Profile');
+            }}
+          >
+            <Avatar icon={{name: 'logout', color: 'green'}} />
+            <ListItem.Content>
+              <ListItem.Title style={{color: 'green', fontSize: 17}}>
+                Edit Profile
+              </ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+          <ListItem
+            bottomDivider
+            onPress={logout}
+            containerStyle={{backgroundColor: 'black'}}
+          >
+            <Avatar icon={{name: 'logout', color: 'green'}} />
+            <ListItem.Content>
+              <ListItem.Title style={{color: 'green', fontSize: 17}}>
+                Logout
+              </ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Card>
+      </ScrollView>
+    </SafeAreaProvider>
   );
 };
 

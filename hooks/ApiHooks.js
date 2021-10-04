@@ -54,7 +54,7 @@ const useMedia = (ownFiles = false) => {
       };
       const compare = await useTag().getFilesByTag(appID);
       let result = await doFetch(baseUrl + 'media/search', options);
-      console.log('ApiHooks searchMedia', result);
+      // console.log('ApiHooks searchMedia', result);
       result = result.filter((item) => {
         for (let i = 0; i < compare.length; i++) {
           if (item.file_id === compare[i].file_id) {

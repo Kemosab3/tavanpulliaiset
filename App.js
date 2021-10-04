@@ -7,13 +7,13 @@ import {Provider as PaperProvider} from 'react-native-paper';
 
 const App = () => {
   return (
-    <PaperProvider>
-      <SafeAreaProvider>
-        <MainProvider>
+    <SafeAreaProvider>
+      <MainProvider>
+        <PaperProvider>
           <Navigator />
-        </MainProvider>
-      </SafeAreaProvider>
-    </PaperProvider>
+        </PaperProvider>
+      </MainProvider>
+    </SafeAreaProvider>
   );
 };
 
