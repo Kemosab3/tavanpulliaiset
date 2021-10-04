@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {audioJorma, uploadsUrl} from '../utils/variables';
+import {uploadsUrl} from '../utils/variables';
 import {
   Card,
   ListItem,
@@ -26,6 +26,7 @@ import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
 
 const Single = ({route}) => {
   const {params} = route;
+
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
@@ -153,38 +154,6 @@ const Single = ({route}) => {
 
   // What?
 
-  /*
-  let a = 0;
-  let b = 0;
-  let c = 0;
-  let d = 0;
-  let e = 0;
-  */
-
-  /*
-  const one = require('../assets/huokaus.mp3');
-  const two = require('../assets/jippii.mp3');
-  const three = require('../assets/Launcher_Explosion.wav');
-  const four = require('../assets/Shotgun_Shot.wav');
-  const five = require('../assets/Turret_Alert.mp3');
-
-  const audioJorma = [one, two, three, four, five, one, two, three, four, five];
-
-
-  const audioKalevi = [
-    audioJorma[a],
-    audioJorma[b],
-    audioJorma[c],
-    audioJorma[d],
-    audioJorma[e],
-  ];
-*/
-
-  // console.log(audioKalevi.length);
-
-  // let audioArray2 = [two, one, one, three, three, two, two];
-  // let soundObject = new Audio.Sound();
-
   const toDataURL = (url) =>
     fetch(url)
       .then((response) => response.blob())
@@ -197,40 +166,6 @@ const Single = ({route}) => {
             reader.readAsDataURL(blob);
           })
       );
-  /*
-  const handlePlaySound = async (note) => {
-    Audio.setIsEnabledAsync(true);
-
-    for (let i = 0; i < note.length; i++) {
-      const soundObject = new Audio.Sound();
-      if (soundObject) {
-        // console.log('Ääntä? ', audioJorma[note]);
-        // soundObject.pauseAsync();
-        // soundObject = new Audio.Sound();
-        try {
-          // const source = audioArray[note];
-          // await soundObject.loadAsync(source);
-
-          await soundObject.loadAsync(audioJorma[note[i]]);
-
-          console.log('SOUNDI NRO: ', note[i]);
-          await soundObject
-            .playAsync()
-            .then(async (playbackStatus) => {
-              setTimeout(() => {
-                soundObject.unloadAsync();
-              }, playbackStatus.playableDurationMillis);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
-  };
-  */
 
   // What? ends
 
@@ -240,8 +175,6 @@ const Single = ({route}) => {
     ctx.fillStyle = 'purple';
     ctx.fillRect(0, 0, 100, 100);
   };
-
-  // <WebView source={{uri: 'https://reactnative.dev/'}} />
 
   // What? part 2 ends
 
@@ -320,30 +253,8 @@ const Single = ({route}) => {
           <Button
             title="Play sound"
             onPress={() => {
-              // audioPointer = 0;
-              // for testing purposes:
-              // getLikes();
-
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
                 const kukkaMaaria = musicArrayMaker(dataUrl, params.media_type);
-                /*
-                console.log('RESULTTTTT:', dataUrl);
-                const tapio = dataUrl.length.toString();
-                const ville = dataUrl.slice([1], [100]);
-                a = parseInt(tapio[0]);
-                b = parseInt(tapio[1]);
-                c = parseInt(tapio[2]);
-                d = parseInt(tapio[3]);
-                e = parseInt(tapio[4]);
-                console.log('RESULTTTTT1:', params.media_type);
-                console.log('RESULTTTTT2:', ville.replace(/\//g, '8'));
-                console.log('RESULTTTTT3:', dataUrl.length);
-                console.log('RESULTTTTT4:', dataUrl.match(/A/g).length);
-                console.log('RESULTTTTT5:', dataUrl.match(/a/g).length);
-                console.log('TAPIOOOOO:', tapio);
-                console.log('TAPIOOOOOH:', e, d, c, b, a);
-                const kukkaMaaria = [e, d, c, b, a];
-                */
                 handlePlaySound(kukkaMaaria);
               });
             }}
@@ -363,19 +274,6 @@ const Single = ({route}) => {
                 console.log('Likeeeeee ', response);
                 setIAmLikingIt(false);
                 getLikes();
-                /*
-                try {
-                  console.log('File ID on mitä?', params.file_id);
-                  const token = await AsyncStorage.getItem('userToken');
-                  const response = await addFavourite(params.file_id, token);
-                  console.log('Like ', response);
-                  if (response.message) {
-                    // setUpdate(update + 1);
-                  }
-                } catch (e) {
-                  console.log('Liking: ', e.message);
-                }
-                */
               }}
             />
           ) : (

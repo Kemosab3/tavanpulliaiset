@@ -49,6 +49,7 @@ const musicArrayMaker = (dataUrl, paramsMediaType) => {
   c = parseInt(tapio[2]);
   d = parseInt(tapio[3]);
   e = parseInt(tapio[4]);
+  /*
   console.log('RESULTTTTT1:', paramsMediaType);
   console.log('RESULTTTTT2:', ville.replace(/\//g, '8'));
   console.log('RESULTTTTT3:', dataUrl.length);
@@ -56,6 +57,7 @@ const musicArrayMaker = (dataUrl, paramsMediaType) => {
   console.log('RESULTTTTT5:', dataUrl.match(/a/g).length);
   console.log('TAPIOOOOO:', tapio);
   console.log('TAPIOOOOOH:', e, d, c, b, a);
+  */
   const kukkaMaaria = [e, d, c, b, a];
   return kukkaMaaria;
 };

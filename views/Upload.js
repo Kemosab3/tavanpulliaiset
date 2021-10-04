@@ -19,7 +19,7 @@ const Upload = ({navigation}) => {
   const {inputs, handleInputChange, handleReset, errors, handleOnEndEditing} =
     useUploadForm();
   const {uploadMedia, loading} = useMedia();
-  const {addTag} = useTag();
+  const {addTag, getFilesByTag} = useTag();
   const {update, setUpdate} = useContext(MainContext);
 
   // const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
@@ -120,6 +120,15 @@ const Upload = ({navigation}) => {
             onPress={() => {
               setImage(require('../assets/icon3.png'));
               handleReset();
+            }}
+          />
+          <Button
+            title={'Set as avatar'}
+            disabled={
+              image.uri === undefined || image.uri === '../assets/icon3.png'
+            }
+            onPress={() => {
+              console.log('PARAMS: ', image);
             }}
           />
         </View>

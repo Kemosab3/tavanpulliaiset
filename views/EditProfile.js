@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {View, Alert} from 'react-native';
 import {Button, Input} from 'react-native-elements';
@@ -24,6 +24,7 @@ const EditProfile = ({navigation}) => {
       setInputs({
         username: user.username,
         email: user.email,
+        full_name: user.full_name,
       });
     })();
   }, []);
@@ -75,6 +76,7 @@ const EditProfile = ({navigation}) => {
         autoCapitalize="none"
         placeholder="full_name"
         onChangeText={(txt) => handleInputChange('full_name', txt)}
+        value={inputs.full_name}
       />
       <Input
         autoCapitalize="none"
