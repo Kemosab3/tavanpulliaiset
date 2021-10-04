@@ -47,13 +47,17 @@ const Home = ({navigation}) => {
         </View>
         <View style={styles.picOfTheWeekIcons}>
           <Icon name="beer" type="ionicon" color="#FF6700" />
+          <Text style={styles.picOfTheWeekDesc}>15k</Text>
           <Icon name="flower" type="ionicon" color="#FF6700" />
+          <Text style={styles.picOfTheWeekDesc}>2.8k</Text>
           <Icon name="heart" type="ionicon" color="#FF6700" />
+          <Text style={styles.picOfTheWeekDesc}>1</Text>
         </View>
         <Text style={styles.picOfTheWeekDesc}>
           Iconin tiedot pitäisi saada yleiseen käyttöön. Tästä pitäisi myös
-          tehdä komponentti. Rupikoiso! Mitäs muuta tähän kirjoittelisi...
-          Tralalaa, lallallaa, placeholder text, öhhöhöö, namnamnam, sibulski.
+          tehdä komponentti. Rupikoiso! Also, icon lienee varattu nimi. Mitäs
+          muuta tähän kirjoittelisi... Tralalaa, lallallaa, placeholder text,
+          öhhöhöö.
         </Text>
       </View>
 
@@ -109,7 +113,7 @@ const styles = StyleSheet.create({
   picOfTheWeek: {
     height: 270,
     marginLeft: 8,
-    marginBottom: 10,
+    marginBottom: 15,
     marginRight: 8,
     elevation: 1,
   },
@@ -123,7 +127,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginTop: 8,
     marginLeft: 8,
   },
