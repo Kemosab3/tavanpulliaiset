@@ -27,6 +27,8 @@ import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
 const Single = ({route}) => {
   const {params} = route;
 
+  console.log('PARAAAAA ', params);
+
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);

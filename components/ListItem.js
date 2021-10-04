@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {formatDate, timeSince} from '../utils/dateFunctions';
 import {addOrientationChangeListener} from 'expo-screen-orientation';
+import {set} from 'date-fns';
 
 const ListItem = ({singleMedia, navigation, showButtons}) => {
   // console.log('singleMedia', singleMedia);
@@ -127,14 +128,15 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
                             userToken
                           );
                         }
+                        navigation.navigate('Profile', singleMedia.filename);
                       }
                     } catch (e) {
                       console.log('getToken', e.message);
                     }
+                    // navigation.navigate('Profile');
                     return userToken;
                   }
                 };
-
                 gettoToken();
               }}
             />
