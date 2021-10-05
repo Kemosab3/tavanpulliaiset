@@ -15,7 +15,7 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
   const {deleteMedia} = useMedia();
-  const {getFilesByTag, addTag, deleteTag} = useTag();
+  const {getFilesByTag, addTag} = useTag();
 
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -39,11 +39,22 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
 
   return (
     <RNEListItem
-      bottomDivider
       onPress={() => {
         navigation.navigate('Single', singleMedia);
       }}
-      containerStyle={{backgroundColor: 'black'}}
+      containerStyle={{
+        backgroundColor: 'black',
+        borderWidth: 3,
+        borderStyle: 'solid',
+        borderColor: '#FF6700',
+        marginBottom: 10,
+        marginLeft: 8,
+        marginRight: 8,
+        elevation: 2,
+        shadowColor: '#FF6700',
+        shadowRadius: 8,
+        shadowOpacity: 0.5,
+      }}
     >
       <Avatar
         size="large"
@@ -51,13 +62,13 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
       ></Avatar>
       <RNEListItem.Content>
-        <RNEListItem.Title numberOfLines={1} h4 style={{color: 'green'}}>
+        <RNEListItem.Title numberOfLines={1} h4 style={{color: '#FF6700'}}>
           {singleMedia.title}
         </RNEListItem.Title>
-        <RNEListItem.Subtitle numberOfLines={1} style={{color: 'green'}}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: '#FF6700'}}>
           {timeSince(singleMedia.time_added)}
         </RNEListItem.Subtitle>
-        <RNEListItem.Subtitle numberOfLines={1} style={{color: 'green'}}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: '#FF6700'}}>
           {singleMedia.description}
         </RNEListItem.Subtitle>
         {showButtons && (
@@ -143,7 +154,7 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
           </>
         )}
       </RNEListItem.Content>
-      <RNEListItem.Chevron />
+      <RNEListItem.Chevron style={{color: '#FF6700'}} />
     </RNEListItem>
   );
 };

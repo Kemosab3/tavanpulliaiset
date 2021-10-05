@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import React, {useContext} from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
 import Single from '../views/Single';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
 import {Icon} from 'react-native-elements';
@@ -16,12 +17,14 @@ import Modify from '../views/Modify';
 import EditProfile from '../views/EditProfile';
 import Search from '../views/Search';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const TabScreen = () => {
   return (
     <Tab.Navigator
+      shifting={true}
+      barStyle={{backgroundColor: '#FF6700'}}
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
           let iconName = '';

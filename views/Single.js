@@ -50,7 +50,6 @@ const Single = ({route}) => {
   useEffect(() => {
     (async () => {
       const file = await getFilesByTag('avatar_' + params.user_id);
-      console.log('file', file);
       setAvatar(uploadsUrl + file.pop().filename);
     })();
   }, [user]);

@@ -7,9 +7,12 @@ import {
   Platform,
   Alert,
   FlatList,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Input, Button} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
+import {TextInput} from 'react-native-paper';
 import {MainContext} from '../contexts/MainContext';
 import useUploadForm from '../hooks/UploadHooks';
 import PropTypes from 'prop-types';
@@ -60,10 +63,21 @@ const Search = ({navigation}) => {
   return (
     <SafeAreaView style={styles.droidSafeArea}>
       <View style={styles.container}>
-        <View>
-          <Input
+        <View style={styles.searchBar}>
+          <TextInput
+            label="Search"
             autoCapitalize="none"
-            placeholder="Search"
+            mode="outlined"
+            theme={{
+              colors: {
+                placeholder: '#FF6700',
+                text: 'white',
+                primary: '#FF6700',
+                underlineColor: 'transparent',
+                background: 'black',
+              },
+            }}
+            style={{flex: 1, marginRight: 10}}
             onChangeText={(txt) => handleInputChange('title', txt)}
             onEndEditing={(event) => {
               /*
@@ -75,8 +89,12 @@ const Search = ({navigation}) => {
               handleOnEndEditing('title', event.nativeEvent.text);
             }}
             errorMessage={errors.title}
-          ></Input>
-          <Button raised title={'Search'} onPress={doSearch} />
+          ></TextInput>
+          <View style={{alignSelf: 'center'}}>
+            <TouchableOpacity style={styles.searchButton} onPress={doSearch}>
+              <Icon name="search" size={20} color="white" />
+            </TouchableOpacity>
+          </View>
         </View>
         <FlatList
           data={searchMediaArray}
@@ -103,6 +121,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
+  searchBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 8,
+    marginRight: 8,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  searchButton: {
+    alignItems: 'center',
+    backgroundColor: '#FF6700',
+    padding: 10,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
   },
 });
 
