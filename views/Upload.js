@@ -29,7 +29,7 @@ const Upload = ({navigation}) => {
   const {inputs, handleInputChange, handleReset, errors, handleOnEndEditing} =
     useUploadForm();
   const {uploadMedia, loading} = useMedia();
-  const {addTag, getFilesByTag} = useTag();
+  const {addTag} = useTag();
   const {update, setUpdate} = useContext(MainContext);
 
   // const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
@@ -113,7 +113,6 @@ const Upload = ({navigation}) => {
         <Card containerStyle={styles.uploadCard}>
           <View style={{backgroundColor: 'black'}}>
             <Image source={image} style={{width: '100%', height: 200}} />
-            {console.log('Kuva saatana: ', image)}
             <TouchableOpacity
               style={styles.pickImageButton}
               onPress={pickImage}
