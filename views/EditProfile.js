@@ -8,7 +8,7 @@ import useUserInfo from '../hooks/ProfileHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 
-const EditProfile = ({navigation}) => {
+const EditProfile = ({route, navigation}) => {
   // const navigation = route.params.navigation;
   // const [image, setImage] = useState(require('../assets/icon3.png'));
   const {inputs, handleInputChange, errors, handleOnEndEditing, setInputs} =
@@ -16,8 +16,13 @@ const EditProfile = ({navigation}) => {
   const {modifyUserInfo} = useUser();
 
   // const {update, setUpdate, user} = useContext(MainContext);
-  const {user} = useContext(MainContext);
+  let {user} = useContext(MainContext);
   const {setUserInfo} = useUserInfo(user);
+
+  const {params} = route;
+  if (params !== undefined) {
+    user = params;
+  }
 
   useEffect(() => {
     (() => {
@@ -41,7 +46,8 @@ const EditProfile = ({navigation}) => {
             {
               text: 'Ok',
               onPress: () => {
-                navigation.navigate('Profile');
+                navigation.navigate('Profile', inputs);
+                console.log('INPUTTI ', inputs);
               },
             },
           ],
@@ -88,6 +94,7 @@ const EditProfile = ({navigation}) => {
         title={'Upload changes'}
         onPress={() => {
           doEditProfile();
+
           setUserInfo((user) => ({
             ...user,
             username: inputs.username,
@@ -101,6 +108,7 @@ const EditProfile = ({navigation}) => {
 
 EditProfile.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default EditProfile;

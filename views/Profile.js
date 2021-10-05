@@ -10,24 +10,36 @@ import {uploadsUrl} from '../utils/variables';
 import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const Profile = ({navigation}) => {
+const Profile = ({route, navigation}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
-  const [avatar, setAvatar] = useState('https://placekitten.com/400/400');
-  const {userInfo} = useUserInfo(user);
+  let [avatar, setAvatar] = useState('https://placekitten.com/400/400');
+  let {userInfo} = useUserInfo(user);
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
 
   const {getUserInfo} = useUser();
 
+  const {params} = route;
+  console.log('PARAMEDICS: ', params);
+
+  const {getFilesByTag} = useTag();
+
+  if (params !== undefined && typeof params === 'object') {
+    userInfo = params;
+  }
+
   // console.log('Profile ', user);
   // console.log('userInfo: ', userInfo);
 
-  const {getFilesByTag} = useTag();
+  if (params !== undefined && typeof params === 'string') {
+    avatar = uploadsUrl + params;
+  }
 
   useEffect(() => {
     (async () => {
       const file = await getFilesByTag('avatar_' + user.user_id);
       // console.log('file', file);
       setAvatar(uploadsUrl + file.pop().filename);
+      console.log('Avataari effecti: ', avatar);
     })();
   }, [user]);
 
@@ -44,12 +56,13 @@ const Profile = ({navigation}) => {
     await AsyncStorage.clear();
     setIsLoggedIn(false);
   };
+
   return (
     <ScrollView style={{backgroundColor: 'black'}}>
       <Card containerStyle={{backgroundColor: 'black'}}>
         <Card.Title>
           <Text style={{color: 'green', fontSize: 39}} h3>
-            {ownerInfo.username}
+            {userInfo.username}
           </Text>
         </Card.Title>
         <Card.Image
@@ -63,7 +76,9 @@ const Profile = ({navigation}) => {
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Avatar icon={{name: 'user', type: 'font-awesome', color: 'green'}} />
-          <Text style={{color: 'green', fontSize: 17}}>{user.full_name}</Text>
+          <Text style={{color: 'green', fontSize: 17}}>
+            {userInfo.full_name}
+          </Text>
         </ListItem>
         <ListItem
           bottomDivider
@@ -84,7 +99,7 @@ const Profile = ({navigation}) => {
           bottomDivider
           containerStyle={{backgroundColor: 'black'}}
           onPress={() => {
-            navigation.navigate('Edit Profile');
+            navigation.navigate('Edit Profile', userInfo);
           }}
         >
           <Avatar icon={{name: 'logout', color: 'green'}} />

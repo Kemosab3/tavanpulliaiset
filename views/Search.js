@@ -66,10 +66,12 @@ const Search = ({navigation}) => {
             placeholder="Search"
             onChangeText={(txt) => handleInputChange('title', txt)}
             onEndEditing={(event) => {
+              /*
               console.log(
                 'searchFrom onEndEditingValue',
                 event.nativeEvent.text
               );
+              */
               handleOnEndEditing('title', event.nativeEvent.text);
             }}
             errorMessage={errors.title}

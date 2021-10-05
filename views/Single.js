@@ -27,6 +27,8 @@ import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
 const Single = ({route}) => {
   const {params} = route;
 
+  console.log('PARAAAAA ', params);
+
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
@@ -216,7 +218,7 @@ const Single = ({route}) => {
             PlaceholderContent={<ActivityIndicator />}
           />
         )}
-        {console.log('Mitä helvettiä: ', params.filename.length)}
+
         {params.media_type === 'video' && (
           <TouchableOpacity // usePoster hides video so use this to start it
             disabled={disabled}

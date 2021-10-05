@@ -6,6 +6,7 @@ const MainContext = React.createContext({});
 const MainProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
+  const [profile, setProfile] = useState({});
   const [update, setUpdate] = useState(0);
 
   return (
@@ -17,6 +18,8 @@ const MainProvider = (props) => {
         setUser,
         update,
         setUpdate,
+        profile,
+        setProfile,
       }}
     >
       {props.children}
