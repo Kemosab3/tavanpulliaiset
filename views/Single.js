@@ -218,7 +218,7 @@ const Single = ({route}) => {
             PlaceholderContent={<ActivityIndicator />}
           />
         )}
-        {console.log('Mitä helvettiä: ', params.filename.length)}
+
         {params.media_type === 'video' && (
           <TouchableOpacity // usePoster hides video so use this to start it
             disabled={disabled}
