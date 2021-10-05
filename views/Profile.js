@@ -64,7 +64,7 @@ const Profile = ({route, navigation}) => {
         <Card containerStyle={{backgroundColor: 'black'}}>
           <Card.Title>
             <Text style={{color: 'green', fontSize: 39}} h3>
-              {ownerInfo.username}
+              {userInfo.username}
             </Text>
           </Card.Title>
           <Card.Image
@@ -80,7 +80,9 @@ const Profile = ({route, navigation}) => {
             <Avatar
               icon={{name: 'user', type: 'font-awesome', color: 'green'}}
             />
-            <Text style={{color: 'green', fontSize: 17}}>{user.full_name}</Text>
+            <Text style={{color: 'green', fontSize: 17}}>
+              {userInfo.full_name}
+            </Text>
           </ListItem>
           <ListItem
             bottomDivider
