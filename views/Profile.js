@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, ActivityIndicator} from 'react-native';
+import {StyleSheet, Text, ActivityIndicator, Platform} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, ListItem} from 'react-native-elements';
@@ -46,7 +46,7 @@ const Profile = ({navigation}) => {
     setIsLoggedIn(false);
   };
   return (
-    <SafeAreaProvider>
+    <SafeAreaView style={styles.droidSafeArea}>
       <ScrollView style={{backgroundColor: 'black'}}>
         <Card containerStyle={{backgroundColor: 'black'}}>
           <Card.Title>
@@ -114,12 +114,17 @@ const Profile = ({navigation}) => {
           </ListItem>
         </Card>
       </ScrollView>
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   image: {width: '100%', height: undefined, borderRadius: 250, aspectRatio: 1},
+  droidSafeArea: {
+    flex: 1,
+    backgroundColor: '#000',
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
 });
 
 Profile.propTypes = {

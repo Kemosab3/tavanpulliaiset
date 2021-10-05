@@ -1,6 +1,8 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import {Button, Input} from 'react-native-elements';
+// import {Button, Input} from 'react-native-elements';
+import {TextInput, Button} from 'react-native-paper';
 
 const UploadForm = ({
   title,
@@ -14,11 +16,20 @@ const UploadForm = ({
 }) => {
   return (
     <>
-      <Input
-        style={{backgroundColor: 'black'}}
-        placeholderTextColor="green"
+      <TextInput
         autoCapitalize="none"
-        placeholder="title"
+        label="title"
+        mode="outlined"
+        style={styles.uploadFormInput}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         onChangeText={(txt) => handleInputChange('title', txt)}
         onEndEditing={(event) => {
           console.log('uploadForm onEndEditingValue', event.nativeEvent.text);
@@ -27,30 +38,51 @@ const UploadForm = ({
         errorMessage={errors.title}
         value={inputs.title}
       />
-      <Input
-        style={{backgroundColor: 'black'}}
-        placeholderTextColor="green"
+      <TextInput
         autoCapitalize="none"
-        placeholder="description"
+        label="description"
+        mode="outlined"
+        style={styles.uploadFormInput}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         multiline={true}
         onChangeText={(txt) => handleInputChange('description', txt)}
         value={inputs.description}
       />
 
       <Button
-        raised
-        title={title}
+        mode="contained"
         onPress={handleSubmit}
         loading={loading}
+        style={styles.uploadButton}
         disabled={
           errors.title !== null ||
           image.uri === undefined ||
           image.uri === '../assets/icon3.png'
         }
-      />
+      >
+        Upload
+      </Button>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  uploadFormInput: {
+    marginTop: 5,
+  },
+  uploadButton: {
+    backgroundColor: '#FF6700',
+    marginTop: 10,
+  },
+});
 
 UploadForm.propTypes = {
   title: PropTypes.string.isRequired,

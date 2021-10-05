@@ -1,9 +1,19 @@
 /* eslint-disable no-undef */
 import React, {useState, useEffect, useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Platform, ActivityIndicator, Alert} from 'react-native';
+import {
+  View,
+  Platform,
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import UploadForm from '../components/UploadForm';
-import {Button, Image, Card} from 'react-native-elements';
+import {Image, Card} from 'react-native-elements';
+import {Button} from 'react-native-paper';
 import useUploadForm from '../hooks/UploadHooks';
 import * as ImagePicker from 'expo-image-picker';
 import {useMedia, useTag} from '../hooks/ApiHooks';
@@ -98,44 +108,73 @@ const Upload = ({navigation}) => {
   };
 
   return (
-    <ScrollView style={{backgroundColor: 'black'}}>
-      <Card containerStyle={{backgroundColor: 'black'}}>
-        <View style={{backgroundColor: 'black'}}>
-          <Image source={image} style={{width: '100%', height: 200}} />
-          {console.log('Kuva saatana: ', image)}
-          <Button title="Select media" onPress={pickImage} />
-          <UploadForm
-            title="Upload"
-            handleSubmit={doUpload}
-            handleInputChange={handleInputChange}
-            handleOnEndEditing={handleOnEndEditing}
-            errors={errors}
-            loading={loading}
-            image={image}
-            inputs={inputs}
-          />
-          {loading && <ActivityIndicator />}
-          <Button
-            title={'Reset'}
-            onPress={() => {
-              setImage(require('../assets/icon3.png'));
-              handleReset();
-            }}
-          />
-          <Button
-            title={'Set as avatar'}
-            disabled={
-              image.uri === undefined || image.uri === '../assets/icon3.png'
-            }
-            onPress={() => {
-              console.log('PARAMS: ', image);
-            }}
-          />
-        </View>
-      </Card>
-    </ScrollView>
+    <SafeAreaView style={styles.droidSafeArea}>
+      <ScrollView style={{backgroundColor: 'black', marginTop: 10}}>
+        <Card containerStyle={styles.uploadCard}>
+          <View style={{backgroundColor: 'black'}}>
+            <Image source={image} style={{width: '100%', height: 200}} />
+            {console.log('Kuva saatana: ', image)}
+            <TouchableOpacity
+              style={styles.pickImageButton}
+              onPress={pickImage}
+            >
+              <Text>Select image</Text>
+            </TouchableOpacity>
+            <UploadForm
+              title="Upload"
+              handleSubmit={doUpload}
+              handleInputChange={handleInputChange}
+              handleOnEndEditing={handleOnEndEditing}
+              errors={errors}
+              loading={loading}
+              image={image}
+              inputs={inputs}
+            />
+            {loading && <ActivityIndicator />}
+            <Button
+              style={styles.resetButton}
+              onPress={() => {
+                setImage(require('../assets/icon3.png'));
+                handleReset();
+              }}
+            >Reset</Button>
+          </View>
+        </Card>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  droidSafeArea: {
+    flex: 1,
+    backgroundColor: '#000',
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
+  uploadCard: {
+    backgroundColor: 'black',
+    borderColor: '#FF6700',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  pickImageButton: {
+    display: 'flex',
+    backgroundColor: '#FF6700',
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  resetButton: {
+    backgroundColor: '#FF6700',
+    marginTop: 10,
+  },
+});
 
 Upload.propTypes = {
   navigation: PropTypes.object.isRequired,
