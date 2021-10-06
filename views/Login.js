@@ -14,6 +14,8 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {ImageBackground} from 'react-native';
 import {Card, ListItem, Text} from 'react-native-elements';
+import {View, StatusBar} from 'react-native';
+import ListNotLoggedIn from '../components/List';
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -59,10 +61,16 @@ const Login = ({navigation}) => {
             </Card>
           </ScrollView>
         ) : (
-          <Card>
-            <Card.Title h4>Login</Card.Title>
-            <LoginForm navigation={navigation} />
-          </Card>
+          <ScrollView>
+            <View style={styles.container}>
+              <ListNotLoggedIn navigation={navigation}></ListNotLoggedIn>
+              <StatusBar style="auto" />
+            </View>
+            <Card>
+              <Card.Title h4>Login</Card.Title>
+              <LoginForm navigation={navigation} />
+            </Card>
+          </ScrollView>
         )}
         {/* TODO: add link/button & event handler to change state: setRegformtoggle(!regformtoggle);  */}
         <Card>
