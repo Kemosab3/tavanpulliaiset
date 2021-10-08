@@ -27,6 +27,7 @@ const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {checkToken} = useUser();
   const [registerFormToggle, setRegisterFormToggle] = useState(false);
+
   // console.log('Login isLoggedIn', isLoggedIn);
 
   const getToken = async () => {
@@ -110,7 +111,7 @@ const Login = ({navigation}) => {
               <Card.Image
                 source={picSource}
                 onPress={() => {
-                  const kukkaMaaria = [1, 1, 2, 1, 1];
+                  const kukkaMaaria = [5, 1, 1, 1, 1];
                   handlePlaySound(kukkaMaaria);
                 }}
               />

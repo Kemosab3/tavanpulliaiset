@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -19,11 +19,13 @@ import {MainContext} from '../contexts/MainContext';
 
 const Home = ({navigation}) => {
   const {mediaArray} = useMedia(false);
+  const [newMediaArray, setNewMediaArray] = useState([]);
+
   const {getAllUsers, getUserInfo} = useUser();
 
   const makePrivateArray = async () => {
     const newMedia = [];
-    console.log('Pituus ', newMedia.length);
+    // console.log('Pituus ', newMedia.length);
     try {
       const userToken = await AsyncStorage.getItem('userToken');
       // console.log('TOKEN?', userToken);
@@ -43,8 +45,9 @@ const Home = ({navigation}) => {
             }
           }
         }
-        console.log('Private dancer: ', newMedia.length);
+        //  console.log('Private dancer: ', newMedia.length);
       }
+      setNewMediaArray(newMedia);
     } catch (e) {
       console.log('makePrivateArray error', e.message);
     }
@@ -53,15 +56,9 @@ const Home = ({navigation}) => {
     return newMedia;
   };
 
-  const newMediaArray = makePrivateArray();
+  // state jolle annetaan uusi arvo
 
-  const pickOfTheDay = Math.floor(Math.random() * mediaArray.length);
-
-  const picSource =
-    mediaArray.length > 1
-      ? {uri: uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320}
-      : require('../assets/splash.png');
-  // console.log('ICOOooooooON: ', picSource);
+  makePrivateArray();
 
   let theMediaArray;
 
@@ -71,7 +68,15 @@ const Home = ({navigation}) => {
     theMediaArray = mediaArray;
   }
 
-  console.log('Public dancer: ', newMediaArray.length);
+  const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
+
+  const picSource =
+    theMediaArray.length > 1
+      ? {uri: uploadsUrl + theMediaArray[0].thumbnails.w320}
+      : require('../assets/splash.png');
+  // console.log('ICOOooooooON: ', picSource);
+
+  // console.log('Public dancer: ', newMediaArray.length);
 
   return (
     <View style={styles.container}>

@@ -39,7 +39,11 @@ const Upload = ({navigation}) => {
     // Infer the type of the image
     const match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : filetype;
+    if (filetype === 'video') {
+      type = match ? `video/${match[1]}` : filetype;
+    }
     if (type === 'image/jpg') type = 'image/jpeg';
+    console.log('TYYPPI: ', type);
     const formData = new FormData();
     formData.append('file', {uri: image.uri, name: filename, type});
     formData.append('title', inputs.title);
@@ -136,7 +140,9 @@ const Upload = ({navigation}) => {
                 setImage(require('../assets/icon3.png'));
                 handleReset();
               }}
-            >Reset</Button>
+            >
+              Reset
+            </Button>
           </View>
         </Card>
       </ScrollView>
