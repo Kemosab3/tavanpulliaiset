@@ -103,7 +103,7 @@ const Profile = ({route, navigation}) => {
             bottomDivider
             containerStyle={{backgroundColor: 'black'}}
             onPress={() => {
-              navigation.navigate('Edit Profile');
+              navigation.navigate('Edit Profile', userInfo);
             }}
           >
             <Avatar icon={{name: 'logout', color: 'green'}} />

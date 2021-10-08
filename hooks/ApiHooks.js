@@ -14,7 +14,7 @@ const useMedia = (ownFiles = false) => {
     (async () => {
       try {
         const allMedia = await loadMedia();
-        allMedia.reverse();
+        // allMedia.reverse();
         setMediaArray(allMedia);
       } catch (e) {
         console.log('useMedia useEffect error', e.message);
@@ -238,6 +238,23 @@ const useUser = () => {
     }
   };
 
+  const getAllUsers = async (token) => {
+    // console.log('SAAPUIKO TOKEN? ', token);
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      const allUserInfo = await doFetch(baseUrl + 'users', options);
+      // console.log('ALL USER INFO: ', allUserInfo);
+      return allUserInfo;
+    } catch (error) {
+      console.log('getAllUsers error ', error);
+    }
+  };
+
   const checkUsernameAvailable = async (username) => {
     try {
       const userNameInfo = await doFetch(
@@ -249,7 +266,13 @@ const useUser = () => {
     }
   };
 
-  return {checkToken, checkUsernameAvailable, getUserInfo, modifyUserInfo};
+  return {
+    checkToken,
+    checkUsernameAvailable,
+    getUserInfo,
+    modifyUserInfo,
+    getAllUsers,
+  };
 };
 
 const useTag = () => {

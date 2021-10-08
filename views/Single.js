@@ -255,7 +255,7 @@ const Single = ({route}) => {
             title="Play sound"
             onPress={() => {
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
-                const kukkaMaaria = musicArrayMaker(dataUrl, params.media_type);
+                const kukkaMaaria = musicArrayMaker(dataUrl);
                 handlePlaySound(kukkaMaaria);
               });
             }}

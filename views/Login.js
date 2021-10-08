@@ -17,6 +17,12 @@ import {Card, ListItem, Text} from 'react-native-elements';
 import {View, StatusBar} from 'react-native';
 import ListNotLoggedIn from '../components/List';
 
+import {useMedia} from '../hooks/ApiHooks';
+import {uploadsUrl} from '../utils/variables';
+import {Image, Icon} from 'react-native-elements';
+import {ActivityIndicator} from 'react-native-paper';
+import {handlePlaySound} from '../utils/soundFunctions';
+
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {checkToken} = useUser();
@@ -43,6 +49,38 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
 
+  // PICK OF THE DAY STUFF:
+
+  const {mediaArray} = useMedia();
+  // console.log('MyFiles: mediaArray', mediaArray);
+
+  const pickOfTheDay = Math.floor(Math.random() * mediaArray.length);
+  // console.log('Arvottu numero: ', pickOfTheDay);
+  // console.log('MyFiles: mediaArray', mediaArray[pickOfTheDay]);
+  console.log(
+    'OSOITE: '
+    // uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320
+  );
+
+  const picSource =
+    mediaArray.length > 1
+      ? {uri: uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320}
+      : require('../assets/splash.png');
+  console.log('ICOOON: ', picSource);
+
+  const toDataURL = (url) =>
+    fetch(url)
+      .then((response) => response.blob())
+      .then(
+        (blob) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -62,10 +100,21 @@ const Login = ({navigation}) => {
           </ScrollView>
         ) : (
           <ScrollView>
-            <View style={styles.container}>
-              <ListNotLoggedIn navigation={navigation}></ListNotLoggedIn>
-              <StatusBar style="auto" />
-            </View>
+            <Card>
+              <Card.Title h4>Welcome to the GIBBERATOR</Card.Title>
+              <Text style={styles.text}>
+                Click on the picture to hear gibberish noise! Login (or
+                register) to enjoy more no no nonsense content...
+              </Text>
+
+              <Card.Image
+                source={picSource}
+                onPress={() => {
+                  const kukkaMaaria = [1, 1, 2, 1, 1];
+                  handlePlaySound(kukkaMaaria);
+                }}
+              />
+            </Card>
             <Card>
               <Card.Title h4>Login</Card.Title>
               <LoginForm navigation={navigation} />
@@ -106,7 +155,41 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   text: {
-    color: 'black',
+    color: 'orange',
+    textAlign: 'center',
+  },
+  imageBox: {
+    borderWidth: 3,
+    borderColor: '#FF6700',
+    shadowColor: '#FF6700',
+    shadowRadius: 8,
+    shadowOpacity: 0.7,
+    height: 200,
+  },
+  container2: {
+    height: 225,
+  },
+
+  picOfTheWeek: {
+    height: 270,
+    marginLeft: 8,
+    marginBottom: 15,
+    marginRight: 8,
+    elevation: 1,
+  },
+  picOfTheWeekDesc: {
+    color: '#FF6700',
+    padding: 8,
+    textAlign: 'justify',
+  },
+  picOfTheWeekIcons: {
+    display: 'flex',
+    textAlign: 'left',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginTop: 8,
+    marginLeft: 8,
   },
 });
 

@@ -1,36 +1,77 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   View,
   SafeAreaView,
   StatusBar,
   Platform,
+  SliderComponent,
 } from 'react-native';
 import {Image, Text} from 'react-native-elements';
 import {FlatList} from 'react-native';
-import {useMedia} from '../hooks/ApiHooks';
+import {useMedia, useUser} from '../hooks/ApiHooks';
 import ListItem from '../components/ListItem';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
 import {Icon} from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
 
 const Home = ({navigation}) => {
   const {mediaArray} = useMedia(false);
-  // console.log('MyFiles: mediaArray', mediaArray);
+  const {getAllUsers, getUserInfo} = useUser();
+
+  const makePrivateArray = async () => {
+    const newMedia = [];
+    console.log('Pituus ', newMedia.length);
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      // console.log('TOKEN?', userToken);
+      const result = await getAllUsers(userToken);
+      // console.log('Result?', result);
+      let control = 0;
+      if (result !== undefined && result !== null) {
+        for (let i = 0; i < mediaArray.length; i++) {
+          for (let j = 0; j < result.length; j++) {
+            if (mediaArray[i].user_id === result[j].user_id) {
+              const loser = await getUserInfo(result[j].user_id, userToken);
+              if (loser.full_name !== 'Jorma') {
+                newMedia[control] = mediaArray[i];
+                // console.log('FULLNAME: ', result[j]);
+                control++;
+              }
+            }
+          }
+        }
+        console.log('Private dancer: ', newMedia.length);
+      }
+    } catch (e) {
+      console.log('makePrivateArray error', e.message);
+    }
+    // console.log('WWWWWWWW ', newMediaArray);
+
+    return newMedia;
+  };
+
+  const newMediaArray = makePrivateArray();
 
   const pickOfTheDay = Math.floor(Math.random() * mediaArray.length);
-  // console.log('Arvottu numero: ', pickOfTheDay);
-  // console.log('MyFiles: mediaArray', mediaArray[pickOfTheDay]);
-  console.log(
-    'OSOITE: '
-    // uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320
-  );
 
-  const icon =
+  const picSource =
     mediaArray.length > 1
       ? {uri: uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320}
       : require('../assets/splash.png');
-  console.log('ICOOON: ', icon);
+  // console.log('ICOOooooooON: ', picSource);
+
+  let theMediaArray;
+
+  if (newMediaArray.length > 0) {
+    theMediaArray = newMediaArray;
+  } else {
+    theMediaArray = mediaArray;
+  }
+
+  console.log('Public dancer: ', newMediaArray.length);
 
   return (
     <View style={styles.container}>
@@ -42,7 +83,7 @@ const Home = ({navigation}) => {
             // source={require('../assets/splash.png')}
             // source={{uri: 'https://placekitten.com/400/400'}}
             // source={require('../assets/splash.png')}
-            source={icon}
+            source={picSource}
           ></Image>
         </View>
         <View style={styles.picOfTheWeekIcons}>
@@ -62,7 +103,7 @@ const Home = ({navigation}) => {
       </View>
 
       <FlatList
-        data={mediaArray.reverse()}
+        data={theMediaArray.reverse()}
         renderItem={({item}) => (
           <ListItem
             singleMedia={item}

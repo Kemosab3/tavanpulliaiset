@@ -3,7 +3,8 @@ import {FlatList} from 'react-native';
 import {useMedia} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
-import ListItem from './ListItem';
+
+import ListItemNotLoggedIn from './ListItemNotLoggedIn';
 
 const ListNotLoggedIn = ({navigation}) => {
   const {update, setUpdate} = useContext(MainContext);
@@ -20,9 +21,7 @@ const ListNotLoggedIn = ({navigation}) => {
   return (
     <FlatList
       data={mediaArray}
-      renderItem={({item}) => (
-        <ListItem singleMedia={item} navigation={navigation} />
-      )}
+      renderItem={({item}) => <ListItemNotLoggedIn singleMedia={item} />}
       keyExtractor={(item, index) => index.toString()}
       onRefresh={refreshList}
       refreshing={isFetching}

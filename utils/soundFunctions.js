@@ -40,7 +40,7 @@ let c = 0;
 let d = 0;
 let e = 0;
 
-const musicArrayMaker = (dataUrl, paramsMediaType) => {
+const musicArrayMaker = (dataUrl) => {
   console.log('RESULTTTTT:', dataUrl);
   const tapio = dataUrl.length.toString();
   const ville = dataUrl.slice([1], [100]);

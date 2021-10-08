@@ -56,7 +56,6 @@ const RegisterForm = () => {
 
   return (
     <View>
-      <Text h4>Register:</Text>
       <Text h4></Text>
       <FormTextInput
         autoCapitalize="none"
