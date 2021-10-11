@@ -1,5 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
 import {
@@ -251,15 +256,16 @@ const Single = ({route}) => {
           <Text style={{color: 'green'}}>{ownerInfo.username}</Text>
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
-          <Button
-            title="Play sound"
+          <TouchableOpacity
             onPress={() => {
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
                 const kukkaMaaria = musicArrayMaker(dataUrl);
                 handlePlaySound(kukkaMaaria);
               });
             }}
-          />
+          >
+            <Image source={require('../assets/playbutton.png')} />
+          </TouchableOpacity>
 
           {iAmLikingIt ? (
             <Button

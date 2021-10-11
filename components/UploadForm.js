@@ -52,7 +52,6 @@ const UploadForm = ({
             background: 'black',
           },
         }}
-        multiline={true}
         onChangeText={(txt) => handleInputChange('description', txt)}
         value={inputs.description}
       />
