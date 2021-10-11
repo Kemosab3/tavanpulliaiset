@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import React, {useContext} from 'react';
-// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
@@ -25,6 +24,7 @@ const TabScreen = () => {
     <Tab.Navigator
       shifting={true}
       barStyle={{backgroundColor: '#FF6700'}}
+      activeColor="white"
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
           let iconName = '';
