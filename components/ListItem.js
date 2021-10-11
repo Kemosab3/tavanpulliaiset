@@ -44,7 +44,7 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
       }}
       containerStyle={{
         backgroundColor: 'black',
-        borderWidth: 3,
+        borderWidth: 2,
         borderStyle: 'solid',
         borderColor: '#FF6700',
         marginBottom: 10,

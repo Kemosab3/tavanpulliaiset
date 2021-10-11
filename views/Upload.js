@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
   uploadCard: {
     backgroundColor: 'black',
     borderColor: '#FF6700',
+    borderWidth: 2,
     elevation: 2,
     shadowColor: '#FF6700',
     shadowRadius: 10,

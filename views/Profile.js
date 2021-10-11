@@ -6,9 +6,10 @@ import {
   Text,
   ActivityIndicator,
   Platform,
-  Switch,
   Alert,
+  View,
 } from 'react-native';
+import {Switch} from 'react-native-paper';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, ListItem} from 'react-native-elements';
@@ -131,22 +132,44 @@ const Profile = ({route, navigation}) => {
   return (
     <SafeAreaView style={styles.droidSafeArea}>
       <ScrollView style={{backgroundColor: 'black'}}>
-        <Card containerStyle={{backgroundColor: 'black'}}>
+        <Card containerStyle={styles.card}>
+          <View style={styles.imageBox}>
+            <Card.Image
+              source={{uri: avatar}}
+              style={styles.image}
+              PlaceholderContent={<ActivityIndicator />}
+            />
+          </View>
           <Card.Title>
-            <Text style={{color: 'green', fontSize: 39}} h3>
+            <Text style={styles.title} h3>
               {userInfo.username}
             </Text>
           </Card.Title>
-          <Card.Image
-            source={{uri: avatar}}
-            style={styles.image}
-            PlaceholderContent={<ActivityIndicator />}
-          />
+          <Card.Title>
+            <Text style={styles.text}>"Mottoni on mottojen motto!"</Text>
+          </Card.Title>
           <ListItem containerStyle={{backgroundColor: 'black'}}>
-            <Avatar icon={{name: 'email', color: 'green'}} />
-            <Text style={{color: 'green', fontSize: 17}}>{userInfo.email}</Text>
+            <Avatar icon={{name: 'email', color: '#ff6700'}} />
+            <Text style={styles.buttonText}>{userInfo.email}</Text>
           </ListItem>
-
+          <ListItem containerStyle={{backgroundColor: 'black'}}>
+            <Avatar
+              icon={{
+                name: 'warning',
+                color: '#FF7600',
+              }}
+            />
+            <View style={styles.privacyContainer}>
+              <Text style={styles.privacyText}>Hide my files</Text>
+              <Switch
+                trackColor={{false: '#767577', true: '#ff6700'}}
+                thumbColor={isEnabled ? '#ffffff' : '#ffffff'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
+            </View>
+          </ListItem>
           <ListItem
             bottomDivider
             containerStyle={{backgroundColor: 'black'}}
@@ -154,9 +177,9 @@ const Profile = ({route, navigation}) => {
               navigation.navigate('My Files');
             }}
           >
-            <Avatar icon={{name: 'logout', color: 'green'}} />
+            <Avatar icon={{name: 'folder', color: '#ff6700'}} />
             <ListItem.Content>
-              <ListItem.Title style={{color: 'green', fontSize: 17}}>
+              <ListItem.Title style={styles.buttonText}>
                 My Files
               </ListItem.Title>
             </ListItem.Content>
@@ -169,31 +192,22 @@ const Profile = ({route, navigation}) => {
               navigation.navigate('Edit Profile', userInfo);
             }}
           >
-            <Avatar icon={{name: 'logout', color: 'green'}} />
+            <Avatar icon={{name: 'edit', color: '#ff6700'}} />
             <ListItem.Content>
-              <ListItem.Title style={{color: 'green', fontSize: 17}}>
+              <ListItem.Title style={styles.buttonText}>
                 Edit Profile
               </ListItem.Title>
             </ListItem.Content>
             <ListItem.Chevron />
           </ListItem>
-          <Switch
-            trackColor={{false: '#767577', true: '#81b0ff'}}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
           <ListItem
             bottomDivider
             onPress={logout}
             containerStyle={{backgroundColor: 'black'}}
           >
-            <Avatar icon={{name: 'logout', color: 'green'}} />
+            <Avatar icon={{name: 'logout', color: '#ff6700'}} />
             <ListItem.Content>
-              <ListItem.Title style={{color: 'green', fontSize: 17}}>
-                Logout
-              </ListItem.Title>
+              <ListItem.Title style={styles.buttonText}>Logout</ListItem.Title>
             </ListItem.Content>
             <ListItem.Chevron />
           </ListItem>
@@ -204,11 +218,69 @@ const Profile = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  image: {width: '100%', height: undefined, borderRadius: 250, aspectRatio: 1},
+  imageBox: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 20,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  image: {
+    width: '50%',
+    height: undefined,
+    borderRadius: 250,
+    borderWidth: 2,
+    borderColor: '#FF6700',
+    aspectRatio: 1,
+  },
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  title: {
+    color: '#FF6700',
+    fontSize: 35,
+    marginTop: 10,
+  },
+  text: {
+    color: '#FF6700',
+    fontStyle: 'italic',
+    fontSize: 17,
+  },
+  buttonText: {
+    color: '#ff6700',
+    fontSize: 17,
+  },
+  privacyContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  privacyText: {
+    color: '#FF6700',
+    marginRight: 25,
+    fontSize: 17,
+  },
   droidSafeArea: {
     flex: 1,
     backgroundColor: '#000',
     paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
+  card: {
+    backgroundColor: 'black',
+    display: 'flex',
+    justifyContent: 'center',
+    borderColor: '#FF6700',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+    borderWidth: 2,
   },
 });
 
