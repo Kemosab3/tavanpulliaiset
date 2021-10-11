@@ -81,7 +81,7 @@ const RegisterForm = () => {
         autoCapitalize="none"
         label="password"
         mode="outlined"
-        style={styles.loginBars}
+        style={styles.registerBars}
         theme={{
           colors: {
             placeholder: '#FF6700',
@@ -102,7 +102,7 @@ const RegisterForm = () => {
         autoCapitalize="none"
         label="password again"
         mode="outlined"
-        style={styles.loginBars}
+        style={styles.registerBars}
         theme={{
           colors: {
             placeholder: '#FF6700',
@@ -143,7 +143,7 @@ const RegisterForm = () => {
         autoCapitalize="none"
         label="full name"
         mode="outlined"
-        style={styles.loginBars}
+        style={styles.registerBars}
         theme={{
           colors: {
             placeholder: '#FF6700',

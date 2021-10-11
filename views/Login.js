@@ -51,17 +51,23 @@ const Login = ({navigation}) => {
         style={styles.image}
       >
         {registerFormToggle ? (
-          <Card containerStyle={styles.card}>
-            <Card.Title h4 style={styles.title}>
-              Register
-            </Card.Title>
-            <RegisterForm navigation={navigation} />
-          </Card>
+          <ScrollView>
+            <Card containerStyle={styles.card}>
+              <Card.Title h4 style={styles.title}>
+                Register
+              </Card.Title>
+              <RegisterForm navigation={navigation} />
+            </Card>
+          </ScrollView>
         ) : (
-          <Card containerStyle={styles.card}>
-            <Card.Title h4 style={styles.title}>Login</Card.Title>
-            <LoginForm navigation={navigation} />
-          </Card>
+          <ScrollView>
+            <Card containerStyle={styles.card}>
+              <Card.Title h4 style={styles.title}>
+                Login
+              </Card.Title>
+              <LoginForm navigation={navigation} />
+            </Card>
+          </ScrollView>
         )}
         <Card containerStyle={styles.swapViewCard}>
           <ListItem
@@ -114,6 +120,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.8,
     borderColor: '#FF6700',
+    marginBottom: 20,
   },
   swapViewButton: {
     backgroundColor: '#FF6700',
