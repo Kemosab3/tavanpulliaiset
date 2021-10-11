@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import {Button, Text} from 'react-native-elements';
+import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import useLoginForm from '../hooks/LoginHooks';
 import {MainContext} from '../contexts/MainContext';
@@ -63,9 +62,9 @@ const LoginForm = ({navigation}) => {
         }}
       />
 
-      <View style={{alignSelf: 'center'}}>
+      <View>
         <TouchableOpacity style={styles.loginButton} onPress={doLogin}>
-          <Text>Log in</Text>
+          <Text style={styles.text}>Log in</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -83,11 +82,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FF6700',
     padding: 10,
-    marginTop: 10,
+    marginTop: 16,
     elevation: 2,
     shadowColor: '#FF6700',
     shadowRadius: 10,
     shadowOpacity: 0.8,
+  },
+  text: {
+    color: 'white',
   },
 });
 

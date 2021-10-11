@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -15,7 +14,6 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {ImageBackground} from 'react-native';
 import {Card, ListItem, Text} from 'react-native-elements';
-import {CurrentRenderContext} from '@react-navigation/core';
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -53,26 +51,21 @@ const Login = ({navigation}) => {
         style={styles.image}
       >
         {registerFormToggle ? (
-          <ScrollView>
-            <Image
-              source={require('../assets/diskettibackground.png')}
-              style={styles.diskette}
-            />
-            <Card>
-              <Card.Divider />
-              <Card.Title h4>Register</Card.Title>
-              <RegisterForm navigation={navigation} />
-            </Card>
-          </ScrollView>
+          <Card containerStyle={styles.card}>
+            <Card.Title h4 style={styles.title}>
+              Register
+            </Card.Title>
+            <RegisterForm navigation={navigation} />
+          </Card>
         ) : (
-          <Card>
-            <Card.Title h4>Login</Card.Title>
+          <Card containerStyle={styles.card}>
+            <Card.Title h4 style={styles.title}>Login</Card.Title>
             <LoginForm navigation={navigation} />
           </Card>
         )}
-        {/* TODO: add link/button & event handler to change state: setRegformtoggle(!regformtoggle);  */}
-        <Card>
+        <Card containerStyle={styles.swapViewCard}>
           <ListItem
+            containerStyle={styles.swapViewButton}
             onPress={() => {
               setRegisterFormToggle(!registerFormToggle);
             }}
@@ -104,12 +97,34 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   text: {
-    color: 'black',
+    color: 'white',
   },
-  diskette: {
-    width: 100,
-    height: 100,
-    left: 50,
+  card: {
+    backgroundColor: 'black',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+    borderColor: '#FF6700',
+  },
+  swapViewCard: {
+    backgroundColor: 'black',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+    borderColor: '#FF6700',
+  },
+  swapViewButton: {
+    backgroundColor: '#FF6700',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+    borderColor: '#FF6700',
+  },
+  title: {
+    color: '#FF6700',
   },
 });
 
