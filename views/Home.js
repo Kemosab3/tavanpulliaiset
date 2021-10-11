@@ -60,13 +60,15 @@ const Home = ({navigation}) => {
 
   makePrivateArray();
 
-  let theMediaArray;
+  let theMediaArray = newMediaArray;
 
+  /*
   if (newMediaArray.length > 0) {
     theMediaArray = newMediaArray;
   } else {
     theMediaArray = mediaArray;
   }
+  */
 
   const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
 

@@ -32,6 +32,8 @@ const Profile = ({route, navigation}) => {
 
   const {getFilesByTag} = useTag();
 
+  const [isEnabled, setIsEnabled] = useState();
+
   if (params !== undefined && typeof params === 'object') {
     userInfo = params;
   }
@@ -57,16 +59,25 @@ const Profile = ({route, navigation}) => {
     setOwnerInfo(await getUserInfo(user.user_id, token));
   };
 
+  const getPrivacy = async () => {
+    const token = await AsyncStorage.getItem('userToken');
+    const privateDancer = await getUserInfo(user.user_id, token);
+    if (privateDancer.full_name === 'private') {
+      setIsEnabled(true);
+    } else {
+      setIsEnabled(false);
+    }
+  };
+
   useEffect(() => {
     getOwnerInfo();
+    getPrivacy();
   }, []);
 
   const logout = async () => {
     await AsyncStorage.clear();
     setIsLoggedIn(false);
   };
-
-  const [isEnabled, setIsEnabled] = useState();
 
   /*
   if (userInfo.full_name === 'private') {
@@ -76,6 +87,7 @@ const Profile = ({route, navigation}) => {
   }
   */
 
+  // Original:
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     doEditPrivacy();
@@ -101,7 +113,7 @@ const Profile = ({route, navigation}) => {
       const result = await modifyUserInfo(inputs, userToken);
       if (result.message) {
         Alert.alert(
-          'Edit Profile',
+          'Edit Privacy',
           result.message,
           [
             {
@@ -134,14 +146,7 @@ const Profile = ({route, navigation}) => {
             <Avatar icon={{name: 'email', color: 'green'}} />
             <Text style={{color: 'green', fontSize: 17}}>{userInfo.email}</Text>
           </ListItem>
-          <ListItem containerStyle={{backgroundColor: 'black'}}>
-            <Avatar
-              icon={{name: 'user', type: 'font-awesome', color: 'green'}}
-            />
-            <Text style={{color: 'green', fontSize: 17}}>
-              {userInfo.full_name}
-            </Text>
-          </ListItem>
+
           <ListItem
             bottomDivider
             containerStyle={{backgroundColor: 'black'}}
