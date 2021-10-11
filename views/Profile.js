@@ -1,7 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, ActivityIndicator, Platform} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  Platform,
+  Switch,
+  Alert,
+} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, ListItem} from 'react-native-elements';
@@ -18,9 +25,10 @@ const Profile = ({route, navigation}) => {
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
 
   const {getUserInfo} = useUser();
+  const {modifyUserInfo} = useUser();
 
   const {params} = route;
-  console.log('PARAMEDICS: ', params);
+  // console.log('PARAMEDICS: ', params);
 
   const {getFilesByTag} = useTag();
 
@@ -56,6 +64,56 @@ const Profile = ({route, navigation}) => {
   const logout = async () => {
     await AsyncStorage.clear();
     setIsLoggedIn(false);
+  };
+
+  const [isEnabled, setIsEnabled] = useState();
+
+  /*
+  if (userInfo.full_name === 'private') {
+    setIsEnabled(true);
+  } else {
+    setIsEnabled(false);
+  }
+  */
+
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+    doEditPrivacy();
+  };
+
+  let inputsPrivate;
+
+  if (isEnabled) {
+    inputsPrivate = {
+      full_name: 'public',
+    };
+  } else {
+    inputsPrivate = {
+      full_name: 'private',
+    };
+  }
+
+  const inputs = inputsPrivate;
+
+  const doEditPrivacy = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      const result = await modifyUserInfo(inputs, userToken);
+      if (result.message) {
+        Alert.alert(
+          'Edit Profile',
+          result.message,
+          [
+            {
+              text: 'Ok',
+            },
+          ],
+          {cancelable: false}
+        );
+      }
+    } catch (e) {
+      console.log('doEditProfile error', e.message);
+    }
   };
 
   return (
@@ -114,6 +172,13 @@ const Profile = ({route, navigation}) => {
             </ListItem.Content>
             <ListItem.Chevron />
           </ListItem>
+          <Switch
+            trackColor={{false: '#767577', true: '#81b0ff'}}
+            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
           <ListItem
             bottomDivider
             onPress={logout}

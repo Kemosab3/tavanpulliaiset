@@ -37,7 +37,7 @@ const Home = ({navigation}) => {
           for (let j = 0; j < result.length; j++) {
             if (mediaArray[i].user_id === result[j].user_id) {
               const loser = await getUserInfo(result[j].user_id, userToken);
-              if (loser.full_name !== 'Jorma') {
+              if (loser.full_name !== 'private') {
                 newMedia[control] = mediaArray[i];
                 // console.log('FULLNAME: ', result[j]);
                 control++;
