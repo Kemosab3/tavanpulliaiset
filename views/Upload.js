@@ -21,6 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {appID} from '../utils/variables';
 import {MainContext} from '../contexts/MainContext';
 import {ScrollView} from 'react-native-gesture-handler';
+import {RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED} from 'expo-av/build/Audio';
 // import exampleImage from '../assets/icon3.png';
 
 const Upload = ({navigation}) => {
@@ -117,12 +118,13 @@ const Upload = ({navigation}) => {
         <Card containerStyle={styles.uploadCard}>
           <View style={{backgroundColor: 'black'}}>
             <Image source={image} style={{width: '100%', height: 200}} />
-            <TouchableOpacity
+            <Button
+              mode="contained"
               style={styles.pickImageButton}
               onPress={pickImage}
             >
-              <Text>Select image</Text>
-            </TouchableOpacity>
+              Select image
+            </Button>
             <UploadForm
               title="Upload"
               handleSubmit={doUpload}
@@ -135,6 +137,7 @@ const Upload = ({navigation}) => {
             />
             {loading && <ActivityIndicator />}
             <Button
+              mode="contained"
               style={styles.resetButton}
               onPress={() => {
                 setImage(require('../assets/icon3.png'));
@@ -179,6 +182,7 @@ const styles = StyleSheet.create({
   resetButton: {
     backgroundColor: '#FF6700',
     marginTop: 10,
+    color: 'white',
   },
 });
 

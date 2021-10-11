@@ -8,6 +8,7 @@ import {
   Platform,
   Alert,
   View,
+  Image,
 } from 'react-native';
 import {Switch} from 'react-native-paper';
 import {MainContext} from '../contexts/MainContext';
@@ -134,7 +135,7 @@ const Profile = ({route, navigation}) => {
       <ScrollView style={{backgroundColor: 'black'}}>
         <Card containerStyle={styles.card}>
           <View style={styles.imageBox}>
-            <Card.Image
+            <Image
               source={{uri: avatar}}
               style={styles.image}
               PlaceholderContent={<ActivityIndicator />}
@@ -218,6 +219,11 @@ const Profile = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  droidSafeArea: {
+    flex: 1,
+    backgroundColor: '#000',
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
   imageBox: {
     display: 'flex',
     alignItems: 'center',
@@ -266,11 +272,6 @@ const styles = StyleSheet.create({
     marginRight: 25,
     fontSize: 17,
   },
-  droidSafeArea: {
-    flex: 1,
-    backgroundColor: '#000',
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
-  },
   card: {
     backgroundColor: 'black',
     display: 'flex',
@@ -281,6 +282,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.8,
     borderWidth: 2,
+    marginTop: 25,
   },
 });
 
