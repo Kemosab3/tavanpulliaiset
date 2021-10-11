@@ -88,43 +88,31 @@ const Login = ({navigation}) => {
       style={styles.container}
     >
       <ImageBackground
-        source={require('../assets/splash.png')}
+        source={require('../assets/diskettibackground.png')}
         style={styles.image}
       >
         {registerFormToggle ? (
           <ScrollView>
-            <Card>
-              <Card.Divider />
-              <Card.Title h4>Register</Card.Title>
+            <Card containerStyle={styles.card}>
+              <Card.Title h4 style={styles.title}>
+                Register
+              </Card.Title>
               <RegisterForm navigation={navigation} />
             </Card>
           </ScrollView>
         ) : (
           <ScrollView>
-            <Card>
-              <Card.Title h4>Welcome to the GIBBERATOR</Card.Title>
-              <Text style={styles.text}>
-                Click on the picture to hear gibberish noise! Login (or
-                register) to enjoy more no no nonsense content...
-              </Text>
-
-              <Card.Image
-                source={picSource}
-                onPress={() => {
-                  const kukkaMaaria = [5, 1, 1, 1, 1];
-                  handlePlaySound(kukkaMaaria);
-                }}
-              />
-            </Card>
-            <Card>
-              <Card.Title h4>Login</Card.Title>
+            <Card containerStyle={styles.card}>
+              <Card.Title h4 style={styles.title}>
+                Login
+              </Card.Title>
               <LoginForm navigation={navigation} />
             </Card>
           </ScrollView>
         )}
-        {/* TODO: add link/button & event handler to change state: setRegformtoggle(!regformtoggle);  */}
-        <Card>
+        <Card containerStyle={styles.swapViewCard}>
           <ListItem
+            containerStyle={styles.swapViewButton}
             onPress={() => {
               setRegisterFormToggle(!registerFormToggle);
             }}
@@ -156,41 +144,35 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   text: {
-    color: 'orange',
-    textAlign: 'center',
+    color: 'white',
   },
-  imageBox: {
-    borderWidth: 3,
-    borderColor: '#FF6700',
+  card: {
+    backgroundColor: 'black',
+    elevation: 2,
     shadowColor: '#FF6700',
-    shadowRadius: 8,
-    shadowOpacity: 0.7,
-    height: 200,
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+    borderColor: '#FF6700',
   },
-  container2: {
-    height: 225,
+  swapViewCard: {
+    backgroundColor: 'black',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+    borderColor: '#FF6700',
+    marginBottom: 20,
   },
-
-  picOfTheWeek: {
-    height: 270,
-    marginLeft: 8,
-    marginBottom: 15,
-    marginRight: 8,
-    elevation: 1,
+  swapViewButton: {
+    backgroundColor: '#FF6700',
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+    borderColor: '#FF6700',
   },
-  picOfTheWeekDesc: {
+  title: {
     color: '#FF6700',
-    padding: 8,
-    textAlign: 'justify',
-  },
-  picOfTheWeekIcons: {
-    display: 'flex',
-    textAlign: 'left',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginTop: 8,
-    marginLeft: 8,
   },
 });
 

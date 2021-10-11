@@ -1,8 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Alert} from 'react-native';
-import {Button, Text} from 'react-native-elements';
-import FormTextInput from './FormTextInput';
+import {View, Alert, StyleSheet, TouchableOpacity} from 'react-native';
+import {TextInput, Text} from 'react-native-paper';
 import useSignUpForm from '../hooks/RegisterHooks';
 import {MainContext} from '../contexts/MainContext';
 import {useLogin, register} from '../hooks/ApiHooks';
@@ -56,10 +55,20 @@ const RegisterForm = () => {
 
   return (
     <View>
-      <Text h4></Text>
-      <FormTextInput
+      <TextInput
         autoCapitalize="none"
-        placeholder="username"
+        label="username"
+        mode="outlined"
+        style={styles.registerBars}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         onChangeText={(txt) => handleInputChange('username', txt)}
         onEndEditing={(event) => {
           console.log('onendediting value', event.nativeEvent.text);
@@ -68,9 +77,20 @@ const RegisterForm = () => {
         }}
         errorMessage={errors.username}
       />
-      <FormTextInput
+      <TextInput
         autoCapitalize="none"
-        placeholder="password"
+        label="password"
+        mode="outlined"
+        style={styles.registerBars}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
         onEndEditing={(event) => {
@@ -78,9 +98,20 @@ const RegisterForm = () => {
         }}
         errorMessage={errors.password}
       />
-      <FormTextInput
+      <TextInput
         autoCapitalize="none"
-        placeholder="password again"
+        label="password again"
+        mode="outlined"
+        style={styles.registerBars}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         onChangeText={(txt) => handleInputChange('confirmPassword', txt)}
         secureTextEntry={true}
         onEndEditing={(event) => {
@@ -88,38 +119,93 @@ const RegisterForm = () => {
         }}
         errorMessage={errors.confirmPassword}
       />
-      <FormTextInput
+      <TextInput
         autoCapitalize="none"
-        placeholder="email"
+        label="email"
+        mode="outlined"
+        style={styles.registerBars}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         onChangeText={(txt) => handleInputChange('email', txt)}
         onEndEditing={(event) => {
           handleOnEndEditing('email', event.nativeEvent.text);
         }}
         errorMessage={errors.email}
       />
-      <FormTextInput
+      <TextInput
         autoCapitalize="none"
-        placeholder="full name"
+        label="full name"
+        mode="outlined"
+        style={styles.registerBars}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         onChangeText={(txt) => handleInputChange('full_name', txt)}
         onEndEditing={(event) => {
           handleOnEndEditing('full_name', event.nativeEvent.text);
         }}
         errorMessage={errors.full_name}
       />
-      <Button
-        title="Register!"
+      <TouchableOpacity
+        style={styles.registerButton}
         onPress={doRegister}
-        raised
         disabled={
           errors.username ||
           errors.password ||
           errors.confirmPassword ||
           errors.email
         }
-      />
+      >
+        <Text style={styles.text}>Register!</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  registerBars: {
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  loginButton: {
+    alignItems: 'center',
+    backgroundColor: '#FF6700',
+    padding: 10,
+    marginTop: 10,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  text: {
+    color: 'white',
+  },
+  registerButton: {
+    alignItems: 'center',
+    backgroundColor: '#FF6700',
+    padding: 10,
+    marginTop: 16,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+});
 
 RegisterForm.propTypes = {
   navigation: PropTypes.object.isRequired,
