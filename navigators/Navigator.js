@@ -48,8 +48,8 @@ const TabScreen = () => {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Upload" component={Upload} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 };

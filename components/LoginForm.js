@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View} from 'react-native';
-import {Button, Input} from 'react-native-elements';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Button, Text} from 'react-native-elements';
+import {TextInput} from 'react-native-paper';
 import useLoginForm from '../hooks/LoginHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,22 +29,67 @@ const LoginForm = ({navigation}) => {
 
   return (
     <View>
-      <Input
+      <TextInput
         autoCapitalize="none"
-        placeholder="username"
+        label="username"
+        mode="outlined"
+        style={styles.loginBars}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
         onChangeText={(txt) => handleInputChange('username', txt)}
       />
-      <Input
+      <TextInput
         autoCapitalize="none"
-        placeholder="password"
+        label="password"
+        mode="outlined"
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
+        style={styles.loginBars}
+        theme={{
+          colors: {
+            placeholder: '#FF6700',
+            text: 'white',
+            primary: '#FF6700',
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
       />
 
-      <Button raised title="Login!" onPress={doLogin} />
+      <View style={{alignSelf: 'center'}}>
+        <TouchableOpacity style={styles.loginButton} onPress={doLogin}>
+          <Text>Log in</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  loginBars: {
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  loginButton: {
+    alignItems: 'center',
+    backgroundColor: '#FF6700',
+    padding: 10,
+    marginTop: 10,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+});
 
 LoginForm.propTypes = {
   navigation: PropTypes.object.isRequired,

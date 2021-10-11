@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -14,6 +15,7 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {ImageBackground} from 'react-native';
 import {Card, ListItem, Text} from 'react-native-elements';
+import {CurrentRenderContext} from '@react-navigation/core';
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
@@ -47,11 +49,15 @@ const Login = ({navigation}) => {
       style={styles.container}
     >
       <ImageBackground
-        source={require('../assets/splash.png')}
+        source={require('../assets/diskettibackground.png')}
         style={styles.image}
       >
         {registerFormToggle ? (
           <ScrollView>
+            <Image
+              source={require('../assets/diskettibackground.png')}
+              style={styles.diskette}
+            />
             <Card>
               <Card.Divider />
               <Card.Title h4>Register</Card.Title>
@@ -99,6 +105,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'black',
+  },
+  diskette: {
+    width: 100,
+    height: 100,
+    left: 50,
   },
 });
 
