@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {View, Alert} from 'react-native';
 import {Button, Input} from 'react-native-elements';
-import useUploadForm from '../hooks/UploadHooks';
+import useUploadForm from '../hooks/EditProfileHooks';
 import {useUser} from '../hooks/ApiHooks';
 import useUserInfo from '../hooks/ProfileHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -27,15 +27,14 @@ const EditProfile = ({route, navigation}) => {
   useEffect(() => {
     (() => {
       setInputs({
-        username: user.username,
         email: user.email,
-        full_name: user.full_name,
       });
     })();
   }, []);
 
   const doEditProfile = async () => {
     try {
+      delete inputs.confirmPassword;
       const userToken = await AsyncStorage.getItem('userToken');
       const result = await modifyUserInfo(inputs, userToken);
       if (result.message) {
@@ -63,31 +62,34 @@ const EditProfile = ({route, navigation}) => {
     <View>
       <Input
         autoCapitalize="none"
-        placeholder="username"
-        onChangeText={(txt) => handleInputChange('username', txt)}
-        onEndEditing={(event) => {
-          console.log('editProfile onEndEditingValue', event.nativeEvent.text);
-          handleOnEndEditing('username', event.nativeEvent.text);
-        }}
-        errorMessage={errors.username}
-        value={inputs.username}
-      />
-      <Input
-        autoCapitalize="none"
         placeholder="email"
         onChangeText={(txt) => handleInputChange('email', txt)}
         value={inputs.email}
+        onEndEditing={(event) => {
+          handleOnEndEditing('email', event.nativeEvent.text);
+        }}
+        errorMessage={errors.email}
       />
-      <Input
-        autoCapitalize="none"
-        placeholder="full_name"
-        onChangeText={(txt) => handleInputChange('full_name', txt)}
-        value={inputs.full_name}
-      />
+
       <Input
         autoCapitalize="none"
         placeholder="password"
+        secureTextEntry={true}
         onChangeText={(txt) => handleInputChange('password', txt)}
+        onEndEditing={(event) => {
+          handleOnEndEditing('password', event.nativeEvent.text);
+        }}
+        errorMessage={errors.password}
+      />
+      <Input
+        autoCapitalize="none"
+        placeholder="password again"
+        onChangeText={(txt) => handleInputChange('confirmPassword', txt)}
+        secureTextEntry={true}
+        onEndEditing={(event) => {
+          handleOnEndEditing('confirmPassword', event.nativeEvent.text);
+        }}
+        errorMessage={errors.confirmPassword}
       />
       <Button
         raised
@@ -97,10 +99,10 @@ const EditProfile = ({route, navigation}) => {
 
           setUserInfo((user) => ({
             ...user,
-            username: inputs.username,
             email: inputs.email,
           }));
         }}
+        disabled={errors.password || errors.confirmPassword || errors.email}
       />
     </View>
   );

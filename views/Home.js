@@ -53,7 +53,7 @@ const Home = ({navigation}) => {
     }
     // console.log('WWWWWWWW ', newMediaArray);
 
-    return newMedia;
+    // return newMedia;
   };
 
   // state jolle annetaan uusi arvo
