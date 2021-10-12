@@ -16,6 +16,7 @@ import {uploadsUrl} from '../utils/variables';
 import {Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const Home = ({navigation}) => {
   const {mediaArray} = useMedia(false);
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#000',
     justifyContent: 'center',
-    color: '#FF6700',
+    color: mainOrange,
     marginBottom: 30,
   },
   container2: {
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     paddingTop: 30,
-    color: 'orange',
+    color: mainOrange,
   },
   image: {
     justifyContent: 'center',
@@ -144,8 +145,8 @@ const styles = StyleSheet.create({
   },
   imageBox: {
     borderWidth: 3,
-    borderColor: '#FF6700',
-    shadowColor: '#FF6700',
+    borderColor: mainOrange,
+    shadowColor: mainOrange,
     shadowRadius: 8,
     shadowOpacity: 0.7,
   },
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   picOfTheWeekDesc: {
-    color: '#FF6700',
+    color: mainOrange,
     padding: 8,
     textAlign: 'justify',
   },

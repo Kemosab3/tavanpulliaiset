@@ -9,6 +9,7 @@ import {MainContext} from '../contexts/MainContext';
 import {formatDate, timeSince} from '../utils/dateFunctions';
 import {addOrientationChangeListener} from 'expo-screen-orientation';
 import {set} from 'date-fns';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const ListItemNotLoggedIn = ({singleMedia, navigation, showButtons}) => {
   // console.log('singleMedia', singleMedia);
@@ -46,12 +47,12 @@ const ListItemNotLoggedIn = ({singleMedia, navigation, showButtons}) => {
         backgroundColor: 'black',
         borderWidth: 3,
         borderStyle: 'solid',
-        borderColor: '#FF6700',
+        borderColor: mainOrange,
         marginBottom: 10,
         marginLeft: 8,
         marginRight: 8,
         elevation: 2,
-        shadowColor: '#FF6700',
+        shadowColor: mainOrange,
         shadowRadius: 8,
         shadowOpacity: 0.5,
       }}
@@ -62,17 +63,17 @@ const ListItemNotLoggedIn = ({singleMedia, navigation, showButtons}) => {
         source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
       ></Avatar>
       <RNEListItem.Content>
-        <RNEListItem.Title numberOfLines={1} h4 style={{color: '#FF6700'}}>
+        <RNEListItem.Title numberOfLines={1} h4 style={{color: mainOrange}}>
           {singleMedia.title}
         </RNEListItem.Title>
-        <RNEListItem.Subtitle numberOfLines={1} style={{color: '#FF6700'}}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: mainOrange}}>
           {timeSince(singleMedia.time_added)}
         </RNEListItem.Subtitle>
-        <RNEListItem.Subtitle numberOfLines={1} style={{color: '#FF6700'}}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: mainOrange}}>
           {singleMedia.description}
         </RNEListItem.Subtitle>
       </RNEListItem.Content>
-      <RNEListItem.Chevron style={{color: '#FF6700'}} />
+      <RNEListItem.Chevron style={{color: mainOrange}} />
     </RNEListItem>
   );
 };

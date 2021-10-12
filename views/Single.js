@@ -26,6 +26,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 // import {Canvas} from 'react-native-canvas';
 import {MainContext} from '../contexts/MainContext';
 import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
+import {mainOrange, highlightOrange} from '../assets/colors';
 // import WebView from 'react-native-webview';
 
 // import * as React from 'react';
@@ -278,20 +279,20 @@ const Single = ({route}) => {
                 console.log('Likeeeeee ', response);
               }}
             >
-              <Icon name="beer" type="ionicon" color="#FF6700" />
+              <Icon name="beer" type="ionicon" color={mainOrange} />
             </TouchableOpacity>
           )}
           <Text style={styles.text}>Likes: {likes}</Text>
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <ListItem.Content>
-            <ListItem.Title style={{color: '#FF6700'}}>
+            <ListItem.Title style={{color: mainOrange}}>
               {params.title}
             </ListItem.Title>
-            <ListItem.Subtitle style={{color: '#FF6700'}}>
+            <ListItem.Subtitle style={{color: mainOrange}}>
               {formatDate(new Date(params.time_added), 'd. MMMM y')}
             </ListItem.Subtitle>
-            <ListItem.Subtitle style={{color: '#FF6700'}}>
+            <ListItem.Subtitle style={{color: mainOrange}}>
               klo {formatDate(new Date(params.time_added), 'HH.mm')}
             </ListItem.Subtitle>
             <Text style={styles.description}>{params.description}</Text>
@@ -325,33 +326,33 @@ const styles = StyleSheet.create({
     width: '100%',
     height: undefined,
     aspectRatio: 1,
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
     borderWidth: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
 
   description: {
     marginBottom: 10,
-    color: '#FF6700',
+    color: mainOrange,
   },
   card: {
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
     backgroundColor: 'black',
     borderWidth: 2,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
   avatarContainer: {
     display: 'flex',
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
     borderWidth: 2,
     borderRadius: 25,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
@@ -363,7 +364,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   text: {
-    color: '#FF6700',
+    color: mainOrange,
     fontSize: 17,
   },
   playButton: {

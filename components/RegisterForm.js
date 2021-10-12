@@ -6,6 +6,7 @@ import useSignUpForm from '../hooks/RegisterHooks';
 import {MainContext} from '../contexts/MainContext';
 import {useLogin, register} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const RegisterForm = () => {
   /*
@@ -62,9 +63,9 @@ const RegisterForm = () => {
         style={styles.registerBars}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -84,9 +85,9 @@ const RegisterForm = () => {
         style={styles.registerBars}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -105,9 +106,9 @@ const RegisterForm = () => {
         style={styles.registerBars}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -126,9 +127,9 @@ const RegisterForm = () => {
         style={styles.registerBars}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -158,17 +159,17 @@ const RegisterForm = () => {
 const styles = StyleSheet.create({
   registerBars: {
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
   loginButton: {
     alignItems: 'center',
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     padding: 10,
     marginTop: 10,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
@@ -177,11 +178,11 @@ const styles = StyleSheet.create({
   },
   registerButton: {
     alignItems: 'center',
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     padding: 10,
     marginTop: 16,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },

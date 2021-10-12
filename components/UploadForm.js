@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 // import {Button, Input} from 'react-native-elements';
 import {TextInput, Button} from 'react-native-paper';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const UploadForm = ({
   title,
@@ -23,9 +24,9 @@ const UploadForm = ({
         style={styles.uploadFormInput}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -45,9 +46,9 @@ const UploadForm = ({
         style={styles.uploadFormInput}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   uploadButton: {
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     marginTop: 10,
   },
 });

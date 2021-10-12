@@ -6,6 +6,7 @@ import useLoginForm from '../hooks/LoginHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useLogin} from '../hooks/ApiHooks';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const LoginForm = ({navigation}) => {
   const {inputs, handleInputChange} = useLoginForm();
@@ -35,9 +36,9 @@ const LoginForm = ({navigation}) => {
         style={styles.loginBars}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -53,9 +54,9 @@ const LoginForm = ({navigation}) => {
         style={styles.loginBars}
         theme={{
           colors: {
-            placeholder: '#FF6700',
+            placeholder: mainOrange,
             text: 'white',
-            primary: '#FF6700',
+            primary: mainOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -74,17 +75,17 @@ const LoginForm = ({navigation}) => {
 const styles = StyleSheet.create({
   loginBars: {
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
   loginButton: {
     alignItems: 'center',
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     padding: 10,
     marginTop: 16,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },

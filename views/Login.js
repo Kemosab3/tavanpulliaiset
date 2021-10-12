@@ -16,7 +16,7 @@ import {ImageBackground} from 'react-native';
 import {Card, ListItem, Text} from 'react-native-elements';
 import {View, StatusBar} from 'react-native';
 import ListNotLoggedIn from '../components/List';
-
+import {mainOrange, highlightOrange} from '../assets/colors';
 import {useMedia} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/variables';
 import {Image, Icon} from 'react-native-elements';
@@ -152,27 +152,27 @@ const styles = StyleSheet.create({
     shadowColor: '#FF6700',
     shadowRadius: 10,
     shadowOpacity: 0.8,
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
   },
   swapViewCard: {
     backgroundColor: 'black',
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
     marginBottom: 20,
   },
   swapViewButton: {
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
   },
   title: {
-    color: '#FF6700',
+    color: mainOrange,
   },
 });
 

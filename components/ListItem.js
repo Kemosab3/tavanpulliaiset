@@ -1,14 +1,16 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
-import {Avatar, Button, ListItem as RNEListItem} from 'react-native-elements';
+import {Avatar, ListItem as RNEListItem} from 'react-native-elements';
+import {Button} from 'react-native-paper';
 import {useMedia, useTag, useUser} from '../hooks/ApiHooks';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
-import {formatDate, timeSince} from '../utils/dateFunctions';
+import {timeSince} from '../utils/dateFunctions';
 import {addOrientationChangeListener} from 'expo-screen-orientation';
 import {set} from 'date-fns';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const ListItem = ({singleMedia, navigation, showButtons}) => {
   // console.log('singleMedia', singleMedia);
@@ -46,12 +48,12 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         backgroundColor: 'black',
         borderWidth: 2,
         borderStyle: 'solid',
-        borderColor: '#FF6700',
+        borderColor: mainOrange,
         marginBottom: 10,
         marginLeft: 8,
         marginRight: 8,
         elevation: 2,
-        shadowColor: '#FF6700',
+        shadowColor: mainOrange,
         shadowRadius: 8,
         shadowOpacity: 0.5,
       }}
@@ -62,47 +64,54 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
       ></Avatar>
       <RNEListItem.Content>
-        <RNEListItem.Title numberOfLines={1} h4 style={{color: '#FF6700'}}>
+        <RNEListItem.Title numberOfLines={1} h4 style={{color: mainOrange}}>
           {singleMedia.title}
         </RNEListItem.Title>
-        <RNEListItem.Subtitle numberOfLines={1} style={{color: '#FF6700'}}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: mainOrange}}>
           {timeSince(singleMedia.time_added)}
         </RNEListItem.Subtitle>
-        <RNEListItem.Subtitle numberOfLines={1} style={{color: '#FF6700'}}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: mainOrange}}>
           {singleMedia.description}
         </RNEListItem.Subtitle>
         {showButtons && (
           <>
-            <Button
-              type="clear"
-              icon
-              title="Modify"
-              onPress={() => {
-                navigation.navigate('Modify', {singleMedia, navigation});
-              }}
-            ></Button>
-            <Button
-              title="Delete"
-              type="clear"
-              icon
-              onPress={async () => {
-                try {
-                  const token = await AsyncStorage.getItem('userToken');
-                  const response = await deleteMedia(
-                    singleMedia.file_id,
-                    token
-                  );
-                  console.log('Delete', response);
-                  if (response.message) {
-                    setUpdate(update + 1);
+            <View style={styles.buttonBox}>
+              <Button
+                style={styles.button}
+                mode="contained"
+                icon
+                onPress={() => {
+                  navigation.navigate('Modify', {singleMedia, navigation});
+                }}
+              >
+                Modify
+              </Button>
+              <Button
+                style={styles.button}
+                mode="contained"
+                icon
+                onPress={async () => {
+                  try {
+                    const token = await AsyncStorage.getItem('userToken');
+                    const response = await deleteMedia(
+                      singleMedia.file_id,
+                      token
+                    );
+                    console.log('Delete', response);
+                    if (response.message) {
+                      setUpdate(update + 1);
+                    }
+                  } catch (e) {
+                    console.log('ListItem, delete: ', e.message);
                   }
-                } catch (e) {
-                  console.log('ListItem, delete: ', e.message);
-                }
-              }}
-            ></Button>
+                }}
+              >
+                Delete
+              </Button>
+            </View>
             <Button
-              title={'Set as avatar'}
+              mode="contained"
+              style={styles.button}
               disabled={singleMedia.media_type === 'video'}
               onPress={() => {
                 // get existing avatar tag
@@ -125,8 +134,6 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
                         if (tagS.length > 0) {
                           console.log('TÄÄK: ', tagS[0].tag_id);
                           console.log('SinkkuMedia: ', singleMedia.file_id);
-                          // deleteTag(tagS[0].tag_id, userToken);
-
                           addTag(
                             singleMedia.file_id,
                             'avatar_' + userInfo.user_id,
@@ -150,11 +157,13 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
                 };
                 gettoToken();
               }}
-            />
+            >
+              Set as avatar
+            </Button>
           </>
         )}
       </RNEListItem.Content>
-      <RNEListItem.Chevron style={{color: '#FF6700'}} />
+      <RNEListItem.Chevron />
     </RNEListItem>
   );
 };
@@ -171,6 +180,17 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     width: 100,
     height: 100,
+  },
+  buttonBox: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+  },
+  button: {
+    display: 'flex',
+    backgroundColor: mainOrange,
+    marginTop: 10,
+    marginRight: 10,
   },
 });
 
