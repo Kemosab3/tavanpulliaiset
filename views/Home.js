@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -58,8 +58,11 @@ const Home = ({navigation}) => {
 
   // state jolle annetaan uusi arvo
 
-  makePrivateArray();
+  useEffect(() => {
+    makePrivateArray();
+  }, []);
 
+  makePrivateArray();
   let theMediaArray = newMediaArray;
 
   /*
