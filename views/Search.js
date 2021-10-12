@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FF6700',
     padding: 10,
+    borderRadius: 10,
     elevation: 2,
     shadowColor: '#FF6700',
     shadowRadius: 10,
