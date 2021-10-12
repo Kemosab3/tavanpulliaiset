@@ -172,6 +172,7 @@ const useLogin = () => {
 };
 
 const register = async (inputs) => {
+  inputs = {...inputs, full_name: JSON.stringify(inputs.full_name)};
   const fetchOptions = {
     method: 'POST',
     headers: {

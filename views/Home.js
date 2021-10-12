@@ -1,11 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
-  SafeAreaView,
   StatusBar,
   Platform,
-  SliderComponent,
 } from 'react-native';
 import {Image, Text} from 'react-native-elements';
 import {FlatList} from 'react-native';
@@ -20,6 +18,7 @@ import {MainContext} from '../contexts/MainContext';
 const Home = ({navigation}) => {
   const {mediaArray} = useMedia(false);
   const [newMediaArray, setNewMediaArray] = useState([]);
+  console.log('Media', mediaArray[7]);
 
   const {getAllUsers, getUserInfo} = useUser();
 
@@ -32,11 +31,12 @@ const Home = ({navigation}) => {
       const result = await getAllUsers(userToken);
       // console.log('Result?', result);
       let control = 0;
-      if (result !== undefined && result !== null) {
+      if (result) {
         for (let i = 0; i < mediaArray.length; i++) {
           for (let j = 0; j < result.length; j++) {
             if (mediaArray[i].user_id === result[j].user_id) {
               const loser = await getUserInfo(result[j].user_id, userToken);
+              // console.log('Luuseri?', loser);
               if (loser.full_name !== 'private') {
                 newMedia[control] = mediaArray[i];
                 // console.log('FULLNAME: ', result[j]);
@@ -47,20 +47,24 @@ const Home = ({navigation}) => {
         }
         //  console.log('Private dancer: ', newMedia.length);
       }
+      // console.log('newmedia?', newMedia);
+      // console.log('newMedia', newMedia);
       setNewMediaArray(newMedia);
     } catch (e) {
       console.log('makePrivateArray error', e.message);
     }
     // console.log('WWWWWWWW ', newMediaArray);
 
-    return newMedia;
+    // return newMedia;
   };
 
   // state jolle annetaan uusi arvo
+  useEffect(() => {
+    makePrivateArray();
+  }, []);
+  // pitäisi olla useEffectin sisällä
 
-  makePrivateArray();
-
-  let theMediaArray = newMediaArray;
+  // let theMediaArray = newMediaArray;
 
   /*
   if (newMediaArray.length > 0) {
@@ -70,15 +74,15 @@ const Home = ({navigation}) => {
   }
   */
 
-  const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
+  // const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
 
   const picSource =
-    theMediaArray.length > 1
-      ? {uri: uploadsUrl + theMediaArray[0].thumbnails.w320}
+    newMediaArray.length > 1
+      ? {uri: uploadsUrl + newMediaArray[0].thumbnails.w320}
       : require('../assets/splash.png');
   // console.log('ICOOooooooON: ', picSource);
 
-  // console.log('Public dancer: ', newMediaArray.length);
+  console.log('Public dancer: ', newMediaArray.length);
 
   return (
     <View style={styles.container}>
@@ -100,7 +104,7 @@ const Home = ({navigation}) => {
       </View>
 
       <FlatList
-        data={theMediaArray.reverse()}
+        data={newMediaArray.reverse()}
         renderItem={({item}) => (
           <ListItem
             singleMedia={item}

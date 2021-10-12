@@ -41,7 +41,6 @@ const Profile = ({route, navigation}) => {
   }
 
   // console.log('Profile ', user);
-  // console.log('userInfo: ', userInfo);
 
   if (params !== undefined && typeof params === 'string') {
     avatar = uploadsUrl + params;
@@ -147,7 +146,14 @@ const Profile = ({route, navigation}) => {
             </Text>
           </Card.Title>
           <Card.Title>
-            <Text style={styles.text}>"Mottoni on mottojen motto!"</Text>
+            <Text style={styles.text}>
+              Hohhoo
+            </Text>
+          </Card.Title>
+          <Card.Title>
+            <Text style={styles.text}>
+              Hohhoo
+            </Text>
           </Card.Title>
           <ListItem containerStyle={{backgroundColor: 'black'}}>
             <Avatar icon={{name: 'email', color: '#ffb800'}} />

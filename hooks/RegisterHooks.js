@@ -39,7 +39,11 @@ const useSignUpForm = (callback) => {
     username: '',
     password: '',
     email: '',
-    full_name: '',
+    full_name: {
+      description: 'Modify user info to add description',
+      motto: 'Modify user info to add motto',
+      privacy: false,
+    },
   });
 
   const [errors, setErrors] = useState({});
