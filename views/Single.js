@@ -234,20 +234,6 @@ const Single = ({route}) => {
             <Audio></Audio>
           </>
         )}
-        <TouchableOpacity
-          style={styles.playButton}
-          onPress={() => {
-            toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
-              const kukkaMaaria = musicArrayMaker(dataUrl);
-              handlePlaySound(kukkaMaaria);
-            });
-          }}
-        >
-          <Image
-            style={styles.playButtonImage}
-            source={require('../assets/playbutton.png')}
-          />
-        </TouchableOpacity>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           {iAmLikingIt ? (
             <TouchableOpacity
@@ -283,6 +269,20 @@ const Single = ({route}) => {
             </TouchableOpacity>
           )}
           <Text style={styles.text}>Likes: {likes}</Text>
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => {
+              toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
+                const kukkaMaaria = musicArrayMaker(dataUrl);
+                handlePlaySound(kukkaMaaria);
+              });
+            }}
+          >
+            <Image
+              style={styles.playButtonImage}
+              source={require('../assets/playbutton.png')}
+            />
+          </TouchableOpacity>
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <ListItem.Content>
@@ -298,7 +298,6 @@ const Single = ({route}) => {
             <Text style={styles.description}>{params.description}</Text>
           </ListItem.Content>
         </ListItem>
-
       </Card>
     </ScrollView>
   );
@@ -368,15 +367,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   playButton: {
-    position: 'absolute',
-    height: 50,
+    position: 'relative',
     display: 'flex',
-    top: 390,
-    left: 8,
+    flexWrap: 'wrap',
     backgroundColor: 'black',
   },
   playButtonImage: {
-    height: '100%',
+    height: 25,
+    aspectRatio: 3,
     position: 'relative',
   },
 });
