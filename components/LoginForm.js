@@ -36,7 +36,7 @@ const LoginForm = ({navigation}) => {
         style={styles.loginBars}
         theme={{
           colors: {
-            placeholder: mainOrange
+            placeholder: mainOrange,
             text: 'white',
             primary: mainOrange,
             underlineColor: 'transparent',
