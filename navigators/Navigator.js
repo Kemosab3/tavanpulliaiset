@@ -15,6 +15,7 @@ import MyFiles from '../views/MyFiles';
 import Modify from '../views/Modify';
 import EditProfile from '../views/EditProfile';
 import Search from '../views/Search';
+import {mainOrange} from '../assets/colors';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -47,7 +48,7 @@ const TabScreen = () => {
       })}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Search" component={Search} />
+      <Tab.Screen name="Search" component={Search} hideNavigationBar={false} />
       <Tab.Screen name="Upload" component={Upload} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
@@ -67,9 +68,30 @@ const StackScreen = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="Single" component={Single} />
-          <Stack.Screen name="My Files" component={MyFiles} />
-          <Stack.Screen name="Modify" component={Modify} />
+          <Stack.Screen
+            name="Single"
+            component={Single}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'black',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="My Files"
+            component={MyFiles}
+            options={{
+              title: '',
+            }}
+          />
+          <Stack.Screen
+            name="Modify"
+            component={Modify}
+            options={{
+              title: '',
+            }}
+          />
           <Stack.Screen name="Edit Profile" component={EditProfile} />
         </>
       ) : (
