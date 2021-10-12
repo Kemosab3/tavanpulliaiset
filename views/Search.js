@@ -18,6 +18,7 @@ import useUploadForm from '../hooks/UploadHooks';
 import PropTypes from 'prop-types';
 import ListItem from '../components/ListItem';
 import {useMedia} from '../hooks/ApiHooks';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const Search = ({navigation}) => {
   const {handleInputChange, handleOnEndEditing, errors, inputs} =
@@ -70,9 +71,9 @@ const Search = ({navigation}) => {
             mode="outlined"
             theme={{
               colors: {
-                placeholder: '#FF6700',
+                placeholder: mainOrange,
                 text: 'white',
-                primary: '#FF6700',
+                primary: mainOrange,
                 underlineColor: 'transparent',
                 background: 'black',
               },
@@ -133,17 +134,17 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginRight: 8,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
   searchButton: {
     alignItems: 'center',
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     padding: 10,
     borderRadius: 10,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },

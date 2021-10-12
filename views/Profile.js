@@ -19,6 +19,7 @@ import useUserInfo from '../hooks/ProfileHooks';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
 import {ScrollView} from 'react-native-gesture-handler';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const Profile = ({route, navigation}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
@@ -150,7 +151,7 @@ const Profile = ({route, navigation}) => {
             <Text style={styles.text}>"Mottoni on mottojen motto!"</Text>
           </Card.Title>
           <ListItem containerStyle={{backgroundColor: 'black'}}>
-            <Avatar icon={{name: 'email', color: '#ffb800'}} />
+            <Avatar icon={{name: 'email', color: highlightOrange}} />
             <Text style={styles.buttonText}>{userInfo.email}</Text>
           </ListItem>
           <ListItem containerStyle={{backgroundColor: 'black'}}>
@@ -163,7 +164,7 @@ const Profile = ({route, navigation}) => {
             <View style={styles.privacyContainer}>
               <Text style={styles.privacyText}>Hide my files</Text>
               <Switch
-                trackColor={{false: '#767577', true: '#ff6700'}}
+                trackColor={{false: '#767577', true: highlightOrange}}
                 thumbColor={isEnabled ? '#ffffff' : '#ffffff'}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
@@ -178,7 +179,7 @@ const Profile = ({route, navigation}) => {
               navigation.navigate('My Files');
             }}
           >
-            <Avatar icon={{name: 'folder', color: '#ffb800'}} />
+            <Avatar icon={{name: 'folder', color: highlightOrange}} />
             <ListItem.Content>
               <ListItem.Title style={styles.buttonText}>
                 My Files
@@ -193,7 +194,7 @@ const Profile = ({route, navigation}) => {
               navigation.navigate('Edit Profile', userInfo);
             }}
           >
-            <Avatar icon={{name: 'edit', color: '#ffb800'}} />
+            <Avatar icon={{name: 'edit', color: highlightOrange}} />
             <ListItem.Content>
               <ListItem.Title style={styles.buttonText}>
                 Edit Profile
@@ -206,7 +207,7 @@ const Profile = ({route, navigation}) => {
             onPress={logout}
             containerStyle={{backgroundColor: 'black'}}
           >
-            <Avatar icon={{name: 'logout', color: '#ffb800'}} />
+            <Avatar icon={{name: 'logout', color: highlightOrange}} />
             <ListItem.Content>
               <ListItem.Title style={styles.buttonText}>Logout</ListItem.Title>
             </ListItem.Content>
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
     height: undefined,
     borderRadius: 250,
     borderWidth: 2,
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
     aspectRatio: 1,
   },
   titleContainer: {
@@ -247,17 +248,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    color: '#FF6700',
+    color: mainOrange,
     fontSize: 35,
     marginTop: 10,
   },
   text: {
-    color: '#FF6700',
+    color: mainOrange,
     fontStyle: 'italic',
     fontSize: 17,
   },
   buttonText: {
-    color: '#ff6700',
+    color: mainOrange,
     fontSize: 17,
   },
   privacyContainer: {
@@ -268,7 +269,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   privacyText: {
-    color: '#FF6700',
+    color: mainOrange,
     marginRight: 25,
     fontSize: 17,
   },
@@ -276,9 +277,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     display: 'flex',
     justifyContent: 'center',
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
     borderWidth: 2,

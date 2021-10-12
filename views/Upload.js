@@ -21,7 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {appID} from '../utils/variables';
 import {MainContext} from '../contexts/MainContext';
 import {ScrollView} from 'react-native-gesture-handler';
-import {RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED} from 'expo-av/build/Audio';
+import {mainOrange, highlightOrange} from '../assets/colors';
 // import exampleImage from '../assets/icon3.png';
 
 const Upload = ({navigation}) => {
@@ -160,26 +160,26 @@ const styles = StyleSheet.create({
   },
   uploadCard: {
     backgroundColor: 'black',
-    borderColor: '#FF6700',
+    borderColor: mainOrange,
     borderWidth: 2,
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
   pickImageButton: {
     display: 'flex',
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     height: 35,
     alignItems: 'center',
     justifyContent: 'space-around',
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: mainOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
   },
   resetButton: {
-    backgroundColor: '#FF6700',
+    backgroundColor: mainOrange,
     marginTop: 10,
     color: 'white',
   },

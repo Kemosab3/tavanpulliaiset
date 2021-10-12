@@ -6,8 +6,7 @@ import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
-import {StyleService} from 'react-native-ui-kitten';
-import {FlexStyleProps} from 'react-native-ui-kitten/ui/support/typings';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const Modify = ({route}) => {
   const navigation = route.params.navigation;
@@ -65,9 +64,9 @@ const Modify = ({route}) => {
           mode="outlined"
           theme={{
             colors: {
-              placeholder: '#FF6700',
+              placeholder: mainOrange,
               text: 'white',
-              primary: '#FF6700',
+              primary: mainOrange,
               underlineColor: 'transparent',
               background: 'black',
             },
@@ -88,9 +87,9 @@ const Modify = ({route}) => {
           autoCapitalize="none"
           theme={{
             colors: {
-              placeholder: '#FF6700',
+              placeholder: mainOrange,
               text: 'white',
-              primary: '#FF6700',
+              primary: mainOrange,
               underlineColor: 'transparent',
               background: 'black',
             },
@@ -130,14 +129,14 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     elevation: 2,
-    shadowColor: '#FF6700',
+    shadowColor: highlightOrange,
     shadowRadius: 10,
     shadowOpacity: 0.8,
     marginBottom: 10,
   },
   button: {
-    backgroundColor: '#FF6700',
-    color: '#FF7600',
+    backgroundColor: mainOrange,
+    color: mainOrange,
   },
 });
 

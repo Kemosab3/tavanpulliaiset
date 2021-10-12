@@ -7,6 +7,7 @@ import {useUser} from '../hooks/ApiHooks';
 import useUserInfo from '../hooks/ProfileHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
+import {mainOrange, highlightOrange} from '../assets/colors';
 
 const EditProfile = ({route, navigation}) => {
   // const navigation = route.params.navigation;
