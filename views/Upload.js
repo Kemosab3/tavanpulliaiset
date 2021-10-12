@@ -135,7 +135,6 @@ const Upload = ({navigation}) => {
               image={image}
               inputs={inputs}
             />
-            {loading && <ActivityIndicator />}
             <Button
               mode="contained"
               style={styles.resetButton}
