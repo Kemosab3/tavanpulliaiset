@@ -250,7 +250,7 @@ const Single = ({route}) => {
                 getLikes();
               }}
             >
-              <Icon name="beer" type="ionicon" color="white" />
+              <Image source={require('../assets/pintempty.png')} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
@@ -265,7 +265,7 @@ const Single = ({route}) => {
                 console.log('Likeeeeee ', response);
               }}
             >
-              <Icon name="beer" type="ionicon" color={mainOrange} />
+              <Image source={require('../assets/pintfull.png')} />
             </TouchableOpacity>
           )}
           <Text style={styles.text}>Likes: {likes}</Text>
