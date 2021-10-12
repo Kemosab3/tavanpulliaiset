@@ -41,8 +41,8 @@ const Modify = ({route}) => {
             {
               text: 'Ok',
               onPress: () => {
-                setUpdate(update + 1);
                 navigation.navigate('My Files');
+                setUpdate(update + 1);
               },
             },
           ],
