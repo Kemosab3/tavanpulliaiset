@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,10 +6,11 @@ import {
   StatusBar,
   Platform,
   SliderComponent,
+  TouchableOpacity,
 } from 'react-native';
 import {Image, Text} from 'react-native-elements';
 import {FlatList} from 'react-native';
-import {useMedia, useUser} from '../hooks/ApiHooks';
+import {useFavourites, useMedia, useUser} from '../hooks/ApiHooks';
 import ListItem from '../components/ListItem';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
@@ -23,6 +24,10 @@ const Home = ({navigation}) => {
   const [newMediaArray, setNewMediaArray] = useState([]);
 
   const {getAllUsers, getUserInfo} = useUser();
+
+  const {getFavouritesByFileID} = useFavourites();
+
+  const [likes, setLikes] = useState([]);
 
   const makePrivateArray = async () => {
     const newMedia = [];
@@ -71,7 +76,7 @@ const Home = ({navigation}) => {
   }
   */
 
-  const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
+  // const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
 
   const picSource =
     theMediaArray.length > 1
@@ -80,6 +85,15 @@ const Home = ({navigation}) => {
   // console.log('ICOOooooooON: ', picSource);
 
   // console.log('Public dancer: ', newMediaArray.length);
+
+  const getLikes = async () => {
+    const liking2 = await getFavouritesByFileID(theMediaArray[0].file_id);
+    setLikes(liking2.length);
+  };
+
+  useEffect(() => {
+    getLikes();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -92,11 +106,20 @@ const Home = ({navigation}) => {
             // source={{uri: 'https://placekitten.com/400/400'}}
             // source={require('../assets/splash.png')}
             source={picSource}
+            // source={require('../assets/playbutton.png')}
+          ></Image>
+          <Image
+            style={styles.imagePlay}
+            // source={require('../assets/splash.png')}
+            // source={{uri: 'https://placekitten.com/400/400'}}
+            // source={require('../assets/splash.png')}
+            // source={picSource}
+            source={require('../assets/playbutton.png')}
           ></Image>
         </View>
         <View style={styles.picOfTheWeekIcons}>
           <Icon name="beer" type="ionicon" color="#FF6700" />
-          <Text style={styles.picOfTheWeekDesc}>15k</Text>
+          <Text style={styles.picOfTheWeekDesc}>{likes}</Text>
         </View>
       </View>
 
@@ -143,6 +166,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 150,
   },
+  imagePlay: {
+    justifyContent: 'center',
+    height: 100,
+  },
   imageBox: {
     borderWidth: 3,
     borderColor: mainOrange,
@@ -168,6 +195,18 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 8,
     marginLeft: 8,
+  },
+  playButton: {
+    position: 'absolute',
+    height: 50,
+    display: 'flex',
+    top: 390,
+    left: 8,
+    backgroundColor: 'black',
+  },
+  playButtonImage: {
+    height: '100%',
+    position: 'relative',
   },
 });
 

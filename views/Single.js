@@ -177,15 +177,6 @@ const Single = ({route}) => {
 
   // What? ends
 
-  // What? part 2
-  const handleCanvas = (canvas) => {
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = 'purple';
-    ctx.fillRect(0, 0, 100, 100);
-  };
-
-  // What? part 2 ends
-
   return (
     <ScrollView style={{backgroundColor: 'black'}}>
       <Card containerStyle={styles.card}>
@@ -298,7 +289,6 @@ const Single = ({route}) => {
             <Text style={styles.description}>{params.description}</Text>
           </ListItem.Content>
         </ListItem>
-
       </Card>
     </ScrollView>
   );
