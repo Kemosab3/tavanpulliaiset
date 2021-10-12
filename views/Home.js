@@ -58,9 +58,11 @@ const Home = ({navigation}) => {
 
   // state jolle annetaan uusi arvo
 
+  /*
   useEffect(() => {
     makePrivateArray();
   }, []);
+  */
 
   makePrivateArray();
   let theMediaArray = newMediaArray;
@@ -73,7 +75,7 @@ const Home = ({navigation}) => {
   }
   */
 
-  const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
+  // const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
 
   const picSource =
     theMediaArray.length > 1
