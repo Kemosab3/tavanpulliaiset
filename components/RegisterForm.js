@@ -139,26 +139,6 @@ const RegisterForm = () => {
         }}
         errorMessage={errors.email}
       />
-      <TextInput
-        autoCapitalize="none"
-        label="full name"
-        mode="outlined"
-        style={styles.registerBars}
-        theme={{
-          colors: {
-            placeholder: '#FF6700',
-            text: 'white',
-            primary: '#FF6700',
-            underlineColor: 'transparent',
-            background: 'black',
-          },
-        }}
-        onChangeText={(txt) => handleInputChange('full_name', txt)}
-        onEndEditing={(event) => {
-          handleOnEndEditing('full_name', event.nativeEvent.text);
-        }}
-        errorMessage={errors.full_name}
-      />
       <TouchableOpacity
         style={styles.registerButton}
         onPress={doRegister}

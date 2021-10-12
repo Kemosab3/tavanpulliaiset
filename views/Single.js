@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  View,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
@@ -186,35 +187,19 @@ const Single = ({route}) => {
 
   return (
     <ScrollView style={{backgroundColor: 'black'}}>
-      <Card containerStyle={{backgroundColor: 'black'}}>
+      <Card containerStyle={styles.card}>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
-          {params.media_type === 'image' && (
-            <Icon
-              name="image"
-              type="ionicon"
-              style={{backgroundColor: 'white'}}
+          <View style={styles.avatarContainer}>
+            <Avatar
+              rounded
+              size="small"
+              source={{uri: avatar}}
+              style={styles.avatar}
             />
-          )}
-          {params.media_type === 'video' && (
-            <Icon
-              name="videocam"
-              type="ionicon"
-              style={{backgroundColor: 'white'}}
-            />
-          )}
-          <ListItem.Content>
-            <ListItem.Title style={{color: 'green'}}>
-              {params.title}
-            </ListItem.Title>
-            <ListItem.Subtitle style={{color: 'green'}}>
-              {formatDate(new Date(params.time_added), 'eeee d. MMMM y')}
-            </ListItem.Subtitle>
-            <ListItem.Subtitle style={{color: 'green'}}>
-              klo {formatDate(new Date(params.time_added), 'HH.mm')}
-            </ListItem.Subtitle>
-          </ListItem.Content>
+          </View>
+          {console.log('Avatar on foorumissa: ', avatar)}
+          <Text style={styles.text}>{ownerInfo.username}</Text>
         </ListItem>
-        <Card.Divider />
         {params.media_type === 'image' && (
           <Card.Image
             source={{uri: uploadsUrl + params.filename}}
@@ -248,28 +233,23 @@ const Single = ({route}) => {
             <Audio></Audio>
           </>
         )}
-        <Card.Divider />
-        <Text style={styles.description}>{params.description}</Text>
+        <TouchableOpacity
+          style={styles.playButton}
+          onPress={() => {
+            toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
+              const kukkaMaaria = musicArrayMaker(dataUrl);
+              handlePlaySound(kukkaMaaria);
+            });
+          }}
+        >
+          <Image
+            style={styles.playButtonImage}
+            source={require('../assets/playbutton.png')}
+          />
+        </TouchableOpacity>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
-          <Avatar source={{uri: avatar}} />
-          {console.log('Avatar on foorumissa: ', avatar)}
-          <Text style={{color: 'green'}}>{ownerInfo.username}</Text>
-        </ListItem>
-        <ListItem containerStyle={{backgroundColor: 'black'}}>
-          <TouchableOpacity
-            onPress={() => {
-              toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
-                const kukkaMaaria = musicArrayMaker(dataUrl);
-                handlePlaySound(kukkaMaaria);
-              });
-            }}
-          >
-            <Image source={require('../assets/playbutton.png')} />
-          </TouchableOpacity>
-
           {iAmLikingIt ? (
-            <Button
-              title="Like"
+            <TouchableOpacity
               onPress={async () => {
                 // use api hooks to Post a favourite
                 console.log('I AM LIKE: ', iAmLikingIt);
@@ -282,9 +262,11 @@ const Single = ({route}) => {
                 setIAmLikingIt(false);
                 getLikes();
               }}
-            />
+            >
+              <Icon name="beer" type="ionicon" color="white" />
+            </TouchableOpacity>
           ) : (
-            <Button
+            <TouchableOpacity
               title="Unlike"
               onPress={async () => {
                 // use api hooks to DELETE a favourite
@@ -295,11 +277,26 @@ const Single = ({route}) => {
                 getLikes();
                 console.log('Likeeeeee ', response);
               }}
-            />
+            >
+              <Icon name="beer" type="ionicon" color="#FF6700" />
+            </TouchableOpacity>
           )}
-
-          <Text style={{color: 'green'}}>Likes: {likes}</Text>
+          <Text style={styles.text}>Likes: {likes}</Text>
         </ListItem>
+        <ListItem containerStyle={{backgroundColor: 'black'}}>
+          <ListItem.Content>
+            <ListItem.Title style={{color: 'green'}}>
+              {params.title}
+            </ListItem.Title>
+            <ListItem.Subtitle style={{color: 'green'}}>
+              {formatDate(new Date(params.time_added), 'd. MMMM y')}
+            </ListItem.Subtitle>
+            <ListItem.Subtitle style={{color: 'green'}}>
+              klo {formatDate(new Date(params.time_added), 'HH.mm')}
+            </ListItem.Subtitle>
+          </ListItem.Content>
+        </ListItem>
+          <Text style={styles.description}>{params.description}</Text>
       </Card>
     </ScrollView>
   );
@@ -327,12 +324,59 @@ const styles = StyleSheet.create({
     width: '100%',
     height: undefined,
     aspectRatio: 1,
-    borderRadius: 250,
+    borderColor: '#FF6700',
+    borderWidth: 2,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
   },
 
   description: {
     marginBottom: 10,
     color: 'green',
+  },
+  card: {
+    borderColor: '#FF6700',
+    backgroundColor: 'black',
+    borderWidth: 2,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  avatarContainer: {
+    display: 'flex',
+    borderColor: '#FF6700',
+    borderWidth: 2,
+    borderRadius: 25,
+    elevation: 2,
+    shadowColor: '#FF6700',
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  avatar: {
+    position: 'relative',
+    height: 50,
+    width: 50,
+    borderWidth: 2,
+    borderRadius: 25,
+  },
+  text: {
+    color: '#FF6700',
+    fontSize: 17,
+  },
+  playButton: {
+    position: 'absolute',
+    height: 50,
+    display: 'flex',
+    top: 390,
+    left: 8,
+    backgroundColor: 'black',
+  },
+  playButtonImage: {
+    height: '100%',
+    position: 'relative',
   },
 });
 
