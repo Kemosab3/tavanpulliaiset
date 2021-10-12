@@ -41,7 +41,7 @@ let d = 0;
 let e = 0;
 
 const musicArrayMaker = (dataUrl) => {
-  console.log('RESULTTTTT:', dataUrl);
+  // console.log('RESULTTTTT:', dataUrl);
   const tapio = dataUrl.length.toString();
   const ville = dataUrl.slice([1], [100]);
   a = parseInt(tapio[0]);

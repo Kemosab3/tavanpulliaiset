@@ -11,6 +11,7 @@ import {timeSince} from '../utils/dateFunctions';
 import {addOrientationChangeListener} from 'expo-screen-orientation';
 import {set} from 'date-fns';
 import {mainOrange, highlightOrange} from '../assets/colors';
+import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
 
 const ListItem = ({singleMedia, navigation, showButtons}) => {
   // console.log('singleMedia', singleMedia);
@@ -39,6 +40,19 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
     getToken();
   }, []);
 
+  const toDataURL = (url) =>
+    fetch(url)
+      .then((response) => response.blob())
+      .then(
+        (blob) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
   return (
     <RNEListItem
       onPress={() => {
@@ -61,7 +75,16 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
       <Avatar
         size="large"
         square
-        source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
+        source={require('../assets/playbuttonsquare.png')}
+        onPress={() => {
+          toDataURL(uploadsUrl + singleMedia.thumbnails?.w160).then(
+            (dataUrl) => {
+              const kukkaMaaria = musicArrayMaker(dataUrl);
+              handlePlaySound(kukkaMaaria);
+            }
+          );
+        }}
+        // source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
       ></Avatar>
       <RNEListItem.Content>
         <RNEListItem.Title numberOfLines={1} h4 style={{color: mainOrange}}>

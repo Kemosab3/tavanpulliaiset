@@ -18,6 +18,12 @@ import {Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {mainOrange, highlightOrange} from '../assets/colors';
+import {
+  handlePlaySound,
+  mhandlePlaySound,
+  musicArrayMaker,
+  usicArrayMaker,
+} from '../utils/soundFunctions';
 
 const Home = ({navigation}) => {
   const {mediaArray} = useMedia(false);
@@ -95,6 +101,19 @@ const Home = ({navigation}) => {
     getLikes();
   }, []);
 
+  const toDataURL = (url) =>
+    fetch(url)
+      .then((response) => response.blob())
+      .then(
+        (blob) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>DOG OF THE DAY!!!</Text>
@@ -115,6 +134,14 @@ const Home = ({navigation}) => {
             // source={require('../assets/splash.png')}
             // source={picSource}
             source={require('../assets/playbutton.png')}
+            onPress={() => {
+              toDataURL(uploadsUrl + theMediaArray[0].thumbnails.w320).then(
+                (dataUrl) => {
+                  const kukkaMaaria = musicArrayMaker(dataUrl);
+                  handlePlaySound(kukkaMaaria);
+                }
+              );
+            }}
           ></Image>
         </View>
         <View style={styles.picOfTheWeekIcons}>

@@ -103,9 +103,20 @@ const Login = ({navigation}) => {
         ) : (
           <ScrollView>
             <Card containerStyle={styles.card}>
+              <Text
+                style={styles.text}
+                onPress={() => {
+                  const kukkaMaaria = [5, 1, 1, 1, 1];
+                  handlePlaySound(kukkaMaaria);
+                }}
+              >
+                Click on this text to hear gibberish noise! Login (or register)
+                to enjoy more no no nonsense content...
+              </Text>
               <Card.Title h4 style={styles.title}>
                 Login
               </Card.Title>
+
               <LoginForm navigation={navigation} />
             </Card>
           </ScrollView>
