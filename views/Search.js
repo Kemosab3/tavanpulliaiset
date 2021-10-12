@@ -62,61 +62,62 @@ const Search = ({navigation}) => {
     }
   };
   return (
-    <SafeAreaView style={styles.droidSafeArea}>
-      <View style={styles.container}>
-        <View style={styles.searchBar}>
-          <TextInput
-            label="Search"
-            autoCapitalize="none"
-            mode="outlined"
-            theme={{
-              colors: {
-                placeholder: mainOrange,
-                text: 'white',
-                primary: mainOrange,
-                underlineColor: 'transparent',
-                background: 'black',
-              },
-            }}
-            style={{flex: 1, marginRight: 10}}
-            onChangeText={(txt) => handleInputChange('title', txt)}
-            onEndEditing={(event) => {
-              /*
+    <View style={styles.container}>
+      <View style={styles.searchBar}>
+        <TextInput
+          label="Search"
+          autoCapitalize="none"
+          mode="outlined"
+          theme={{
+            colors: {
+              placeholder: mainOrange,
+              text: 'white',
+              primary: mainOrange,
+              underlineColor: 'transparent',
+              background: 'black',
+            },
+          }}
+          style={{flex: 1, marginRight: 10}}
+          onChangeText={(txt) => handleInputChange('title', txt)}
+          onEndEditing={(event) => {
+            /*
               console.log(
                 'searchFrom onEndEditingValue',
                 event.nativeEvent.text
               );
               */
-              handleOnEndEditing('title', event.nativeEvent.text);
-            }}
-            errorMessage={errors.title}
-          ></TextInput>
-          <View style={{alignSelf: 'center'}}>
-            <TouchableOpacity style={styles.searchButton} onPress={doSearch}>
-              <Icon name="search" size={20} color="white" />
-            </TouchableOpacity>
-          </View>
+            handleOnEndEditing('title', event.nativeEvent.text);
+          }}
+          errorMessage={errors.title}
+        ></TextInput>
+        <View style={{alignSelf: 'center'}}>
+          <TouchableOpacity style={styles.searchButton} onPress={doSearch}>
+            <Icon name="search" size={20} color="white" />
+          </TouchableOpacity>
         </View>
-        <FlatList
-          data={searchMediaArray}
-          renderItem={({item}) => (
-            <ListItem singleMedia={item} navigation={navigation} />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          onRefresh={refreshList}
-          refreshing={isFetching}
-        />
-        <StatusBar style="auto" />
       </View>
-    </SafeAreaView>
+      <FlatList
+        data={searchMediaArray}
+        renderItem={({item}) => (
+          <ListItem singleMedia={item} navigation={navigation} />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        onRefresh={refreshList}
+        refreshing={isFetching}
+      />
+      <StatusBar style="auto" />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    color: 'green',
+    backgroundColor: 'black',
+    display: 'flex',
+    height: '100%',
+    paddingTop: 40,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   droidSafeArea: {
     flex: 1,
