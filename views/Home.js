@@ -58,11 +58,9 @@ const Home = ({navigation}) => {
 
   // state jolle annetaan uusi arvo
 
-  /*
   useEffect(() => {
     makePrivateArray();
   }, []);
-  */
 
   makePrivateArray();
   let theMediaArray = newMediaArray;

@@ -65,10 +65,11 @@ const Upload = ({navigation}) => {
               text: 'Ok',
               onPress: () => {
                 handleReset();
+                setUpdate(update + 1);
                 setImage(require('../assets/icon3.png'));
                 // setImage(require({uri: exampleImageUri}));
                 navigation.navigate('Home');
-                setUpdate(update + 1);
+                // setUpdate(update + 1);
               },
             },
           ],
