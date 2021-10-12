@@ -96,17 +96,7 @@ const Home = ({navigation}) => {
         <View style={styles.picOfTheWeekIcons}>
           <Icon name="beer" type="ionicon" color="#FF6700" />
           <Text style={styles.picOfTheWeekDesc}>15k</Text>
-          <Icon name="flower" type="ionicon" color="#FF6700" />
-          <Text style={styles.picOfTheWeekDesc}>2.8k</Text>
-          <Icon name="heart" type="ionicon" color="#FF6700" />
-          <Text style={styles.picOfTheWeekDesc}>1</Text>
         </View>
-        <Text style={styles.picOfTheWeekDesc}>
-          Iconin tiedot pitäisi saada yleiseen käyttöön. Tästä pitäisi myös
-          tehdä komponentti. Rupikoiso! Also, icon lienee varattu nimi. Mitäs
-          muuta tähän kirjoittelisi... Tralalaa, lallallaa, placeholder text,
-          öhhöhöö.
-        </Text>
       </View>
 
       <FlatList
@@ -131,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     justifyContent: 'center',
     color: '#FF6700',
-    marginBottom: 70,
+    marginBottom: 30,
   },
   container2: {
     height: 225,
@@ -160,7 +150,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
   },
   picOfTheWeek: {
-    height: 270,
     marginLeft: 8,
     marginBottom: 15,
     marginRight: 8,
@@ -176,7 +165,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
     marginTop: 8,
     marginLeft: 8,
   },

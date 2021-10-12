@@ -285,18 +285,19 @@ const Single = ({route}) => {
         </ListItem>
         <ListItem containerStyle={{backgroundColor: 'black'}}>
           <ListItem.Content>
-            <ListItem.Title style={{color: 'green'}}>
+            <ListItem.Title style={{color: '#FF6700'}}>
               {params.title}
             </ListItem.Title>
-            <ListItem.Subtitle style={{color: 'green'}}>
+            <ListItem.Subtitle style={{color: '#FF6700'}}>
               {formatDate(new Date(params.time_added), 'd. MMMM y')}
             </ListItem.Subtitle>
-            <ListItem.Subtitle style={{color: 'green'}}>
+            <ListItem.Subtitle style={{color: '#FF6700'}}>
               klo {formatDate(new Date(params.time_added), 'HH.mm')}
             </ListItem.Subtitle>
+            <Text style={styles.description}>{params.description}</Text>
           </ListItem.Content>
         </ListItem>
-          <Text style={styles.description}>{params.description}</Text>
+
       </Card>
     </ScrollView>
   );
@@ -326,7 +327,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderColor: '#FF6700',
     borderWidth: 2,
-    elevation: 2,
     shadowColor: '#FF6700',
     shadowRadius: 10,
     shadowOpacity: 0.8,
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
 
   description: {
     marginBottom: 10,
-    color: 'green',
+    color: '#FF6700',
   },
   card: {
     borderColor: '#FF6700',

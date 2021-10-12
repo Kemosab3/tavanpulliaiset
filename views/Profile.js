@@ -150,14 +150,14 @@ const Profile = ({route, navigation}) => {
             <Text style={styles.text}>"Mottoni on mottojen motto!"</Text>
           </Card.Title>
           <ListItem containerStyle={{backgroundColor: 'black'}}>
-            <Avatar icon={{name: 'email', color: '#ff6700'}} />
+            <Avatar icon={{name: 'email', color: '#ffb800'}} />
             <Text style={styles.buttonText}>{userInfo.email}</Text>
           </ListItem>
           <ListItem containerStyle={{backgroundColor: 'black'}}>
             <Avatar
               icon={{
                 name: 'warning',
-                color: '#FF7600',
+                color: '#ffb800',
               }}
             />
             <View style={styles.privacyContainer}>
@@ -178,7 +178,7 @@ const Profile = ({route, navigation}) => {
               navigation.navigate('My Files');
             }}
           >
-            <Avatar icon={{name: 'folder', color: '#ff6700'}} />
+            <Avatar icon={{name: 'folder', color: '#ffb800'}} />
             <ListItem.Content>
               <ListItem.Title style={styles.buttonText}>
                 My Files
@@ -193,7 +193,7 @@ const Profile = ({route, navigation}) => {
               navigation.navigate('Edit Profile', userInfo);
             }}
           >
-            <Avatar icon={{name: 'edit', color: '#ff6700'}} />
+            <Avatar icon={{name: 'edit', color: '#ffb800'}} />
             <ListItem.Content>
               <ListItem.Title style={styles.buttonText}>
                 Edit Profile
@@ -206,7 +206,7 @@ const Profile = ({route, navigation}) => {
             onPress={logout}
             containerStyle={{backgroundColor: 'black'}}
           >
-            <Avatar icon={{name: 'logout', color: '#ff6700'}} />
+            <Avatar icon={{name: 'logout', color: '#ffb800'}} />
             <ListItem.Content>
               <ListItem.Title style={styles.buttonText}>Logout</ListItem.Title>
             </ListItem.Content>
