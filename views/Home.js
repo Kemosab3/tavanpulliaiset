@@ -18,12 +18,7 @@ import {Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {mainOrange, highlightOrange} from '../assets/colors';
-import {
-  handlePlaySound,
-  mhandlePlaySound,
-  musicArrayMaker,
-  usicArrayMaker,
-} from '../utils/soundFunctions';
+import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
 
 const Home = ({navigation}) => {
   const {mediaArray} = useMedia(false);
