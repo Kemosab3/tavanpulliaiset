@@ -96,6 +96,8 @@ const Home = ({navigation}) => {
     getLikes();
   }, []);
 
+  getLikes();
+
   const toDataURL = (url) =>
     fetch(url)
       .then((response) => response.blob())
