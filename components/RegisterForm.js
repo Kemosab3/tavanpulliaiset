@@ -76,11 +76,40 @@ const RegisterForm = () => {
           checkUsername(event.nativeEvent.text);
           handleOnEndEditing('username', event.nativeEvent.text);
         }}
-        error={errors.username}
       />
-      <HelperText type="error" visible={errors.username}>
-        {errors.username}
-      </HelperText>
+      {errors.username && (
+        <>
+          <HelperText type="error" visible={errors.username}>
+            {errors.username}
+          </HelperText>
+        </>
+      )}
+      <TextInput
+        autoCapitalize="none"
+        label="email"
+        mode="outlined"
+        style={styles.registerBars}
+        theme={{
+          colors: {
+            placeholder: mainOrange,
+            text: 'white',
+            primary: highlightOrange,
+            underlineColor: 'transparent',
+            background: 'black',
+          },
+        }}
+        onChangeText={(txt) => handleInputChange('email', txt)}
+        onEndEditing={(event) => {
+          handleOnEndEditing('email', event.nativeEvent.text);
+        }}
+      />
+      {errors.email && (
+        <>
+          <HelperText type="error" visible={errors.email}>
+            {errors.email}
+          </HelperText>
+        </>
+      )}
       <TextInput
         autoCapitalize="none"
         label="password"
@@ -100,11 +129,14 @@ const RegisterForm = () => {
         onEndEditing={(event) => {
           handleOnEndEditing('password', event.nativeEvent.text);
         }}
-        error={errors.password}
       />
-      <HelperText type="error" visible={errors.password}>
-        {errors.password}
-      </HelperText>
+      {errors.password && (
+        <>
+          <HelperText type="error" visible={errors.password}>
+            {errors.password}
+          </HelperText>
+        </>
+      )}
       <TextInput
         autoCapitalize="none"
         label="password again"
@@ -124,34 +156,14 @@ const RegisterForm = () => {
         onEndEditing={(event) => {
           handleOnEndEditing('confirmPassword', event.nativeEvent.text);
         }}
-        error={errors.confirmPassword}
       />
-      <HelperText type="error" visible={errors.confirmPassword}>
-        {errors.confirmPassword}
-      </HelperText>
-      <TextInput
-        autoCapitalize="none"
-        label="email"
-        mode="outlined"
-        style={styles.registerBars}
-        theme={{
-          colors: {
-            placeholder: mainOrange,
-            text: 'white',
-            primary: highlightOrange,
-            underlineColor: 'transparent',
-            background: 'black',
-          },
-        }}
-        onChangeText={(txt) => handleInputChange('email', txt)}
-        onEndEditing={(event) => {
-          handleOnEndEditing('email', event.nativeEvent.text);
-        }}
-        error={errors.email}
-      />
-      <HelperText type="error" visible={errors.email}>
-        {errors.email}
-      </HelperText>
+      {errors.confirmPassword && (
+        <>
+          <HelperText type="error" visible={errors.confirmPassword}>
+            {errors.confirmPassword}
+          </HelperText>
+        </>
+      )}
       <Button
         mode="contained"
         style={styles.registerButton}

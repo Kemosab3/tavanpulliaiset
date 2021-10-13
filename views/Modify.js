@@ -80,9 +80,13 @@ const Modify = ({route}) => {
           value={inputs.title}
         />
       </View>
-      <HelperText type="error" visible={errors.title}>
-        {errors.title}
-      </HelperText>
+      {errors.title && (
+        <>
+          <HelperText type="error" visible={errors.title}>
+            {errors.title}
+          </HelperText>
+        </>
+      )}
       <View style={styles.inputStyle}>
         <TextInput
           label="description"
@@ -107,9 +111,6 @@ const Modify = ({route}) => {
           }}
         />
       </View>
-      <HelperText type="error" visible={false}>
-        Success asshole!
-      </HelperText>
       <Button
         mode="contained"
         onPress={doModify}

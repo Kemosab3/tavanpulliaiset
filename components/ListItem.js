@@ -13,14 +13,12 @@ import {set} from 'date-fns';
 import {mainOrange, highlightOrange} from '../assets/colors';
 
 const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
-  console.log('ListItem', deleteMedia, singleMedia.file_id);
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
   const {getFilesByTag, addTag} = useTag();
 
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
-    // console.log('logIn asyncstorage token:', userToken);
     if (userToken) {
       try {
         const userInfo = await checkToken(userToken);

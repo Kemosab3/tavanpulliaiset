@@ -83,9 +83,13 @@ const EditProfile = ({route, navigation}) => {
           errorMessage={errors.email}
         />
       </View>
-      <HelperText type="error" visible={errors.email}>
-        {errors.email}
-      </HelperText>
+      {errors.email && (
+        <>
+          <HelperText type="error" visible={errors.email}>
+            {errors.email}
+          </HelperText>
+        </>
+      )}
       <View style={styles.inputStyle}>
         <TextInput
           mode="outlined"
@@ -108,9 +112,13 @@ const EditProfile = ({route, navigation}) => {
           errorMessage={errors.password}
         />
       </View>
-      <HelperText type="error" visible={errors.password}>
-        {errors.password}
-      </HelperText>
+      {errors.password && (
+        <>
+          <HelperText type="error" visible={errors.password}>
+            {errors.password}
+          </HelperText>
+        </>
+      )}
       <View style={styles.inputStyle}>
         <TextInput
           mode="outlined"
@@ -133,9 +141,14 @@ const EditProfile = ({route, navigation}) => {
           errorMessage={errors.confirmPassword}
         />
       </View>
-      <HelperText type="error" visible={errors.confirmPassword}>
-        {errors.confirmPassword}
-      </HelperText>
+      {errors.confirmPassword && (
+        <>
+          <HelperText type="error" visible={errors.confirmPassword}>
+            {errors.confirmPassword}
+          </HelperText>
+        </>
+      )}
+
       <Button
         mode="contained"
         style={styles.button}

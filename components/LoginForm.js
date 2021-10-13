@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: mainOrange,
-    padding: 10,
     marginTop: 16,
     elevation: 2,
     shadowColor: mainOrange,

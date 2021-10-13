@@ -39,9 +39,13 @@ const UploadForm = ({
         errorMessage={errors.title}
         value={inputs.title}
       />
-      <HelperText type="error" visible={errors.title}>
-        {errors.title}
-      </HelperText>
+      {errors.title && (
+        <>
+          <HelperText type="error" visible={errors.title}>
+            {errors.title}
+          </HelperText>
+        </>
+      )}
       <TextInput
         autoCapitalize="none"
         label="description"
