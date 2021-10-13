@@ -46,8 +46,7 @@ const EditProfile = ({route, navigation}) => {
             {
               text: 'Ok',
               onPress: () => {
-                navigation.navigate('Profile', inputs);
-                console.log('INPUTTI ', inputs);
+                navigation.navigate('My Profile', inputs);
               },
             },
           ],

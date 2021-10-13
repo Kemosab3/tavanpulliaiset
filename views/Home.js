@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, StatusBar, Platform} from 'react-native';
+import {StyleSheet, View, StatusBar} from 'react-native';
 import {Image, Text} from 'react-native-elements';
 import List from '../components/List';
 import PropTypes from 'prop-types';
@@ -37,12 +37,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: '#FF6700',
     paddingBottom: 140,
-  },
-  droidSafeArea: {
-    flex: 1,
-    backgroundColor: '#000',
-    paddingBottom: 100,
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   text: {
     height: 70,

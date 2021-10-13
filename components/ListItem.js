@@ -143,7 +143,7 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
                             userToken
                           );
                         }
-                        navigation.navigate('Profile', singleMedia.filename);
+                        navigation.navigate('My Profile', singleMedia.filename);
                       }
                     } catch (e) {
                       console.log('getToken', e.message);
