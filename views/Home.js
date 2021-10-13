@@ -132,7 +132,7 @@ const Home = ({navigation}) => {
             // source={picSource}
             source={require('../assets/playbutton.png')}
             onPress={() => {
-              toDataURL(uploadsUrl + theMediaArray[0].thumbnails.w320).then(
+              toDataURL(uploadsUrl + theMediaArray[0].filename).then(
                 (dataUrl) => {
                   const kukkaMaaria = musicArrayMaker(dataUrl);
                   handlePlaySound(kukkaMaaria);
