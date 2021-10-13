@@ -53,7 +53,7 @@ const Profile = ({route, navigation}) => {
       const file = await getFilesByTag('avatar_' + user.user_id);
       // console.log('file', file);
       setAvatar(uploadsUrl + file.pop().filename);
-      console.log('Avataari effecti: ', avatar);
+      // console.log('Avataari effecti: ', avatar);
     })();
   }, [user]);
 

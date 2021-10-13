@@ -1,5 +1,5 @@
 import {Audio} from 'expo-av';
-import {audioJorma} from './variables';
+import {audioJorma, audioKalevi, audioPentti} from './variables';
 
 const handlePlaySound = async (note) => {
   Audio.setIsEnabledAsync(true);
@@ -13,8 +13,11 @@ const handlePlaySound = async (note) => {
       try {
         // const source = audioArray[note];
         // await soundObject.loadAsync(source);
-
-        await soundObject.loadAsync(audioJorma[note[i]]);
+        if (i === 0) {
+          await soundObject.loadAsync(audioPentti[note[i]]);
+        } else {
+          await soundObject.loadAsync(audioJorma[note[i]]);
+        }
 
         console.log('SOUNDI NRO: ', note[i]);
         await soundObject
@@ -41,7 +44,7 @@ let d = 0;
 let e = 0;
 
 const musicArrayMaker = (dataUrl) => {
-  console.log('RESULTTTTT:', dataUrl);
+  // console.log('RESULTTTTT:', dataUrl);
   const tapio = dataUrl.length.toString();
   const ville = dataUrl.slice([1], [100]);
   a = parseInt(tapio[0]);
@@ -62,4 +65,17 @@ const musicArrayMaker = (dataUrl) => {
   return kukkaMaaria;
 };
 
-export {handlePlaySound, musicArrayMaker};
+const toDataURL = (url) =>
+  fetch(url)
+    .then((response) => response.blob())
+    .then(
+      (blob) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        })
+    );
+
+export {handlePlaySound, musicArrayMaker, toDataURL};

@@ -11,9 +11,14 @@ import {timeSince} from '../utils/dateFunctions';
 import {addOrientationChangeListener} from 'expo-screen-orientation';
 import {set} from 'date-fns';
 import {mainOrange, highlightOrange} from '../assets/colors';
+import {
+  handlePlaySound,
+  musicArrayMaker,
+  toDataURL,
+} from '../utils/soundFunctions';
 
 const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
-  console.log('ListItem', deleteMedia, singleMedia.file_id);
+  // console.log('ListItem', deleteMedia, singleMedia.file_id);
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
   const {getFilesByTag, addTag} = useTag();
@@ -60,7 +65,14 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
       <Avatar
         size="large"
         square
-        source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
+        source={require('../assets/playbuttonsquare.png')}
+        onPress={() => {
+          console.log('SINKKU: ', singleMedia);
+          toDataURL(uploadsUrl + singleMedia.filename).then((dataUrl) => {
+            const kukkaMaaria = musicArrayMaker(dataUrl);
+            handlePlaySound(kukkaMaaria);
+          });
+        }}
       ></Avatar>
       <RNEListItem.Content>
         <RNEListItem.Title numberOfLines={1} h4 style={{color: mainOrange}}>
@@ -131,8 +143,8 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
                           'avatar_' + userInfo.user_id
                         );
                         if (tagS.length > 0) {
-                          console.log('TÄÄK: ', tagS[0].tag_id);
-                          console.log('SinkkuMedia: ', singleMedia.file_id);
+                          // console.log('TÄÄK: ', tagS[0].tag_id);
+                          // console.log('SinkkuMedia: ', singleMedia.file_id);
                           addTag(
                             singleMedia.file_id,
                             'avatar_' + userInfo.user_id,

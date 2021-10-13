@@ -12,7 +12,7 @@ const List = ({navigation}) => {
   const {mediaArray, deleteMedia} = useMedia();
   const [newMediaArray, setNewMediaArray] = useState([]);
   // console.log('Media', mediaArray[7]);
-  console.log('List test');
+  // console.log('List test');
   const {getAllUsers, getUserInfo} = useUser();
 
   const makePrivateArray = async () => {

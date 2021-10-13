@@ -9,10 +9,46 @@ import {uploadsUrl} from '../utils/variables';
 import {Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
+import {
+  handlePlaySound,
+  musicArrayMaker,
+  toDataURL,
+} from '../utils/soundFunctions';
 
 const Home = ({navigation}) => {
+  // const picSource = require('../assets/splash.png');
+  const {mediaArray} = useMedia();
+  const {getUserInfo} = useUser();
+  const [picOfSomething, setPicOfSomething] = useState([]);
 
-  const picSource = require('../assets/splash.png');
+  const makeHomePic = async () => {
+    // const newMedia = [];
+    // console.log('Pituus ', newMedia.length);
+    try {
+      for (let i = 0; i < mediaArray.length; i++) {
+        const userToken = await AsyncStorage.getItem('userToken');
+        const checker = await getUserInfo(mediaArray[i].user_id, userToken);
+        console.log('CHECKER: ', checker);
+        if (checker.full_name !== 'private') {
+          setPicOfSomething(mediaArray[i]);
+
+          break;
+        }
+      }
+    } catch (e) {
+      console.log('makeHomePic error', e.message);
+    }
+  };
+  console.log('SOME PIC: ', picOfSomething);
+
+  useEffect(() => {
+    makeHomePic();
+  }, []);
+
+  const picSource =
+    picOfSomething !== null || picOfSomething !== undefined
+      ? {uri: uploadsUrl + picOfSomething.thumbnails.w320}
+      : require('../assets/bjorn.jpg');
 
   return (
     <View style={styles.container}>
@@ -24,6 +60,18 @@ const Home = ({navigation}) => {
             // source={require('../assets/splash.png')}
             // source={{uri: 'https://placekitten.com/400/400'}}
             source={picSource}
+          ></Image>
+          <Image
+            style={styles.imagePlay}
+            // source={require('../assets/splash.png')}
+            // source={{uri: 'https://placekitten.com/400/400'}}
+            // source={require('../assets/splash.png')}
+            // source={picSource}
+            source={require('../assets/playbutton.png')}
+            onPress={() => {
+              const kukkaMaaria = [5, 11, 13, 15, 12];
+              handlePlaySound(kukkaMaaria);
+            }}
           ></Image>
         </View>
         <View style={styles.picOfTheWeekIcons}>
@@ -63,6 +111,10 @@ const styles = StyleSheet.create({
   image: {
     justifyContent: 'center',
     height: 150,
+  },
+  imagePlay: {
+    justifyContent: 'center',
+    height: 100,
   },
   imageBox: {
     borderWidth: 3,

@@ -34,7 +34,7 @@ import {mainOrange, highlightOrange} from '../assets/colors';
 const Single = ({route}) => {
   const {params} = route;
 
-  console.log('PARAAAAA ', params);
+  //  console.log('PARAAAAA ', params);
 
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
@@ -138,8 +138,8 @@ const Single = ({route}) => {
     } else {
       setIAmLikingIt(true);
     }
-    console.log('MY LIKING: ', liking);
-    console.log('Picture LIKING: ', liking2);
+    // console.log('MY LIKING: ', liking);
+    // console.log('Picture LIKING: ', liking2);
     setLikes(liking2.length);
   };
 
@@ -177,15 +177,6 @@ const Single = ({route}) => {
 
   // What? ends
 
-  // What? part 2
-  const handleCanvas = (canvas) => {
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = 'purple';
-    ctx.fillRect(0, 0, 100, 100);
-  };
-
-  // What? part 2 ends
-
   return (
     <ScrollView style={{backgroundColor: 'black'}}>
       <Card containerStyle={styles.card}>
@@ -198,7 +189,7 @@ const Single = ({route}) => {
               style={styles.avatar}
             />
           </View>
-          {console.log('Avatar on foorumissa: ', avatar)}
+
           <Text style={styles.text}>{ownerInfo.username}</Text>
         </ListItem>
         {params.media_type === 'image' && (
