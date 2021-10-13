@@ -3,7 +3,7 @@ import {audioJorma, audioKalevi, audioPentti} from './variables';
 
 const handlePlaySound = async (note) => {
   Audio.setIsEnabledAsync(true);
-  console.log('NOOTTI: ', note);
+  // console.log('NOOTTI: ', note);
   const difecta = note[1] + note[2];
   const trifecta = note[0] + note[1] + note[2];
 

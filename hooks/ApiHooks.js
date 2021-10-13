@@ -345,7 +345,7 @@ const useFavourites = () => {
       },
       body: JSON.stringify({file_id}),
     };
-    console.log('optiot', options);
+    // console.log('optiot', options);
     try {
       const favouriteInfo = await doFetch(baseUrl + 'favourites', options);
       console.log('Favoriitti: ', favouriteInfo);
@@ -391,7 +391,7 @@ const useFavourites = () => {
         baseUrl + 'favourites/file/' + fileId,
         options
       );
-      console.log('LIKING ID INFO:', idInfo);
+      // console.log('LIKING ID INFO:', idInfo);
       return idInfo;
     } catch (error) {
       console.log('getFavourites by fileiD error ', error);

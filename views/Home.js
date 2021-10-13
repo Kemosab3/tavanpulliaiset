@@ -1,8 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, View, StatusBar, Platform} from 'react-native';
-import {Image, Text} from 'react-native-elements';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  Platform,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import {Card, Text} from 'react-native-elements';
 import List from '../components/List';
-import {useMedia, useUser} from '../hooks/ApiHooks';
+import {useMedia, useUser, useFavourites, useTag} from '../hooks/ApiHooks';
 import ListItem from '../components/ListItem';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
@@ -14,12 +21,23 @@ import {
   musicArrayMaker,
   toDataURL,
 } from '../utils/soundFunctions';
+import {mainOrange} from '../assets/colors';
 
 const Home = ({navigation}) => {
   // const picSource = require('../assets/splash.png');
   const {mediaArray} = useMedia();
   const {getUserInfo} = useUser();
   const [picOfSomething, setPicOfSomething] = useState([]);
+
+  const [iAmLikingIt, setIAmLikingIt] = useState();
+  const [likes, setLikes] = useState([]);
+
+  const {
+    addFavourite,
+    deleteFavourite,
+    getMyFavourites,
+    getFavouritesByFileID,
+  } = useFavourites();
 
   const makeHomePic = async () => {
     // const newMedia = [];
@@ -39,13 +57,39 @@ const Home = ({navigation}) => {
       console.log('makeHomePic error', e.message);
     }
   };
-  console.log('SOME PIC: ', picOfSomething);
+  // console.log('SOME PIC: ', picOfSomething);
+
+  const getLikes = async () => {
+    const token = await AsyncStorage.getItem('userToken');
+    const liking = await getMyFavourites(token);
+    const liking2 = await getFavouritesByFileID(picOfSomething.file_id);
+    let checker = 0;
+
+    for (let i = 0; i < liking.length; i++) {
+      if (liking[i].file_id === picOfSomething.file_id) {
+        checker += 1;
+        // console.log('liking.file_id: ', liking[i].file_id);
+      }
+    }
+    // console.log('CHECKER: ', checker);
+
+    if (checker > 0) {
+      setIAmLikingIt(false);
+    } else {
+      setIAmLikingIt(true);
+    }
+    // console.log('MY LIKING: ', liking);
+    // console.log('Picture LIKING: ', liking2);
+    setLikes(liking2.length);
+  };
 
   useEffect(() => {
     makeHomePic();
+    getLikes();
   }, []);
 
   makeHomePic();
+  getLikes();
 
   const picSource =
     picOfSomething !== null || picOfSomething !== undefined
@@ -54,7 +98,22 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>STAFF FAVOURITE:</Text>
+      <Text
+        style={styles.text}
+        onPress={() => {
+          if (picSource === require('../assets/bjorn.jpg')) {
+            const kukkaMaaria = [5, 11, 13, 15, 12];
+            handlePlaySound(kukkaMaaria);
+          } else {
+            toDataURL(uploadsUrl + picSource).then((dataUrl) => {
+              const kukkaMaaria = musicArrayMaker(dataUrl);
+              handlePlaySound(kukkaMaaria);
+            });
+          }
+        }}
+      >
+        STAFF FAVOURITE:
+      </Text>
       <View style={styles.picOfTheWeek}>
         <View style={styles.imageBox}>
           <Image
@@ -63,29 +122,47 @@ const Home = ({navigation}) => {
             // source={{uri: 'https://placekitten.com/400/400'}}
             source={picSource}
           ></Image>
-          <Image
-            style={styles.imagePlay}
-            // source={require('../assets/splash.png')}
-            // source={{uri: 'https://placekitten.com/400/400'}}
-            // source={require('../assets/splash.png')}
-            // source={picSource}
-            source={require('../assets/playbutton.png')}
-            onPress={() => {
-              if (picSource === require('../assets/bjorn.jpg')) {
-                const kukkaMaaria = [5, 11, 13, 15, 12];
-                handlePlaySound(kukkaMaaria);
-              } else {
-                toDataURL(uploadsUrl + picSource).then((dataUrl) => {
-                  const kukkaMaaria = musicArrayMaker(dataUrl);
-                  handlePlaySound(kukkaMaaria);
-                });
-              }
-            }}
-          ></Image>
         </View>
-        <View style={styles.picOfTheWeekIcons}>
-          <Icon name="beer" type="ionicon" color="#FF6700" />
-          <Text style={styles.picOfTheWeekDesc}>15k</Text>
+        <View>
+          {iAmLikingIt ? (
+            <TouchableOpacity
+              onPress={async () => {
+                // use api hooks to Post a favourite
+                // console.log('I AM LIKE: ', iAmLikingIt);
+
+                // console.log('FILETSU ID: ', picOfSomething.file_id);
+                const token = await AsyncStorage.getItem('userToken');
+                // console.log('Token? : ', token);
+                const response = await addFavourite(
+                  picOfSomething.file_id,
+                  token
+                );
+                // console.log('Likeeeeee ', response);
+                setIAmLikingIt(false);
+                // getLikes();
+              }}
+            >
+              <Image source={require('../assets/pintempty.png')} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              title="Unlike"
+              onPress={async () => {
+                // use api hooks to DELETE a favourite
+                // console.log('I AM LIKE: ', iAmLikingIt);
+                const token = await AsyncStorage.getItem('userToken');
+                const response = await deleteFavourite(
+                  picOfSomething.file_id,
+                  token
+                );
+                setIAmLikingIt(true);
+                // getLikes();
+                // console.log('Likeeeeee ', response);
+              }}
+            >
+              <Image source={require('../assets/pintfull.png')} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       <List navigation={navigation} />
@@ -115,11 +192,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     paddingTop: 30,
-    color: 'orange',
+    color: mainOrange,
   },
   image: {
     justifyContent: 'center',
     height: 150,
+  },
+  playButtonImage: {
+    width: 250,
+
+    position: 'relative',
   },
   imagePlay: {
     justifyContent: 'center',

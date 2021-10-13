@@ -25,7 +25,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 // import PixelColor from 'react-native-pixel-color';
 // import {Canvas} from 'react-native-canvas';
 import {MainContext} from '../contexts/MainContext';
-import {handlePlaySound, musicArrayMaker} from '../utils/soundFunctions';
+import {
+  handlePlaySound,
+  musicArrayMaker,
+  toDataURL,
+} from '../utils/soundFunctions';
 import {mainOrange, highlightOrange} from '../assets/colors';
 // import WebView from 'react-native-webview';
 
@@ -117,9 +121,6 @@ const Single = ({route}) => {
   };
 
   const getLikes = async () => {
-    // TODO: use api hooks to get favourites
-    // setLikes()
-    // set the value of iAmLikingIt
     const token = await AsyncStorage.getItem('userToken');
     const liking = await getMyFavourites(token);
     const liking2 = await getFavouritesByFileID(params.file_id);
@@ -128,10 +129,10 @@ const Single = ({route}) => {
     for (let i = 0; i < liking.length; i++) {
       if (liking[i].file_id === params.file_id) {
         checker += 1;
-        console.log('liking.file_id: ', liking[i].file_id);
+        // console.log('liking.file_id: ', liking[i].file_id);
       }
     }
-    console.log('CHECKER: ', checker);
+    // console.log('CHECKER: ', checker);
 
     if (checker > 0) {
       setIAmLikingIt(false);
@@ -161,19 +162,6 @@ const Single = ({route}) => {
   }, []);
 
   // What?
-
-  const toDataURL = (url) =>
-    fetch(url)
-      .then((response) => response.blob())
-      .then(
-        (blob) =>
-          new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(blob);
-          })
-      );
 
   // What? ends
 
@@ -230,13 +218,13 @@ const Single = ({route}) => {
             <TouchableOpacity
               onPress={async () => {
                 // use api hooks to Post a favourite
-                console.log('I AM LIKE: ', iAmLikingIt);
+                // console.log('I AM LIKE: ', iAmLikingIt);
 
-                console.log('FILETSU ID: ', params.file_id);
+                // console.log('FILETSU ID: ', params.file_id);
                 const token = await AsyncStorage.getItem('userToken');
-                console.log('Token? : ', token);
+                // console.log('Token? : ', token);
                 const response = await addFavourite(params.file_id, token);
-                console.log('Likeeeeee ', response);
+                // console.log('Likeeeeee ', response);
                 setIAmLikingIt(false);
                 getLikes();
               }}
@@ -248,12 +236,12 @@ const Single = ({route}) => {
               title="Unlike"
               onPress={async () => {
                 // use api hooks to DELETE a favourite
-                console.log('I AM LIKE: ', iAmLikingIt);
+                // console.log('I AM LIKE: ', iAmLikingIt);
                 const token = await AsyncStorage.getItem('userToken');
                 const response = await deleteFavourite(params.file_id, token);
                 setIAmLikingIt(true);
                 getLikes();
-                console.log('Likeeeeee ', response);
+                // console.log('Likeeeeee ', response);
               }}
             >
               <Image source={require('../assets/pintfull.png')} />
