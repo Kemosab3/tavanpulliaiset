@@ -12,11 +12,10 @@ import {addOrientationChangeListener} from 'expo-screen-orientation';
 import {set} from 'date-fns';
 import {mainOrange, highlightOrange} from '../assets/colors';
 
-const ListItem = ({singleMedia, navigation, showButtons}) => {
+const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
   // console.log('singleMedia', singleMedia);
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
-  const {deleteMedia} = useMedia();
   const {getFilesByTag, addTag} = useTag();
 
   const getToken = async () => {
