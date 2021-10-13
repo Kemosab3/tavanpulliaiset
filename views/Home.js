@@ -65,7 +65,7 @@ const Home = ({navigation}) => {
 
   // state jolle annetaan uusi arvo
 
-  makePrivateArray();
+  // makePrivateArray();
 
   let theMediaArray = newMediaArray;
 
@@ -77,7 +77,8 @@ const Home = ({navigation}) => {
   }
   */
 
-  // const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
+  const pickOfTheDay = Math.floor(Math.random() * theMediaArray.length);
+  // console.log('PICK OF THE', pickOfTheDay);
 
   const picSource =
     theMediaArray.length > 1
@@ -94,9 +95,12 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     getLikes();
+    // makePrivateArray();
   }, []);
 
-  getLikes();
+  makePrivateArray();
+
+  // getLikes();
 
   const toDataURL = (url) =>
     fetch(url)
