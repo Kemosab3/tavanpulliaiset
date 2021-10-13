@@ -77,12 +77,11 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         square
         source={require('../assets/playbuttonsquare.png')}
         onPress={() => {
-          toDataURL(uploadsUrl + singleMedia.thumbnails?.w160).then(
-            (dataUrl) => {
-              const kukkaMaaria = musicArrayMaker(dataUrl);
-              handlePlaySound(kukkaMaaria);
-            }
-          );
+          console.log('SINKKU: ', singleMedia);
+          toDataURL(uploadsUrl + singleMedia.filename).then((dataUrl) => {
+            const kukkaMaaria = musicArrayMaker(dataUrl);
+            handlePlaySound(kukkaMaaria);
+          });
         }}
         // source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
       ></Avatar>
