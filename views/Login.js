@@ -5,6 +5,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Pressable,
+  Modal,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -27,6 +29,8 @@ const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {checkToken} = useUser();
   const [registerFormToggle, setRegisterFormToggle] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   // console.log('Login isLoggedIn', isLoggedIn);
 
@@ -102,6 +106,30 @@ const Login = ({navigation}) => {
           </ScrollView>
         ) : (
           <ScrollView>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>ACCEPT THE TERMS!</Text>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                      setRegisterFormToggle(!registerFormToggle);
+                    }}
+                  >
+                    <Text style={styles.textStyle}>Hide Modal</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
             <Card containerStyle={styles.card}>
               <Text
                 style={styles.text}
@@ -125,7 +153,12 @@ const Login = ({navigation}) => {
           <ListItem
             containerStyle={styles.swapViewButton}
             onPress={() => {
-              setRegisterFormToggle(!registerFormToggle);
+              if (!registerFormToggle) {
+                console.log('Juma');
+                setModalVisible(true);
+              } else {
+                setRegisterFormToggle(!registerFormToggle);
+              }
             }}
           >
             <ListItem.Content>
@@ -184,6 +217,41 @@ const styles = StyleSheet.create({
   },
   title: {
     color: mainOrange,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
 
