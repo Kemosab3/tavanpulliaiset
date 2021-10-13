@@ -5,7 +5,7 @@ import ListItem from '../components/ListItem';
 import PropTypes from 'prop-types';
 
 const MyFiles = ({navigation}) => {
-  const {mediaArray} = useMedia(true);
+  const {mediaArray, deleteMedia} = useMedia(true);
   // console.log('MyFiles: mediaArray', mediaArray);
   return (
     <View style={styles.container}>
@@ -16,6 +16,7 @@ const MyFiles = ({navigation}) => {
             singleMedia={item}
             navigation={navigation}
             showButtons={true}
+            deleteMedia={deleteMedia}
           />
         )}
         keyExtractor={(item, index) => index.toString()}

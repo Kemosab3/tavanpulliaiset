@@ -12,7 +12,7 @@ const List = ({navigation}) => {
   const {mediaArray, deleteMedia} = useMedia();
   const [newMediaArray, setNewMediaArray] = useState([]);
   // console.log('Media', mediaArray[7]);
-
+  console.log('List test');
   const {getAllUsers, getUserInfo} = useUser();
 
   const makePrivateArray = async () => {
@@ -22,12 +22,13 @@ const List = ({navigation}) => {
       const userToken = await AsyncStorage.getItem('userToken');
       // console.log('TOKEN?', userToken);
       const result = await getAllUsers(userToken);
+      /*
       const filteredUsers = result.filter(
         (user) => user.full_name != 'private'
       );
       // console.log('Result?', filteredUsers);
       // const newMedia = [];
-      /*
+
       const filteredMedia = mediaArray.filter((media) => {
         return filteredUsers.filter((user) => {
           if (media.user_id === user.user_id) {
@@ -37,7 +38,9 @@ const List = ({navigation}) => {
         });
       });
       */
+
       // console.log('Media', filteredMedia);
+
       const newMedia = [];
       let control = 0;
       if (result) {
@@ -73,7 +76,7 @@ const List = ({navigation}) => {
   useEffect(() => {
     makePrivateArray();
     setIsFetching(false);
-  }, [newMediaArray]);
+  }, [mediaArray]);
 
   return (
     <FlatList

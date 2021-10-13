@@ -87,47 +87,42 @@ const Login = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <ImageBackground
-        source={require('../assets/diskettibackground.png')}
-        style={styles.image}
-      >
-        {registerFormToggle ? (
-          <ScrollView>
-            <Card containerStyle={styles.card}>
-              <Card.Title h4 style={styles.title}>
-                Register
-              </Card.Title>
-              <RegisterForm navigation={navigation} />
-            </Card>
-          </ScrollView>
-        ) : (
-          <ScrollView>
-            <Card containerStyle={styles.card}>
-              <Card.Title h4 style={styles.title}>
-                Login
-              </Card.Title>
-              <LoginForm navigation={navigation} />
-            </Card>
-          </ScrollView>
-        )}
-        <Card containerStyle={styles.swapViewCard}>
-          <ListItem
-            containerStyle={styles.swapViewButton}
-            onPress={() => {
-              setRegisterFormToggle(!registerFormToggle);
-            }}
-          >
-            <ListItem.Content>
-              <Text style={styles.text}>
-                {registerFormToggle
-                  ? 'Already registered? Login here'
-                  : 'No account? Register here.'}
-              </Text>
-            </ListItem.Content>
-            <ListItem.Chevron />
-          </ListItem>
-        </Card>
-      </ImageBackground>
+      {registerFormToggle ? (
+        <ScrollView>
+          <Card containerStyle={styles.card}>
+            <Card.Title h4 style={styles.title}>
+              Register
+            </Card.Title>
+            <RegisterForm navigation={navigation} />
+          </Card>
+        </ScrollView>
+      ) : (
+        <ScrollView>
+          <Card containerStyle={styles.card}>
+            <Card.Title h4 style={styles.title}>
+              Login
+            </Card.Title>
+            <LoginForm navigation={navigation} />
+          </Card>
+        </ScrollView>
+      )}
+      <Card containerStyle={styles.swapViewCard}>
+        <ListItem
+          containerStyle={styles.swapViewButton}
+          onPress={() => {
+            setRegisterFormToggle(!registerFormToggle);
+          }}
+        >
+          <ListItem.Content>
+            <Text style={styles.text}>
+              {registerFormToggle
+                ? 'Already registered? Login here'
+                : 'No account? Register here.'}
+            </Text>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      </Card>
     </KeyboardAvoidingView>
   );
 };

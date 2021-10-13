@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar, ListItem as RNEListItem} from 'react-native-elements';
 import {Button} from 'react-native-paper';
-import {useMedia, useTag, useUser} from '../hooks/ApiHooks';
+import {useTag, useUser} from '../hooks/ApiHooks';
 import {StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
@@ -13,7 +13,7 @@ import {set} from 'date-fns';
 import {mainOrange, highlightOrange} from '../assets/colors';
 
 const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
-  // console.log('singleMedia', singleMedia);
+  console.log('ListItem', deleteMedia, singleMedia.file_id);
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
   const {getFilesByTag, addTag} = useTag();
@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
 });
 
 ListItem.propTypes = {
+  deleteMedia: PropTypes.func.isRequired,
   singleMedia: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
   showButtons: PropTypes.bool,
