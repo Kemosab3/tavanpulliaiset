@@ -40,6 +40,7 @@ const Search = ({navigation}) => {
     try {
       const userToken = await AsyncStorage.getItem('userToken');
       const result = await searchMedia(inputs, userToken);
+      console.log('doSearch', result);
       refreshList();
       if (result.message) {
         Alert.alert(

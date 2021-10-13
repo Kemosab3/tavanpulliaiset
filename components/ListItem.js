@@ -10,11 +10,11 @@ import {formatDate, timeSince} from '../utils/dateFunctions';
 import {addOrientationChangeListener} from 'expo-screen-orientation';
 import {set} from 'date-fns';
 
-const ListItem = ({singleMedia, navigation, showButtons}) => {
+const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
   // console.log('singleMedia', singleMedia);
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
-  const {deleteMedia} = useMedia();
+  // const {deleteMedia} = useMedia();
   const {getFilesByTag, addTag} = useTag();
 
   const getToken = async () => {
@@ -34,7 +34,7 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
   };
 
   useEffect(() => {
-    getToken();
+    // getToken();
   }, []);
 
   return (
@@ -104,51 +104,51 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
             <Button
               title={'Set as avatar'}
               disabled={singleMedia.media_type === 'video'}
-              onPress={() => {
+              onPress={async () => {
                 // get existing avatar tag
                 // and delete it
                 // add avatar tag to current file
 
-                const gettoToken = async () => {
-                  const userToken = await AsyncStorage.getItem('userToken');
-                  console.log('logIn asyncstorage tokeeeeen:', userToken);
-                  if (userToken) {
-                    try {
-                      const userInfo = await checkToken(userToken);
-                      if (userInfo.user_id) {
-                        // Something something
-                        console.log('UserInfoooo: ', userInfo);
+                // const gettoToken = async () => {
+                const userToken = await AsyncStorage.getItem('userToken');
+                console.log('logIn asyncstorage tokeeeeen:', userToken);
+                if (userToken) {
+                  try {
+                    const userInfo = await checkToken(userToken);
+                    if (userInfo.user_id) {
+                      // Something something
+                      console.log('UserInfoooo: ', userInfo);
 
-                        const tagS = await getFilesByTag(
-                          'avatar_' + userInfo.user_id
+                      const tagS = await getFilesByTag(
+                        'avatar_' + userInfo.user_id
+                      );
+                      if (tagS.length > 0) {
+                        console.log('TÄÄK: ', tagS[0].tag_id);
+                        console.log('SinkkuMedia: ', singleMedia.file_id);
+                        // deleteTag(tagS[0].tag_id, userToken);
+
+                        addTag(
+                          singleMedia.file_id,
+                          'avatar_' + userInfo.user_id,
+                          userToken
                         );
-                        if (tagS.length > 0) {
-                          console.log('TÄÄK: ', tagS[0].tag_id);
-                          console.log('SinkkuMedia: ', singleMedia.file_id);
-                          // deleteTag(tagS[0].tag_id, userToken);
-
-                          addTag(
-                            singleMedia.file_id,
-                            'avatar_' + userInfo.user_id,
-                            userToken
-                          );
-                        } else {
-                          addTag(
-                            singleMedia.file_id,
-                            'avatar_' + userInfo.user_id,
-                            userToken
-                          );
-                        }
-                        navigation.navigate('Profile', singleMedia.filename);
+                      } else {
+                        addTag(
+                          singleMedia.file_id,
+                          'avatar_' + userInfo.user_id,
+                          userToken
+                        );
                       }
-                    } catch (e) {
-                      console.log('getToken', e.message);
+                      navigation.navigate('Profile', singleMedia.filename);
                     }
-                    // navigation.navigate('Profile');
-                    return userToken;
+                  } catch (e) {
+                    console.log('getToken', e.message);
                   }
-                };
-                gettoToken();
+                  // navigation.navigate('Profile');
+                  return userToken;
+                }
+                // };
+                // gettoToken();
               }}
             />
           </>

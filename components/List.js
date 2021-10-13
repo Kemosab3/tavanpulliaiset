@@ -8,7 +8,7 @@ import ListItem from './ListItem';
 const List = ({navigation}) => {
   const {update, setUpdate} = useContext(MainContext);
   const [isFetching, setIsFetching] = useState(false);
-  const {mediaArray} = useMedia();
+  const {mediaArray, deleteMedia} = useMedia();
   const refreshList = () => {
     setIsFetching(true);
     setUpdate(update + 1);
@@ -21,7 +21,11 @@ const List = ({navigation}) => {
     <FlatList
       data={mediaArray}
       renderItem={({item}) => (
-        <ListItem singleMedia={item} navigation={navigation} />
+        <ListItem
+          singleMedia={item}
+          navigation={navigation}
+          deleteMedia={deleteMedia}
+        />
       )}
       keyExtractor={(item, index) => index.toString()}
       onRefresh={refreshList}

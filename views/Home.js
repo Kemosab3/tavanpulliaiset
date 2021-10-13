@@ -1,10 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  Platform,
-} from 'react-native';
+import {StyleSheet, View, StatusBar, Platform} from 'react-native';
 import {Image, Text} from 'react-native-elements';
 import {FlatList} from 'react-native';
 import {useMedia, useUser} from '../hooks/ApiHooks';
@@ -18,19 +13,35 @@ import {MainContext} from '../contexts/MainContext';
 const Home = ({navigation}) => {
   const {mediaArray} = useMedia(false);
   const [newMediaArray, setNewMediaArray] = useState([]);
-  console.log('Media', mediaArray[7]);
+  // console.log('Media', mediaArray[7]);
 
   const {getAllUsers, getUserInfo} = useUser();
 
   const makePrivateArray = async () => {
-    const newMedia = [];
+    // const newMedia = [];
     // console.log('Pituus ', newMedia.length);
     try {
       const userToken = await AsyncStorage.getItem('userToken');
       // console.log('TOKEN?', userToken);
       const result = await getAllUsers(userToken);
-      // console.log('Result?', result);
+      const filteredUsers = result.filter(
+        (user) => user.full_name != 'private'
+      );
+      // console.log('Result?', filteredUsers);
+      // const newMedia = [];
+      const filteredMedia = mediaArray.filter((media) => {
+        return filteredUsers.filter((user) => {
+          if (media.user_id === user.user_id) {
+            // newMedia.push(media);
+            return media;
+          }
+        });
+      });
+      // console.log('Media', filteredMedia);
+      setNewMediaArray(filteredMedia);
+      /*
       let control = 0;
+
       if (result) {
         for (let i = 0; i < mediaArray.length; i++) {
           for (let j = 0; j < result.length; j++) {
@@ -39,17 +50,19 @@ const Home = ({navigation}) => {
               // console.log('Luuseri?', loser);
               if (loser.full_name !== 'private') {
                 newMedia[control] = mediaArray[i];
-                // console.log('FULLNAME: ', result[j]);
+                console.log('FULLNAME: ', result[j]);
                 control++;
+                continue;
               }
             }
           }
         }
         //  console.log('Private dancer: ', newMedia.length);
       }
+      */
       // console.log('newmedia?', newMedia);
       // console.log('newMedia', newMedia);
-      setNewMediaArray(newMedia);
+      // setNewMediaArray(newMedia);
     } catch (e) {
       console.log('makePrivateArray error', e.message);
     }
@@ -60,12 +73,11 @@ const Home = ({navigation}) => {
 
   // state jolle annetaan uusi arvo
   useEffect(() => {
-    makePrivateArray();
+    // makePrivateArray();
   }, []);
   // pitäisi olla useEffectin sisällä
 
   // let theMediaArray = newMediaArray;
-
   /*
   if (newMediaArray.length > 0) {
     theMediaArray = newMediaArray;
@@ -104,7 +116,7 @@ const Home = ({navigation}) => {
       </View>
 
       <FlatList
-        data={newMediaArray.reverse()}
+        data={mediaArray}
         renderItem={({item}) => (
           <ListItem
             singleMedia={item}

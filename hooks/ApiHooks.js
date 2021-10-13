@@ -21,7 +21,7 @@ const useMedia = (ownFiles = false) => {
       }
     })();
   }, [update]);
-
+  // console.log('Media', mediaArray);
   const loadMedia = async () => {
     try {
       let mediaIlmanThumbnailia = await useTag().getFilesByTag(appID);
