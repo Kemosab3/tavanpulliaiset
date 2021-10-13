@@ -28,7 +28,7 @@ const Home = ({navigation}) => {
       for (let i = 0; i < mediaArray.length; i++) {
         const userToken = await AsyncStorage.getItem('userToken');
         const checker = await getUserInfo(mediaArray[i].user_id, userToken);
-        console.log('CHECKER: ', checker);
+        // console.log('CHECKER: ', checker);
         if (checker.full_name !== 'private') {
           setPicOfSomething(mediaArray[i]);
 
@@ -45,14 +45,16 @@ const Home = ({navigation}) => {
     makeHomePic();
   }, []);
 
+  makeHomePic();
+
   const picSource =
     picOfSomething !== null || picOfSomething !== undefined
-      ? {uri: uploadsUrl + picOfSomething.thumbnails.w320}
+      ? {uri: uploadsUrl + picOfSomething.thumbnails?.w320}
       : require('../assets/bjorn.jpg');
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>DOG OF THE DAY!!!</Text>
+      <Text style={styles.text}>STAFF FAVOURITE:</Text>
       <View style={styles.picOfTheWeek}>
         <View style={styles.imageBox}>
           <Image
@@ -69,8 +71,15 @@ const Home = ({navigation}) => {
             // source={picSource}
             source={require('../assets/playbutton.png')}
             onPress={() => {
-              const kukkaMaaria = [5, 11, 13, 15, 12];
-              handlePlaySound(kukkaMaaria);
+              if (picSource === require('../assets/bjorn.jpg')) {
+                const kukkaMaaria = [5, 11, 13, 15, 12];
+                handlePlaySound(kukkaMaaria);
+              } else {
+                toDataURL(uploadsUrl + picSource).then((dataUrl) => {
+                  const kukkaMaaria = musicArrayMaker(dataUrl);
+                  handlePlaySound(kukkaMaaria);
+                });
+              }
             }}
           ></Image>
         </View>

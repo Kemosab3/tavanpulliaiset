@@ -78,6 +78,8 @@ const List = ({navigation}) => {
     setIsFetching(false);
   }, [mediaArray]);
 
+  makePrivateArray();
+
   return (
     <FlatList
       data={newMediaArray}

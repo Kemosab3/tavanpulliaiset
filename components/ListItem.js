@@ -67,7 +67,7 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
         square
         source={require('../assets/playbuttonsquare.png')}
         onPress={() => {
-          console.log('SINKKU: ', singleMedia);
+          // console.log('SINKKU: ', singleMedia);
           toDataURL(uploadsUrl + singleMedia.filename).then((dataUrl) => {
             const kukkaMaaria = musicArrayMaker(dataUrl);
             handlePlaySound(kukkaMaaria);

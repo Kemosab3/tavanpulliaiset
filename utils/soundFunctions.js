@@ -3,20 +3,28 @@ import {audioJorma, audioKalevi, audioPentti} from './variables';
 
 const handlePlaySound = async (note) => {
   Audio.setIsEnabledAsync(true);
+  console.log('NOOTTI: ', note);
+  const difecta = note[1] + note[2];
+  const trifecta = note[0] + note[1] + note[2];
 
   for (let i = 0; i < note.length; i++) {
     const soundObject = new Audio.Sound();
     if (soundObject) {
-      // console.log('Ääntä? ', audioJorma[note]);
-      // soundObject.pauseAsync();
-      // soundObject = new Audio.Sound();
       try {
         // const source = audioArray[note];
         // await soundObject.loadAsync(source);
         if (i === 0) {
-          await soundObject.loadAsync(audioPentti[note[i]]);
+          if (note[0] % 2 !== 0 && difecta < 17) {
+            await soundObject.loadAsync(audioPentti[difecta]);
+          } else {
+            await soundObject.loadAsync(audioPentti[note[i]]);
+          }
         } else {
-          await soundObject.loadAsync(audioJorma[note[i]]);
+          if (note[i] % 2 === 0 && trifecta < 20) {
+            await soundObject.loadAsync(audioJorma[trifecta]);
+          } else {
+            await soundObject.loadAsync(audioKalevi[note[i]]);
+          }
         }
 
         console.log('SOUNDI NRO: ', note[i]);
@@ -44,9 +52,20 @@ let d = 0;
 let e = 0;
 
 const musicArrayMaker = (dataUrl) => {
-  // console.log('RESULTTTTT:', dataUrl);
-  const tapio = dataUrl.length.toString();
-  const ville = dataUrl.slice([1], [100]);
+  console.log('RESULTTTTT:', dataUrl.length);
+  let tapio;
+  if (dataUrl.length < 10000) {
+    tapio =
+      dataUrl.length.toString() +
+      2 * dataUrl.length.toString() +
+      3 * dataUrl.length.toString() +
+      4 * dataUrl.length.toString() +
+      5 * dataUrl.length.toString();
+  } else {
+    tapio = dataUrl.length.toString();
+  }
+
+  // console.log('Tapio: ', tapio);
   a = parseInt(tapio[0]);
   b = parseInt(tapio[1]);
   c = parseInt(tapio[2]);
