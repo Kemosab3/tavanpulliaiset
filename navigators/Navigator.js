@@ -83,6 +83,9 @@ const StackScreen = () => {
             component={MyFiles}
             options={{
               title: '',
+              headerStyle: {
+                backgroundColor: 'black',
+              },
             }}
           />
           <Stack.Screen
@@ -90,12 +93,30 @@ const StackScreen = () => {
             component={Modify}
             options={{
               title: '',
+              headerStyle: {
+                backgroundColor: 'black',
+              },
             }}
           />
-          <Stack.Screen name="Edit Profile" component={EditProfile} />
+          <Stack.Screen
+            name="Edit Profile"
+            component={EditProfile}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'black',
+              },
+            }}
+          />
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
       )}
     </Stack.Navigator>
   );

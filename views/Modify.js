@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {View, ActivityIndicator, Alert, StyleSheet} from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
+import {Button, TextInput, HelperText} from 'react-native-paper';
 import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -66,7 +66,7 @@ const Modify = ({route}) => {
             colors: {
               placeholder: mainOrange,
               text: 'white',
-              primary: mainOrange,
+              primary: highlightOrange,
               underlineColor: 'transparent',
               background: 'black',
             },
@@ -80,6 +80,9 @@ const Modify = ({route}) => {
           value={inputs.title}
         />
       </View>
+      <HelperText type="error" visible={errors.title}>
+        {errors.title}
+      </HelperText>
       <View style={styles.inputStyle}>
         <TextInput
           label="description"
@@ -89,7 +92,7 @@ const Modify = ({route}) => {
             colors: {
               placeholder: mainOrange,
               text: 'white',
-              primary: mainOrange,
+              primary: highlightOrange,
               underlineColor: 'transparent',
               background: 'black',
             },
@@ -104,6 +107,9 @@ const Modify = ({route}) => {
           }}
         />
       </View>
+      <HelperText type="error" visible={false}>
+        Success asshole!
+      </HelperText>
       <Button
         mode="contained"
         onPress={doModify}

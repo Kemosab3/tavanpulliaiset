@@ -173,7 +173,6 @@ const Profile = ({route, navigation}) => {
             </View>
           </ListItem>
           <ListItem
-            bottomDivider
             containerStyle={{backgroundColor: 'black'}}
             onPress={() => {
               navigation.navigate('My Files');
@@ -188,7 +187,6 @@ const Profile = ({route, navigation}) => {
             <ListItem.Chevron />
           </ListItem>
           <ListItem
-            bottomDivider
             containerStyle={{backgroundColor: 'black'}}
             onPress={() => {
               navigation.navigate('Edit Profile', userInfo);
@@ -203,7 +201,6 @@ const Profile = ({route, navigation}) => {
             <ListItem.Chevron />
           </ListItem>
           <ListItem
-            bottomDivider
             onPress={logout}
             containerStyle={{backgroundColor: 'black'}}
           >

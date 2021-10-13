@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {View, StyleSheet} from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 import useLoginForm from '../hooks/LoginHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -33,12 +33,13 @@ const LoginForm = ({navigation}) => {
         autoCapitalize="none"
         label="username"
         mode="outlined"
+        placeholderTextColor={highlightOrange}
         style={styles.loginBars}
         theme={{
           colors: {
             placeholder: mainOrange,
             text: 'white',
-            primary: mainOrange,
+            primary: highlightOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -56,7 +57,7 @@ const LoginForm = ({navigation}) => {
           colors: {
             placeholder: mainOrange,
             text: 'white',
-            primary: mainOrange,
+            primary: highlightOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -64,9 +65,9 @@ const LoginForm = ({navigation}) => {
       />
 
       <View>
-        <TouchableOpacity style={styles.loginButton} onPress={doLogin}>
-          <Text style={styles.text}>Log in</Text>
-        </TouchableOpacity>
+        <Button style={styles.loginButton} mode="contained" onPress={doLogin}>
+          Log in
+        </Button>
       </View>
     </View>
   );
@@ -80,7 +81,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
   },
   loginButton: {
-    alignItems: 'center',
     backgroundColor: mainOrange,
     padding: 10,
     marginTop: 16,

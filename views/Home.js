@@ -1,17 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, View, StatusBar, Platform} from 'react-native';
 import {Image, Text} from 'react-native-elements';
 import List from '../components/List';
-import {useMedia, useUser} from '../hooks/ApiHooks';
-import ListItem from '../components/ListItem';
 import PropTypes from 'prop-types';
-import {uploadsUrl} from '../utils/variables';
 import {Icon} from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {MainContext} from '../contexts/MainContext';
 
 const Home = ({navigation}) => {
-
   const picSource = require('../assets/splash.png');
 
   return (
@@ -32,7 +26,6 @@ const Home = ({navigation}) => {
         </View>
       </View>
       <List navigation={navigation} />
-      <View style={styles.container2}></View>
       <StatusBar style="auto" />
     </View>
   );
@@ -43,14 +36,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     justifyContent: 'center',
     color: '#FF6700',
-    marginBottom: 30,
-  },
-  container2: {
-    height: 225,
+    paddingBottom: 140,
   },
   droidSafeArea: {
     flex: 1,
     backgroundColor: '#000',
+    paddingBottom: 100,
     paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   text: {

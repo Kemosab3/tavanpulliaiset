@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {View, Alert, StyleSheet} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, HelperText} from 'react-native-paper';
 import useUploadForm from '../hooks/EditProfileHooks';
 import {useUser} from '../hooks/ApiHooks';
 import useUserInfo from '../hooks/ProfileHooks';
@@ -70,7 +70,7 @@ const EditProfile = ({route, navigation}) => {
             colors: {
               placeholder: mainOrange,
               text: 'white',
-              primary: mainOrange,
+              primary: highlightOrange,
               underlineColor: 'transparent',
               background: 'black',
             },
@@ -83,6 +83,9 @@ const EditProfile = ({route, navigation}) => {
           errorMessage={errors.email}
         />
       </View>
+      <HelperText type="error" visible={errors.email}>
+        {errors.email}
+      </HelperText>
       <View style={styles.inputStyle}>
         <TextInput
           mode="outlined"
@@ -92,7 +95,7 @@ const EditProfile = ({route, navigation}) => {
             colors: {
               placeholder: mainOrange,
               text: 'white',
-              primary: mainOrange,
+              primary: highlightOrange,
               underlineColor: 'transparent',
               background: 'black',
             },
@@ -105,6 +108,9 @@ const EditProfile = ({route, navigation}) => {
           errorMessage={errors.password}
         />
       </View>
+      <HelperText type="error" visible={errors.password}>
+        {errors.password}
+      </HelperText>
       <View style={styles.inputStyle}>
         <TextInput
           mode="outlined"
@@ -114,7 +120,7 @@ const EditProfile = ({route, navigation}) => {
             colors: {
               placeholder: mainOrange,
               text: 'white',
-              primary: mainOrange,
+              primary: highlightOrange,
               underlineColor: 'transparent',
               background: 'black',
             },
@@ -127,6 +133,9 @@ const EditProfile = ({route, navigation}) => {
           errorMessage={errors.confirmPassword}
         />
       </View>
+      <HelperText type="error" visible={errors.confirmPassword}>
+        {errors.confirmPassword}
+      </HelperText>
       <Button
         mode="contained"
         style={styles.button}
