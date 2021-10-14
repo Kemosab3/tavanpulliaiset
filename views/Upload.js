@@ -21,7 +21,9 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {mainOrange} from '../assets/colors';
 
 const Upload = ({navigation}) => {
-  const [image, setImage] = useState(require('../assets/icon3.png'));
+  const [image, setImage] = useState(
+    require('../assets/uploadplaceholder.png')
+  );
   const [filetype, setFiletype] = useState('');
   const {inputs, handleInputChange, handleReset, errors, handleOnEndEditing} =
     useUploadForm();
