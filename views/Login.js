@@ -19,8 +19,6 @@ import LoginForm from '../components/LoginForm';
 import {Card, ListItem, Text} from 'react-native-elements';
 import {View} from 'react-native';
 import {highlightOrange, mainOrange} from '../assets/colors';
-import {useMedia} from '../hooks/ApiHooks';
-import {uploadsUrl} from '../utils/variables';
 import {handlePlaySound} from '../utils/soundFunctions';
 
 const Login = ({navigation}) => {
@@ -245,7 +243,6 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 20,
-    backgroundColor: mainOrange,
     padding: 10,
     elevation: 2,
     marginTop: 10,

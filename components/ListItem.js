@@ -8,9 +8,7 @@ import {StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {timeSince} from '../utils/dateFunctions';
-import {addOrientationChangeListener} from 'expo-screen-orientation';
-import {set} from 'date-fns';
-import {mainOrange, highlightOrange} from '../assets/colors';
+import {mainOrange} from '../assets/colors';
 import {
   handlePlaySound,
   musicArrayMaker,
@@ -18,7 +16,6 @@ import {
 } from '../utils/soundFunctions';
 
 const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
-  // console.log('ListItem', deleteMedia, singleMedia.file_id);
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
   const {getFilesByTag, addTag} = useTag();
@@ -66,7 +63,6 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
         square
         source={require('../assets/playbuttonsquare.png')}
         onPress={() => {
-          // console.log('SINKKU: ', singleMedia);
           toDataURL(uploadsUrl + singleMedia.filename).then((dataUrl) => {
             const kukkaMaaria = musicArrayMaker(dataUrl);
             handlePlaySound(kukkaMaaria);
@@ -74,7 +70,7 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
         }}
       ></Avatar>
       <RNEListItem.Content>
-        <RNEListItem.Title numberOfLines={1} h4 style={{color: mainOrange}}>
+        <RNEListItem.Title numberOfLines={1} h4 style={styles.listItemTitle}>
           {singleMedia.title}
         </RNEListItem.Title>
         <RNEListItem.Subtitle numberOfLines={1} style={{color: mainOrange}}>
@@ -142,8 +138,6 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
                           'avatar_' + userInfo.user_id
                         );
                         if (tagS.length > 0) {
-                          // console.log('TÄÄK: ', tagS[0].tag_id);
-                          // console.log('SinkkuMedia: ', singleMedia.file_id);
                           addTag(
                             singleMedia.file_id,
                             'avatar_' + userInfo.user_id,
@@ -201,6 +195,9 @@ const styles = StyleSheet.create({
     backgroundColor: mainOrange,
     marginTop: 10,
     marginRight: 10,
+  },
+  listItemTitle: {
+    color: mainOrange,
   },
 });
 

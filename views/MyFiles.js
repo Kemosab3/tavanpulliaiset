@@ -3,7 +3,6 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {useMedia} from '../hooks/ApiHooks';
 import ListItem from '../components/ListItem';
 import PropTypes from 'prop-types';
-import {FlexStyleProps} from 'react-native-ui-kitten/ui/support/typings';
 
 const MyFiles = ({navigation}) => {
   const {mediaArray, deleteMedia} = useMedia(true);

@@ -29,7 +29,6 @@ const Profile = ({route, navigation}) => {
   const {modifyUserInfo} = useUser();
 
   const {params} = route;
-  // console.log('PARAMEDICS: ', params);
 
   const {getFilesByTag} = useTag();
 
@@ -80,15 +79,6 @@ const Profile = ({route, navigation}) => {
     setIsLoggedIn(false);
   };
 
-  /*
-  if (userInfo.full_name === 'private') {
-    setIsEnabled(true);
-  } else {
-    setIsEnabled(false);
-  }
-  */
-
-  // Original:
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     doEditPrivacy();
