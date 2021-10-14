@@ -7,6 +7,7 @@ import {
   ScrollView,
   Pressable,
   Modal,
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -93,6 +94,12 @@ const Login = ({navigation}) => {
             </View>
           </Modal>
           <Card containerStyle={styles.card}>
+            <View style={styles.imageBox}>
+              <Image
+                style={styles.image}
+                source={require('../assets/diskettigray.png')}
+              />
+            </View>
             <Text
               style={styles.text}
               onPress={() => {
@@ -140,6 +147,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  imageBox: {
+    display: 'flex',
+    alignItems: 'center',
   },
   image: {
     flex: 1,
