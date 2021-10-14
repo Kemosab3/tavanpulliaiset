@@ -1,3 +1,5 @@
+// function for going through the image blob
+
 const mostCommonCharActer = (str) => {
   const charMap = {};
   let max = 0;

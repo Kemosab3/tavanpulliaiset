@@ -1,6 +1,7 @@
 import {Audio} from 'expo-av';
 import {audioJorma, audioKalevi, audioPentti} from './variables';
 
+// handles the sound playing
 const handlePlaySound = async (note) => {
   Audio.setIsEnabledAsync(true);
   const difecta = note[1] + note[2];
@@ -42,12 +43,14 @@ const handlePlaySound = async (note) => {
   }
 };
 
+// variables for making the music array to be played
 let a = 0;
 let b = 0;
 let c = 0;
 let d = 0;
 let e = 0;
 
+// makes the final music array taht corresponds to each media file
 const musicArrayMaker = (dataUrl) => {
   console.log('RESULTTTTT:', dataUrl.length);
   let tapio;
@@ -72,6 +75,7 @@ const musicArrayMaker = (dataUrl) => {
   return kukkaMaaria;
 };
 
+// makes a blob of the media file
 const toDataURL = (url) =>
   fetch(url)
     .then((response) => response.blob())
