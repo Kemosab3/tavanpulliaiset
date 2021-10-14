@@ -8,6 +8,7 @@ import {
   Pressable,
   Modal,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -17,7 +18,7 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {Card, ListItem, Text} from 'react-native-elements';
 import {View} from 'react-native';
-import {mainOrange} from '../assets/colors';
+import {highlightOrange, mainOrange} from '../assets/colors';
 import {useMedia} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/variables';
 import {handlePlaySound} from '../utils/soundFunctions';
@@ -50,8 +51,11 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
 
-  return (
+  const setFormVisibility = () => {
+    setRegisterFormToggle(!registerFormToggle);
+  };
 
+  return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
@@ -62,7 +66,10 @@ const Login = ({navigation}) => {
             <Card.Title h4 style={styles.title}>
               Register
             </Card.Title>
-            <RegisterForm navigation={navigation} />
+            <RegisterForm
+              navigation={navigation}
+              setFormVisibility={setFormVisibility}
+            />
           </Card>
         </ScrollView>
       ) : (
@@ -78,9 +85,34 @@ const Login = ({navigation}) => {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <Text style={styles.modalText}>
-                  By clicking you ACCEPT THE TERMS!
-                </Text>
+                <ScrollView styde={styles.ccTextBox}>
+                  <Text style={styles.modalText}>
+                    The content shared through this app is licensed under
+                    Creative Commons BY-SA 4.0. You are free to...
+                  </Text>
+                  <Text style={styles.modalText}>
+                    Share — copy and redistribute the material in any medium or
+                    format
+                  </Text>
+                  <Text style={styles.modalText}>
+                    Adapt — remix, transform, and build upon the material for
+                    any purpose, even commercially.
+                  </Text>
+                  <Text style={styles.modalText}>
+                    Under the following terms:
+                  </Text>
+                  <Text style={styles.modalText}>
+                    Attribution — You must give appropriate credit, provide a
+                    link to the license, and indicate if changes were made. You
+                    may do so in any reasonable manner, but not in any way that
+                    suggests the licensor endorses you or your use.
+                  </Text>
+                  <Text style={styles.modalText}>
+                    ShareAlike — If you remix, transform, or build upon the
+                    material, you must distribute your contributions under the
+                    same license as the original.
+                  </Text>
+                </ScrollView>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => {
@@ -88,28 +120,32 @@ const Login = ({navigation}) => {
                     setRegisterFormToggle(!registerFormToggle);
                   }}
                 >
-                  <Text style={styles.textStyle}>Go register</Text>
+                  <Text style={styles.textStyle}>ACCEPT</Text>
                 </Pressable>
               </View>
             </View>
           </Modal>
           <Card containerStyle={styles.card}>
             <View style={styles.imageBox}>
-              <Image
-                style={styles.image}
-                source={require('../assets/diskettigray.png')}
-              />
+              <TouchableOpacity
+                style={styles.playButton}
+                onPress={() => {
+                  const kukkaMaaria = [5, 5, 1, 1, 1];
+                  handlePlaySound(kukkaMaaria);
+                }}
+              >
+                <Image
+                  style={styles.image}
+                  source={require('../assets/diskettigray.png')}
+                />
+              </TouchableOpacity>
             </View>
-            <Text
-              style={styles.text}
-              onPress={() => {
-                const kukkaMaaria = [5, 5, 1, 1, 1];
-                handlePlaySound(kukkaMaaria);
-              }}
-            >
-              Click on this text if yoy dare to hear gibberish music! Login (or
-              register) to enjoy more no no nonsense content...
-            </Text>
+            <View style={styles.titleBox}>
+              <Text style={styles.titleText}>
+                Click the disk if yoy dare to hear gibberish music! Login (or
+                register) to enjoy more no, none, null nonsense content...
+              </Text>
+            </View>
             <Card.Title h4 style={styles.title}>
               Login
             </Card.Title>
@@ -154,12 +190,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
   },
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    backgroundColor: 'black',
-  },
   text: {
     color: 'white',
   },
@@ -191,11 +221,18 @@ const styles = StyleSheet.create({
   title: {
     color: mainOrange,
   },
+  modalTextBox: {
+    display: 'flex',
+
+  },
   modalView: {
-    margin: 20,
-    backgroundColor: 'white',
+    margin: 30,
+    backgroundColor: mainOrange,
     borderRadius: 20,
+    borderWidth: 2,
+    borderColor: highlightOrange,
     padding: 35,
+    top: '25%',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -208,8 +245,10 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 20,
+    backgroundColor: mainOrange,
     padding: 10,
     elevation: 2,
+    marginTop: 10,
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
@@ -222,9 +261,34 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  titleText: {
+    color: highlightOrange,
+    textAlign: 'justify',
+  },
+  titleBox: {
+    display: 'flex',
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 12,
+    padding: 10,
+    borderWidth: 2,
+    borderColor: mainOrange,
+    elevation: 2,
+    shadowColor: mainOrange,
+    shadowRadius: 10,
+    shadowOpacity: 0.8,
+  },
+  playButton: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    position: 'relative',
+  },
   modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+    borderColor: 'black',
+    textAlign: 'justify',
+    color: '#ffffff',
+    paddingBottom: 10,
   },
 });
 
