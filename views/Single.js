@@ -29,8 +29,6 @@ const Single = ({route}) => {
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
   const [iAmLikingIt, setIAmLikingIt] = useState();
-  // const [likes, setLikes] = useState([]);
-
   const [videoRef, setVideoRef] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const {getFilesByTag} = useTag();
@@ -138,10 +136,6 @@ const Single = ({route}) => {
     getAvatar;
     getLikes();
   }, []);
-
-  // What?
-
-  // What? ends
 
   return (
     <ScrollView style={{backgroundColor: 'black'}}>

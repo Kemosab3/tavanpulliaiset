@@ -16,30 +16,9 @@ const List = ({navigation}) => {
   const {getAllUsers, getUserInfo} = useUser();
 
   const makePrivateArray = async () => {
-    // const newMedia = [];
-    // console.log('Pituus ', newMedia.length);
     try {
       const userToken = await AsyncStorage.getItem('userToken');
-      // console.log('TOKEN?', userToken);
       const result = await getAllUsers(userToken);
-      /*
-      const filteredUsers = result.filter(
-        (user) => user.full_name != 'private'
-      );
-      // console.log('Result?', filteredUsers);
-      // const newMedia = [];
-
-      const filteredMedia = mediaArray.filter((media) => {
-        return filteredUsers.filter((user) => {
-          if (media.user_id === user.user_id) {
-            // newMedia.push(media);
-            return media;
-          }
-        });
-      });
-      */
-
-      // console.log('Media', filteredMedia);
 
       const newMedia = [];
       let control = 0;
@@ -60,10 +39,6 @@ const List = ({navigation}) => {
       }
 
       setNewMediaArray(newMedia.reverse());
-
-      // console.log('newmedia?', newMedia);
-      // console.log('newMedia', newMedia);
-      // setNewMediaArray(newMedia);
     } catch (e) {
       console.log('makePrivateArray error', e.message);
     }

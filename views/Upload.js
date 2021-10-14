@@ -4,13 +4,10 @@ import PropTypes from 'prop-types';
 import {
   View,
   Platform,
-  ActivityIndicator,
   Alert,
   StyleSheet,
   TouchableOpacity,
-  Text,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import UploadForm from '../components/UploadForm';
 import {Image, Card} from 'react-native-elements';
 import {Button} from 'react-native-paper';
@@ -21,8 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {appID} from '../utils/variables';
 import {MainContext} from '../contexts/MainContext';
 import {ScrollView} from 'react-native-gesture-handler';
-import {mainOrange, highlightOrange} from '../assets/colors';
-// import exampleImage from '../assets/icon3.png';
+import {mainOrange} from '../assets/colors';
 
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(require('../assets/icon3.png'));
@@ -32,8 +28,6 @@ const Upload = ({navigation}) => {
   const {uploadMedia, loading} = useMedia();
   const {addTag} = useTag();
   const {update, setUpdate} = useContext(MainContext);
-
-  // const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
 
   const doUpload = async () => {
     const filename = image.uri.split('/').pop();
@@ -65,10 +59,8 @@ const Upload = ({navigation}) => {
             {
               text: 'Ok',
               onPress: () => {
-                // setUpdate(update + 1);
                 handleReset();
                 setImage(require('../assets/icon3.png'));
-                // setImage(require({uri: exampleImageUri}));
                 navigation.navigate('Home');
                 setUpdate(update + 1);
               },
@@ -102,10 +94,8 @@ const Upload = ({navigation}) => {
       quality: 0.5,
     });
 
-    console.log('pickImage ', result);
-    console.log('width', result.width);
-
-    // console.log('DATAAAAA: ', imgData);
+    // console.log('pickImage ', result);
+    // console.log('width', result.width);
 
     if (!result.cancelled) {
       setImage({uri: result.uri});

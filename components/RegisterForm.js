@@ -1,31 +1,19 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Alert, StyleSheet, TouchableOpacity, } from 'react-native';
+import {View, Alert, StyleSheet} from 'react-native';
 import {TextInput, Text, HelperText, Button} from 'react-native-paper';
 import useSignUpForm from '../hooks/RegisterHooks';
 import {MainContext} from '../contexts/MainContext';
 import {useLogin, register} from '../hooks/ApiHooks';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {mainOrange, highlightOrange} from '../assets/colors';
 
 const RegisterForm = ({setFormVisibility}) => {
-  /*
-  const doRegister = async () => {
-    const serverResponse = await register(inputs);
-    if (serverResponse) {
-      Alert.alert(serverResponse.message);
-    } else {
-      Alert.alert('register failed');
-    }
-  };
-  */
   const {setUser, user, setIsLoggedIn} = useContext(MainContext);
   const {inputs, errors, handleInputChange, handleOnEndEditing, checkUsername} =
     useSignUpForm();
 
   // lisäsin itse
   const {login} = useLogin();
-  // const {register} = useUser();
   const doRegister = async () => {
     delete inputs.confirmPassword;
     console.log(inputs);
@@ -33,22 +21,6 @@ const RegisterForm = ({setFormVisibility}) => {
     if (serverResponse) {
       Alert.alert(serverResponse.message);
       setFormVisibility();
-      // originally was: await useLogin(inputs);
-      /*
-      const loginServerResponse = await login(JSON.stringify(inputs));
-      // const loginServerResponse = await login(inputs);
-
-      /*
-      if (loginServerResponse) {
-        Alert.alert(loginServerResponse.message);
-        await AsyncStorage.setItem('userToken', loginServerResponse.token);
-        setUser(loginServerResponse.user);
-        console.log('user is: ', user);
-        setIsLoggedIn(true);
-      } else {
-        Alert.alert('Login failed');
-      }
-      */
     } else {
       Alert.alert('register failed');
     }
@@ -203,6 +175,7 @@ const styles = StyleSheet.create({
 
 RegisterForm.propTypes = {
   navigation: PropTypes.object.isRequired,
+  setFormVisibility: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;
