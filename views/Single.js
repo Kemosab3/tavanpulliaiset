@@ -8,38 +8,23 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
-import {
-  Card,
-  ListItem,
-  Text,
-  Button,
-  Icon,
-  Avatar,
-} from 'react-native-elements';
+import {Card, ListItem, Text, Avatar} from 'react-native-elements';
 import {Audio, Video} from 'expo-av';
 import {useFavourites, useTag, useUser} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {formatDate} from '../utils/dateFunctions';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {ScrollView} from 'react-native-gesture-handler';
-// import PixelColor from 'react-native-pixel-color';
-// import {Canvas} from 'react-native-canvas';
 import {MainContext} from '../contexts/MainContext';
 import {
   handlePlaySound,
   musicArrayMaker,
   toDataURL,
 } from '../utils/soundFunctions';
-import {mainOrange, highlightOrange} from '../assets/colors';
-// import WebView from 'react-native-webview';
-
-// import * as React from 'react';
+import {mainOrange} from '../assets/colors';
 
 const Single = ({route}) => {
   const {params} = route;
-
-  //  console.log('PARAAAAA ', params);
-
   const {getUserInfo} = useUser();
   const [ownerInfo, setOwnerInfo] = useState({username: ''});
   const [likes, setLikes] = useState([]);
@@ -50,7 +35,7 @@ const Single = ({route}) => {
   const [disabled, setDisabled] = useState(false);
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('http://placekitten.com/100');
-  const {setIsLoggedIn, user} = useContext(MainContext);
+  const {user} = useContext(MainContext);
   const {
     addFavourite,
     deleteFavourite,
@@ -106,14 +91,11 @@ const Single = ({route}) => {
         showVideoInFullscreen();
       }
     });
-    // when leaving the component lock screen to portrait
     return () => {
       ScreenOrientation.removeOrientationChangeListener(orientSub);
       lock();
     };
   }, [videoRef]);
-
-  // end screen orientation
 
   const getOwnerInfo = async () => {
     const token = await AsyncStorage.getItem('userToken');
@@ -129,18 +111,14 @@ const Single = ({route}) => {
     for (let i = 0; i < liking.length; i++) {
       if (liking[i].file_id === params.file_id) {
         checker += 1;
-        // console.log('liking.file_id: ', liking[i].file_id);
       }
     }
-    // console.log('CHECKER: ', checker);
 
     if (checker > 0) {
       setIAmLikingIt(false);
     } else {
       setIAmLikingIt(true);
     }
-    // console.log('MY LIKING: ', liking);
-    // console.log('Picture LIKING: ', liking2);
     setLikes(liking2.length);
   };
 
@@ -217,14 +195,8 @@ const Single = ({route}) => {
           {iAmLikingIt ? (
             <TouchableOpacity
               onPress={async () => {
-                // use api hooks to Post a favourite
-                // console.log('I AM LIKE: ', iAmLikingIt);
-
-                // console.log('FILETSU ID: ', params.file_id);
                 const token = await AsyncStorage.getItem('userToken');
-                // console.log('Token? : ', token);
                 const response = await addFavourite(params.file_id, token);
-                // console.log('Likeeeeee ', response);
                 setIAmLikingIt(false);
                 getLikes();
               }}
@@ -235,13 +207,10 @@ const Single = ({route}) => {
             <TouchableOpacity
               title="Unlike"
               onPress={async () => {
-                // use api hooks to DELETE a favourite
-                // console.log('I AM LIKE: ', iAmLikingIt);
                 const token = await AsyncStorage.getItem('userToken');
                 const response = await deleteFavourite(params.file_id, token);
                 setIAmLikingIt(true);
                 getLikes();
-                // console.log('Likeeeeee ', response);
               }}
             >
               <Image source={require('../assets/pintfull.png')} />

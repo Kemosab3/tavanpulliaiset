@@ -3,7 +3,6 @@ import {audioJorma, audioKalevi, audioPentti} from './variables';
 
 const handlePlaySound = async (note) => {
   Audio.setIsEnabledAsync(true);
-  // console.log('NOOTTI: ', note);
   const difecta = note[1] + note[2];
   const trifecta = note[0] + note[1] + note[2];
 
@@ -11,8 +10,6 @@ const handlePlaySound = async (note) => {
     const soundObject = new Audio.Sound();
     if (soundObject) {
       try {
-        // const source = audioArray[note];
-        // await soundObject.loadAsync(source);
         if (i === 0) {
           if (note[0] % 2 !== 0 && difecta < 17) {
             await soundObject.loadAsync(audioPentti[difecta]);
@@ -65,21 +62,12 @@ const musicArrayMaker = (dataUrl) => {
     tapio = dataUrl.length.toString();
   }
 
-  // console.log('Tapio: ', tapio);
   a = parseInt(tapio[0]);
   b = parseInt(tapio[1]);
   c = parseInt(tapio[2]);
   d = parseInt(tapio[3]);
   e = parseInt(tapio[4]);
-  /*
-  console.log('RESULTTTTT1:', paramsMediaType);
-  console.log('RESULTTTTT2:', ville.replace(/\//g, '8'));
-  console.log('RESULTTTTT3:', dataUrl.length);
-  console.log('RESULTTTTT4:', dataUrl.match(/A/g).length);
-  console.log('RESULTTTTT5:', dataUrl.match(/a/g).length);
-  console.log('TAPIOOOOO:', tapio);
-  console.log('TAPIOOOOOH:', e, d, c, b, a);
-  */
+
   const kukkaMaaria = [e, d, c, b, a];
   return kukkaMaaria;
 };

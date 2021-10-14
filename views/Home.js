@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,15 +7,12 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Card, Text} from 'react-native-elements';
+import {Text} from 'react-native-elements';
 import List from '../components/List';
-import {useMedia, useUser, useFavourites, useTag} from '../hooks/ApiHooks';
-import ListItem from '../components/ListItem';
+import {useMedia, useUser, useFavourites} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
-import {Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {MainContext} from '../contexts/MainContext';
 import {
   handlePlaySound,
   musicArrayMaker,
@@ -24,7 +21,6 @@ import {
 import {mainOrange} from '../assets/colors';
 
 const Home = ({navigation}) => {
-  // const picSource = require('../assets/splash.png');
   const {mediaArray} = useMedia();
   const {getUserInfo} = useUser();
   const [picOfSomething, setPicOfSomething] = useState([]);
@@ -68,18 +64,15 @@ const Home = ({navigation}) => {
     for (let i = 0; i < liking.length; i++) {
       if (liking[i].file_id === picOfSomething.file_id) {
         checker += 1;
-        // console.log('liking.file_id: ', liking[i].file_id);
       }
     }
-    // console.log('CHECKER: ', checker);
 
     if (checker > 0) {
       setIAmLikingIt(false);
     } else {
       setIAmLikingIt(true);
     }
-    // console.log('MY LIKING: ', liking);
-    // console.log('Picture LIKING: ', liking2);
+
     setLikes(liking2.length);
   };
 
@@ -116,30 +109,19 @@ const Home = ({navigation}) => {
       </Text>
       <View style={styles.picOfTheWeek}>
         <View style={styles.imageBox}>
-          <Image
-            style={styles.image}
-            // source={require('../assets/splash.png')}
-            // source={{uri: 'https://placekitten.com/400/400'}}
-            source={picSource}
-          ></Image>
+          <Image style={styles.image} source={picSource}></Image>
         </View>
         <View>
           {iAmLikingIt ? (
             <TouchableOpacity
               onPress={async () => {
-                // use api hooks to Post a favourite
-                // console.log('I AM LIKE: ', iAmLikingIt);
-
-                // console.log('FILETSU ID: ', picOfSomething.file_id);
                 const token = await AsyncStorage.getItem('userToken');
-                // console.log('Token? : ', token);
+
                 const response = await addFavourite(
                   picOfSomething.file_id,
                   token
                 );
-                // console.log('Likeeeeee ', response);
                 setIAmLikingIt(false);
-                // getLikes();
               }}
             >
               <Image source={require('../assets/pintempty.png')} />
@@ -148,16 +130,12 @@ const Home = ({navigation}) => {
             <TouchableOpacity
               title="Unlike"
               onPress={async () => {
-                // use api hooks to DELETE a favourite
-                // console.log('I AM LIKE: ', iAmLikingIt);
                 const token = await AsyncStorage.getItem('userToken');
                 const response = await deleteFavourite(
                   picOfSomething.file_id,
                   token
                 );
                 setIAmLikingIt(true);
-                // getLikes();
-                // console.log('Likeeeeee ', response);
               }}
             >
               <Image source={require('../assets/pintfull.png')} />

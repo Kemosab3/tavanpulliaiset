@@ -14,15 +14,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
-import {ImageBackground} from 'react-native';
 import {Card, ListItem, Text} from 'react-native-elements';
-import {View, StatusBar} from 'react-native';
-import ListNotLoggedIn from '../components/List';
-import {mainOrange, highlightOrange} from '../assets/colors';
+import {View} from 'react-native';
+import {mainOrange} from '../assets/colors';
 import {useMedia} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/variables';
-import {Image, Icon} from 'react-native-elements';
-import {ActivityIndicator} from 'react-native-paper';
 import {handlePlaySound} from '../utils/soundFunctions';
 
 const Login = ({navigation}) => {
@@ -52,21 +48,6 @@ const Login = ({navigation}) => {
   useEffect(() => {
     getToken();
   }, []);
-
-  // PICK OF THE DAY STUFF:
-
-  const {mediaArray} = useMedia();
-  // console.log('MyFiles: mediaArray', mediaArray);
-
-  const pickOfTheDay = Math.floor(Math.random() * mediaArray.length);
-  // console.log('Arvottu numero: ', pickOfTheDay);
-  // console.log('MyFiles: mediaArray', mediaArray[pickOfTheDay]);
-
-  const picSource =
-    mediaArray.length > 1
-      ? {uri: uploadsUrl + mediaArray[pickOfTheDay].thumbnails.w320}
-      : require('../assets/splash.png');
-  // console.log('ICOOON: ', picSource);
 
   return (
     <KeyboardAvoidingView

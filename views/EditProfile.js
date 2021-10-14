@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {View, Alert, StyleSheet} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
@@ -10,13 +10,10 @@ import {MainContext} from '../contexts/MainContext';
 import {mainOrange, highlightOrange} from '../assets/colors';
 
 const EditProfile = ({route, navigation}) => {
-  // const navigation = route.params.navigation;
-  // const [image, setImage] = useState(require('../assets/icon3.png'));
   const {inputs, handleInputChange, errors, handleOnEndEditing, setInputs} =
     useUploadForm();
   const {modifyUserInfo} = useUser();
 
-  // const {update, setUpdate, user} = useContext(MainContext);
   let {user} = useContext(MainContext);
   const {setUserInfo} = useUserInfo(user);
 
