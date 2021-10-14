@@ -114,51 +114,42 @@ const Upload = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.droidSafeArea}>
-      <ScrollView style={{backgroundColor: 'black', marginTop: 10}}>
-        <Card containerStyle={styles.uploadCard}>
-          <View style={{backgroundColor: 'black'}}>
+    <ScrollView style={{backgroundColor: 'black'}}>
+      <Card containerStyle={styles.uploadCard}>
+        <View style={{backgroundColor: 'black'}}>
+          <TouchableOpacity onPress={pickImage}>
             <Image source={image} style={{width: '100%', height: 200}} />
-            <Button
-              mode="contained"
-              style={styles.pickImageButton}
-              onPress={pickImage}
-            >
+            <Button mode="contained" style={styles.pickImageButton}>
               Select image
             </Button>
-            <UploadForm
-              title="Upload"
-              handleSubmit={doUpload}
-              handleInputChange={handleInputChange}
-              handleOnEndEditing={handleOnEndEditing}
-              errors={errors}
-              loading={loading}
-              image={image}
-              inputs={inputs}
-            />
-            <Button
-              mode="contained"
-              style={styles.resetButton}
-              onPress={() => {
-                setImage(require('../assets/icon3.png'));
-                handleReset();
-              }}
-            >
-              Reset
-            </Button>
-          </View>
-        </Card>
-      </ScrollView>
-    </SafeAreaView>
+          </TouchableOpacity>
+          <UploadForm
+            title="Upload"
+            handleSubmit={doUpload}
+            handleInputChange={handleInputChange}
+            handleOnEndEditing={handleOnEndEditing}
+            errors={errors}
+            loading={loading}
+            image={image}
+            inputs={inputs}
+          />
+          <Button
+            mode="contained"
+            style={styles.resetButton}
+            onPress={() => {
+              setImage(require('../assets/icon3.png'));
+              handleReset();
+            }}
+          >
+            Reset
+          </Button>
+        </View>
+      </Card>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  droidSafeArea: {
-    flex: 1,
-    backgroundColor: '#000',
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
-  },
   uploadCard: {
     backgroundColor: 'black',
     borderColor: mainOrange,

@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 // import {Button, Input} from 'react-native-elements';
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, HelperText} from 'react-native-paper';
 import {mainOrange, highlightOrange} from '../assets/colors';
 
 const UploadForm = ({
@@ -26,7 +26,7 @@ const UploadForm = ({
           colors: {
             placeholder: mainOrange,
             text: 'white',
-            primary: mainOrange,
+            primary: highlightOrange,
             underlineColor: 'transparent',
             background: 'black',
           },
@@ -39,6 +39,13 @@ const UploadForm = ({
         errorMessage={errors.title}
         value={inputs.title}
       />
+      {errors.title && (
+        <>
+          <HelperText type="error" visible={errors.title}>
+            {errors.title}
+          </HelperText>
+        </>
+      )}
       <TextInput
         autoCapitalize="none"
         label="description"
@@ -48,7 +55,7 @@ const UploadForm = ({
           colors: {
             placeholder: mainOrange,
             text: 'white',
-            primary: mainOrange,
+            primary: highlightOrange,
             underlineColor: 'transparent',
             background: 'black',
           },

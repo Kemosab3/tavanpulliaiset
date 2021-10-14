@@ -18,14 +18,16 @@ import {
 } from '../utils/soundFunctions';
 
 const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
+<<<<<<< HEAD
   // console.log('ListItem', deleteMedia, singleMedia.file_id);
+=======
+>>>>>>> e11009c7e62e28383f8c5f32d6f494dbe294aa60
   const {update, setUpdate} = useContext(MainContext);
   const {checkToken} = useUser();
   const {getFilesByTag, addTag} = useTag();
 
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
-    // console.log('logIn asyncstorage token:', userToken);
     if (userToken) {
       try {
         const userInfo = await checkToken(userToken);
@@ -157,7 +159,7 @@ const ListItem = ({singleMedia, navigation, showButtons, deleteMedia}) => {
                             userToken
                           );
                         }
-                        navigation.navigate('Profile', singleMedia.filename);
+                        navigation.navigate('My Profile', singleMedia.filename);
                       }
                     } catch (e) {
                       console.log('getToken', e.message);

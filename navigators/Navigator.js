@@ -15,10 +15,92 @@ import MyFiles from '../views/MyFiles';
 import Modify from '../views/Modify';
 import EditProfile from '../views/EditProfile';
 import Search from '../views/Search';
-import {mainOrange} from '../assets/colors';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const HomeStackScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="My Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Single"
+        component={Single}
+        options={{
+          title: '',
+          headerStyle: {
+            title: '',
+            backgroundColor: 'black',
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ProfileStackScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="My Profile"
+        component={Profile}
+        options={{
+          title: '',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="My Files"
+        component={MyFiles}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Edit Profile"
+        component={EditProfile}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Single"
+        component={Single}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Modify"
+        component={Modify}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const TabScreen = () => {
   return (
@@ -47,10 +129,10 @@ const TabScreen = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Search" component={Search} hideNavigationBar={false} />
       <Tab.Screen name="Upload" component={Upload} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={ProfileStackScreen} />
     </Tab.Navigator>
   );
 };
@@ -68,34 +150,15 @@ const StackScreen = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen
-            name="Single"
-            component={Single}
-            options={{
-              title: '',
-              headerStyle: {
-                backgroundColor: 'black',
-              },
-            }}
-          />
-          <Stack.Screen
-            name="My Files"
-            component={MyFiles}
-            options={{
-              title: '',
-            }}
-          />
-          <Stack.Screen
-            name="Modify"
-            component={Modify}
-            options={{
-              title: '',
-            }}
-          />
-          <Stack.Screen name="Edit Profile" component={EditProfile} />
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
       )}
     </Stack.Navigator>
   );

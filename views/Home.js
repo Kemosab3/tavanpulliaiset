@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
@@ -88,6 +89,17 @@ const Home = ({navigation}) => {
     picOfSomething !== null || picOfSomething !== undefined
       ? {uri: uploadsUrl + picOfSomething.thumbnails?.w320}
       : require('../assets/bjorn.jpg');
+=======
+import React from 'react';
+import {StyleSheet, View, StatusBar} from 'react-native';
+import {Image, Text} from 'react-native-elements';
+import List from '../components/List';
+import PropTypes from 'prop-types';
+import {Icon} from 'react-native-elements';
+
+const Home = ({navigation}) => {
+  const picSource = require('../assets/splash.png');
+>>>>>>> e11009c7e62e28383f8c5f32d6f494dbe294aa60
 
   return (
     <View style={styles.container}>
@@ -144,7 +156,6 @@ const Home = ({navigation}) => {
         </View>
       </View>
       <List navigation={navigation} />
-      <View style={styles.container2}></View>
       <StatusBar style="auto" />
     </View>
   );
@@ -155,15 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     justifyContent: 'center',
     color: '#FF6700',
-    marginBottom: 30,
-  },
-  container2: {
-    height: 225,
-  },
-  droidSafeArea: {
-    flex: 1,
-    backgroundColor: '#000',
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
+    paddingBottom: 140,
   },
   text: {
     height: 70,
