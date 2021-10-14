@@ -10,7 +10,7 @@ sounds are generated based on the stringified version of the file's content.
 
 The other core feature of the app is it's retro feel and look.
 
-<img height="300" src="https://github.com/Kemosab3/tavanpulliaiset/blob/main/screenshots/home.PNG" />
+<img height="400" src="https://github.com/Kemosab3/tavanpulliaiset/blob/main/screenshots/login.PNG" /><img height="400" src="https://github.com/Kemosab3/tavanpulliaiset/blob/main/screenshots/home.PNG" />
 
   ## Target group
 The App is geared towards human beings in their 40's and 50's, who are into retro computers
