@@ -8,7 +8,7 @@ import {useLogin, register} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {mainOrange, highlightOrange} from '../assets/colors';
 
-const RegisterForm = () => {
+const RegisterForm = ({setFormVisibility}) => {
   /*
   const doRegister = async () => {
     const serverResponse = await register(inputs);
@@ -32,7 +32,7 @@ const RegisterForm = () => {
     const serverResponse = await register(inputs);
     if (serverResponse) {
       Alert.alert(serverResponse.message);
-
+      setFormVisibility();
       // originally was: await useLogin(inputs);
       /*
       const loginServerResponse = await login(JSON.stringify(inputs));

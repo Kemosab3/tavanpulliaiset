@@ -91,27 +91,12 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={styles.text}
-        onPress={() => {
-          if (picSource === require('../assets/bjorn.jpg')) {
-            const kukkaMaaria = [5, 11, 13, 15, 12];
-            handlePlaySound(kukkaMaaria);
-          } else {
-            toDataURL(uploadsUrl + picSource).then((dataUrl) => {
-              const kukkaMaaria = musicArrayMaker(dataUrl);
-              handlePlaySound(kukkaMaaria);
-            });
-          }
-        }}
-      >
-        STAFF FAVOURITE:
-      </Text>
+      <Text style={styles.text}>STAFF FAVOURITE:</Text>
       <View style={styles.picOfTheWeek}>
         <View style={styles.imageBox}>
           <Image style={styles.image} source={picSource}></Image>
         </View>
-        <View>
+        <View style={styles.picOfTheWeekIcons}>
           {iAmLikingIt ? (
             <TouchableOpacity
               onPress={async () => {
@@ -141,6 +126,26 @@ const Home = ({navigation}) => {
               <Image source={require('../assets/pintfull.png')} />
             </TouchableOpacity>
           )}
+          <Text style={styles.likeText}>Likes: {likes}</Text>
+          <TouchableOpacity
+            style={styles.playButton}
+            onPress={() => {
+              if (picSource === require('../assets/bjorn.jpg')) {
+                const kukkaMaaria = [5, 11, 13, 15, 12];
+                handlePlaySound(kukkaMaaria);
+              } else {
+                toDataURL(uploadsUrl + picSource).then((dataUrl) => {
+                  const kukkaMaaria = musicArrayMaker(dataUrl);
+                  handlePlaySound(kukkaMaaria);
+                });
+              }
+            }}
+          >
+            <Image
+              style={styles.playButtonImage}
+              source={require('../assets/playbutton.png')}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <List navigation={navigation} />
@@ -166,11 +171,6 @@ const styles = StyleSheet.create({
   image: {
     justifyContent: 'center',
     height: 150,
-  },
-  playButtonImage: {
-    width: 250,
-
-    position: 'relative',
   },
   imagePlay: {
     justifyContent: 'center',
@@ -201,6 +201,25 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 8,
     marginLeft: 8,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  playButton: {
+    position: 'relative',
+    display: 'flex',
+    flexWrap: 'wrap',
+    backgroundColor: 'black',
+    marginLeft: 15,
+  },
+  playButtonImage: {
+    height: 25,
+    aspectRatio: 3,
+    position: 'relative',
+  },
+  likeText: {
+    color: mainOrange,
+    fontSize: 17,
+    marginLeft: 15,
   },
 });
 
